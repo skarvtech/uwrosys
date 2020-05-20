@@ -9,19 +9,27 @@ This repository contains the source code for running Skarv Technologies' UWROSYS
 sudo apt-get install docker.io
 ```
 
+# Useful make commands for running docker image
+
 **Build docker image:**
 ```
 cd <docker_directory>
 make build
 ```
 
-**Run SmartMDSDD toolchain on local computer**
+**Start terminal with possibility for GUI programs**
+```
+cd <docker_directory>
+make interactive
+```
+
+**Run SmartMDSDD toolchain**
 ```
 cd <docker_directory>
 make toolchain
 ```
 
-**Connect additional terminal to image (only works when container is running)**
+**Connect additional terminal to container (only works when container is running)**
 ```
 cd <docker_directory>
 make shell
@@ -38,3 +46,9 @@ make clean
 cd <docker_directory>
 make clean_system
 ```
+
+# Set up toolchain
+First run the make command for starting the toolchain. Once started, select:
+File -> Import. Then select General -> Existing Projects into Workspace.
+- Select folder containing RobMoSys-repos (~/SOFTWARE/smartsoft/repos)
+- Select folder containing UWROSYS-repos (~/SOFTWARE/uwrosys)

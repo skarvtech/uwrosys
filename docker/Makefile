@@ -22,18 +22,30 @@
 USER         := uwrosys
 TAG          := uwrosys
 VERSION      := 2020.05.1
+DOCKER_DIR   := $(realpath .)
+SOURCE_DIR   := $(realpath ..)
 
 build:
 	docker build -t $(TAG):$(VERSION) .
 	
-interactive:
+interactive: 
 	xhost +local:root
 	docker run -it --rm --net=host --privileged -u $(USER) \
 			-e DISPLAY=$(DISPLAY) \
 			-v /tmp/.X11-unix:/tmp/.X11-unix \
+			-v $(SOURCE_DIR):/home/$(USER)/SOFTWARE/$(TAG) \
+			--entrypoint /bin/bash \
+			--name $(TAG) $(TAG):$(VERSION)
+	
+toolchain:
+	xhost +local:root
+	docker run -it --rm --net=host --privileged -u $(USER) \
+			-e DISPLAY=$(DISPLAY) \
+			-v /tmp/.X11-unix:/tmp/.X11-unix \
+			-v $(SOURCE_DIR):/home/$(USER)/SOFTWARE/$(TAG) \
 			--name $(TAG) $(TAG):$(VERSION)
 			
-connect:
+shell:
 	docker exec -it $(TAG) /bin/bash
 	
 clean:

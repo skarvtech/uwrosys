@@ -29,6 +29,6 @@ dbus-daemon --session --fork
 
 # Launch Eclipse
 $TOOLCHAIN_DIR/eclipse
-
+    
 # Exit
 exit 0
