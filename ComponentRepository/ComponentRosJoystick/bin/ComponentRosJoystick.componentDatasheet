@@ -1,0 +1,4 @@
+ComponentDatasheet ComponentRosJoystick
+{
+	BaseURI "http://www.servicerobotik-ulm.de" ShortDescription "TODO: add short description for ComponentRosJoystick datasheet"
+}
