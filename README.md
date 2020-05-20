@@ -1,4 +1,4 @@
-# `uwrosys_docker`: Docker image for the UWROSYS project
+# `uwrosys`: Source code for the UWROSYS ITP of RobMoSys
 
 This repository contains the source code for running Skarv Technologies' UWROSYS project based on UUVSimulator. UWROSYS is an ITP supported through RobMoSys - a Horizon 2020 project.
 
