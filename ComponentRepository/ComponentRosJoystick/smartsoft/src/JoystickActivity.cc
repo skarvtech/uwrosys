@@ -71,9 +71,10 @@ int JoystickActivity::on_execute()
 	// also do not use blocking calls which do not result from smartsoft kernel
 	
 	// to get the incoming data, use this methods:
-	Smart::StatusCode status;
+	std::unique_lock<std::mutex> lck (mtx);
+	Smart::StatusCode status = this->joystickServiceOutPut(comm_joy);
 
-	std::cout << "Hello from JoystickActivity " << std::endl;
+	std::cout << "push joystick update: " << comm_joy << std::endl;
 
 	// it is possible to return != 0 (e.g. when the task detects errors), then the outer loop breaks and the task stops
 	return 0;

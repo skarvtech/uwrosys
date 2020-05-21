@@ -71,12 +71,12 @@ RUN /bin/bash -c "source ~/.profile"
 
 # Set up folder structure
 ENV SMARTSOFT=$SWDIR/smartsoft-ace-mdsd-v3
-RUN mkdir -p $SMARTSOFT/repos && chown -R $USER:$USER $SMARTSOFT/repos
-RUN mkdir -p $SMARTSOFT/include && chown -R $USER:$USER $SMARTSOFT/include
-RUN mkdir -p $SMARTSOFT/modules && chown -R $USER:$USER $SMARTSOFT/modules
-RUN mkdir -p $SMARTSOFT/lib && chown -R $USER:$USER $SMARTSOFT/lib
-RUN mkdir -p $SMARTSOFT/CMakeMacros && chown -R $USER:$USER $SMARTSOFT/CMakeMacros
-RUN mkdir -p $SMARTSOFT/bin && chown -R $USER:$USER $SMARTSOFT/bin
+RUN mkdir -p $SMARTSOFT/repos && chown -R $USR:$USR $SMARTSOFT/repos
+RUN mkdir -p $SMARTSOFT/include && chown -R $USR:$USR $SMARTSOFT/include
+RUN mkdir -p $SMARTSOFT/modules && chown -R $USR:$USR $SMARTSOFT/modules
+RUN mkdir -p $SMARTSOFT/lib && chown -R $USR:$USR $SMARTSOFT/lib
+RUN mkdir -p $SMARTSOFT/CMakeMacros && chown -R $USR:$USR $SMARTSOFT/CMakeMacros
+RUN mkdir -p $SMARTSOFT/bin && chown -R $USR:$USR $SMARTSOFT/bin
 ENV REPOS=$SMARTSOFT/repos
 WORKDIR $REPOS
 RUN ln -s $SMARTSOFT $SWDIR/smartsoft
@@ -100,37 +100,37 @@ RUN sudo ldconfig
 
 # Build SmartSoftComponentDeveloperAPIcpp
 RUN mkdir -p $REPOS/SmartSoftComponentDeveloperAPIcpp/build \ 
-	&& chown -R $USER:$USER $REPOS/SmartSoftComponentDeveloperAPIcpp/build
+	&& chown -R $USR:$USR $REPOS/SmartSoftComponentDeveloperAPIcpp/build
 WORKDIR $REPOS/SmartSoftComponentDeveloperAPIcpp/build
 RUN cmake ..
 RUN make && sudo make install
 
 # Build AceSmartSoftFramework
 RUN mkdir -p $REPOS/AceSmartSoftFramework/build \ 
-	&& chown -R $USER:$USER $REPOS/AceSmartSoftFramework/build
+	&& chown -R $USR:$USR $REPOS/AceSmartSoftFramework/build
 WORKDIR $REPOS/AceSmartSoftFramework/build
 RUN cmake ..
 RUN make && sudo make install
 
 # Build UtilityRepository
 RUN mkdir -p $REPOS/UtilityRepository/build \ 
-	&& chown -R $USER:$USER $REPOS/UtilityRepository/build
+	&& chown -R $USR:$USR $REPOS/UtilityRepository/build
 WORKDIR $REPOS/UtilityRepository/build
 RUN cmake ..
 RUN make -j8
 
 # Build DomainModelsRepositories
-RUN chown -hR $USER:$USER $REPOS/DomainModelsRepositories/*
+RUN chown -hR $USR:$USR $REPOS/DomainModelsRepositories/*
 RUN mkdir -p $REPOS/DomainModelsRepositories/build \ 
-	&& chown -R $USER:$USER $REPOS/DomainModelsRepositories/build
+	&& chown -R $USR:$USR $REPOS/DomainModelsRepositories/build
 WORKDIR $REPOS/DomainModelsRepositories/build
 RUN cmake ..
 RUN make
 
 # Build ComponentRepository
-RUN chown -hR $USER:$USER $REPOS/ComponentRepository/*
+RUN chown -hR $USR:$USR $REPOS/ComponentRepository/*
 RUN mkdir -p $REPOS/ComponentRepository/build \ 
-	&& chown -R $USER:$USER $REPOS/ComponentRepository/build
+	&& chown -R $USR:$USR $REPOS/ComponentRepository/build
 WORKDIR $REPOS/ComponentRepository/build
 RUN cmake ..
 RUN make -j8
@@ -141,7 +141,7 @@ ENV TOOLCHAIN_VERSION="3.12"
 ENV TOOLCHAIN_DIR=$SWDIR/$TOOLCHAIN_NAME-v$TOOLCHAIN_VERSION
 ENV TOOLCHAIN_URL="https://github.com/Servicerobotics-Ulm/SmartMDSD-Toolchain/releases/download/v$TOOLCHAIN_VERSION/SmartMDSD-Toolchain-v$TOOLCHAIN_VERSION.tar.gz"
 ENV TOOLCHAIN_LAUNCHER="$TOOLCHAIN_NAME.desktop"
-RUN mkdir -p $TOOLCHAIN_DIR && chown -R $USER:$USER $TOOLCHAIN_DIR
+RUN mkdir -p $TOOLCHAIN_DIR && chown -R $USR:$USR $TOOLCHAIN_DIR
 RUN wget -nv $TOOLCHAIN_URL -P $SWDIR
 RUN tar -xzf $SWDIR/$TOOLCHAIN_NAME-v$TOOLCHAIN_VERSION.tar.gz -C $SWDIR
 RUN echo "export TOOLCHAIN_DIR=$TOOLCHAIN_DIR" >> ~/.profile
@@ -160,7 +160,7 @@ RUN rosdep update
 
 # Install UUVSimulator
 ENV CATKIN_WS_DIR=$SWDIR/catkin_ws
-RUN mkdir -p $CATKIN_WS_DIR/src && chown -R $USER:$USER $CATKIN_WS_DIR/src
+RUN mkdir -p $CATKIN_WS_DIR/src && chown -R $USR:$USR $CATKIN_WS_DIR/src
 WORKDIR $CATKIN_WS_DIR
 RUN catkin init
 WORKDIR $CATKIN_WS_DIR/src
@@ -178,6 +178,7 @@ EXPOSE 22
 
 # Set up RobMoSys entrypoint
 WORKDIR $SWDIR
+RUN sudo chown -HR $USR:$USR $SWDIR
 COPY entrypoint.sh /usr/local/bin/entrypoint.sh
 RUN sudo ln -s /usr/local/bin/entrypoint.sh /bin/entrypoint.sh
 ENTRYPOINT ["entrypoint.sh"]

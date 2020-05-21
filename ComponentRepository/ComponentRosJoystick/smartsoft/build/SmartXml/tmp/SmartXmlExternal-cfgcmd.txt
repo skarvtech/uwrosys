@@ -1,1 +1,0 @@
-cmd='/usr/bin/cmake;-DBUILD_DEPENDENCIES=OFF;-GUnix Makefiles;/home/uwrosys/SOFTWARE/smartsoft/repos/UtilityRepository/smartXml'
