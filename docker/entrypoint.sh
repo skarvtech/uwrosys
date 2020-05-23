@@ -27,6 +27,10 @@ source ~/.profile
 sudo /etc/init.d/dbus start
 dbus-daemon --session --fork
 
+# Connect local repositories
+mkdir -p $REPOS/CustomRepositories
+ln -s /home/$(id -un)/SOFTWARE/$(id -un)/* $REPOS/CustomRepositories
+
 # Launch Eclipse
 $TOOLCHAIN_DIR/eclipse
     

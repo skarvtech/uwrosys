@@ -19,30 +19,30 @@
 # Author: Petter Norgren
 #
 
-USER         := uwrosys
-TAG          := uwrosys
-VERSION      := 2020.05.1
+USR          := uwrosys
+TAG          := uwrosys_image
+VERSION      := 2020.05.2
 DOCKER_DIR   := $(realpath .)
 SOURCE_DIR   := $(realpath ..)
 
-build:
+build:	
 	docker build -t $(TAG):$(VERSION) .
 	
 interactive: 
 	xhost +local:root
-	docker run -it --rm --net=host --privileged -u $(USER) \
+	docker run -it --rm --net=host --privileged -u $(USR) \
 			-e DISPLAY=$(DISPLAY) \
 			-v /tmp/.X11-unix:/tmp/.X11-unix \
-			-v $(SOURCE_DIR):/home/$(USER)/SOFTWARE/$(TAG) \
+			-v $(SOURCE_DIR):/home/$(USR)/SOFTWARE/$(TAG) \
 			--entrypoint /bin/bash \
 			--name $(TAG) $(TAG):$(VERSION)
 	
 toolchain:
 	xhost +local:root
-	docker run -it --rm --net=host --privileged -u $(USER) \
+	docker run -it --rm --net=host --privileged -u $(USR) \
 			-e DISPLAY=$(DISPLAY) \
 			-v /tmp/.X11-unix:/tmp/.X11-unix \
-			-v $(SOURCE_DIR):/home/$(USER)/SOFTWARE/$(TAG) \
+			-v $(SOURCE_DIR)/repos:/home/$(USR)/SOFTWARE/$(USR) \
 			--name $(TAG) $(TAG):$(VERSION)
 			
 shell:

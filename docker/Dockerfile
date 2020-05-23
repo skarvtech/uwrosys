@@ -102,6 +102,7 @@ RUN sudo ldconfig
 RUN mkdir -p $REPOS/SmartSoftComponentDeveloperAPIcpp/build \ 
 	&& chown -R $USR:$USR $REPOS/SmartSoftComponentDeveloperAPIcpp/build
 WORKDIR $REPOS/SmartSoftComponentDeveloperAPIcpp/build
+RUN git reset --hard a5db675daa35bbac095b2e6bf31893fec7890185
 RUN cmake ..
 RUN make && sudo make install
 
@@ -109,6 +110,7 @@ RUN make && sudo make install
 RUN mkdir -p $REPOS/AceSmartSoftFramework/build \ 
 	&& chown -R $USR:$USR $REPOS/AceSmartSoftFramework/build
 WORKDIR $REPOS/AceSmartSoftFramework/build
+RUN git reset --hard 5d32d0c712da5414cf1d5cce5e0d88e993758783
 RUN cmake ..
 RUN make && sudo make install
 
@@ -116,6 +118,7 @@ RUN make && sudo make install
 RUN mkdir -p $REPOS/UtilityRepository/build \ 
 	&& chown -R $USR:$USR $REPOS/UtilityRepository/build
 WORKDIR $REPOS/UtilityRepository/build
+RUN git reset --hard 9e6e271b933785042daaf8fc67c6941e85b7f89a
 RUN cmake ..
 RUN make -j8
 
@@ -124,6 +127,7 @@ RUN chown -hR $USR:$USR $REPOS/DomainModelsRepositories/*
 RUN mkdir -p $REPOS/DomainModelsRepositories/build \ 
 	&& chown -R $USR:$USR $REPOS/DomainModelsRepositories/build
 WORKDIR $REPOS/DomainModelsRepositories/build
+RUN git reset --hard 4b7eb71da3028d7eaf291939316f67c59fb3ad37
 RUN cmake ..
 RUN make
 
@@ -132,8 +136,16 @@ RUN chown -hR $USR:$USR $REPOS/ComponentRepository/*
 RUN mkdir -p $REPOS/ComponentRepository/build \ 
 	&& chown -R $USR:$USR $REPOS/ComponentRepository/build
 WORKDIR $REPOS/ComponentRepository/build
+RUN git reset --hard 5bf5a82aeafbf352627eb45a7885addcc02acc03
 RUN cmake ..
 RUN make -j8
+
+WORKDIR $REPOS/DataRepository
+RUN git reset --hard 3c7606d3e053838597c50880b1ff5ea9cb3bb830
+WORKDIR $REPOS/SystemRepository
+RUN git reset --hard 30cae74a27e8250ee599a3bbef3918dcd76f729b
+WORKDIR $REPOS/BehaviorRepository
+RUN git reset --hard da93f71a80b97d0b61db34036ddac8b61ae9b967
 
 # Install SmartMDSD Toolchain
 ENV TOOLCHAIN_NAME="SmartMDSD-Toolchain"
