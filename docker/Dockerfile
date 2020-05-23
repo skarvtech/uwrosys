@@ -185,12 +185,17 @@ RUN rosdep install --from-paths src --ignore-src --rosdistro=kinetic -y
 RUN /bin/bash -c ". /opt/ros/kinetic/setup.bash; cd $CATKIN_WS_DIR; catkin_make"
 RUN /bin/bash -c ". /opt/ros/kinetic/setup.bash; cd $CATKIN_WS_DIR; catkin_make install"
 
+# Make sure correct permissions are set for SWDIR
+RUN sudo chown -HR $USR:$USR $SWDIR
+
 # Expose ssh port
 EXPOSE 22
 
+# Fix Gazebo drawing bug
+RUN echo "export QT_X11_NO_MITSHM=1" >> ~/.bashrc
+
 # Set up RobMoSys entrypoint
 WORKDIR $SWDIR
-RUN sudo chown -HR $USR:$USR $SWDIR
 COPY entrypoint.sh /usr/local/bin/entrypoint.sh
 RUN sudo ln -s /usr/local/bin/entrypoint.sh /bin/entrypoint.sh
 ENTRYPOINT ["entrypoint.sh"]
