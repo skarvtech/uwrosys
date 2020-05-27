@@ -166,7 +166,7 @@ RUN sudo apt-get install -y ros-kinetic-desktop-full
 RUN echo "source /opt/ros/kinetic/setup.bash" >> ~/.bashrc
 RUN /bin/bash -c "source ~/.bashrc"
 RUN sudo apt-get install -y python-rosdep python-rosinstall python-rosinstall-generator \
-		python-wstool python-catkin-tools
+		python-wstool python-catkin-tools jstest-gtk ros-kinetic-kdl-parser-py
 RUN sudo rosdep init
 RUN rosdep update
 
@@ -176,7 +176,10 @@ RUN mkdir -p $CATKIN_WS_DIR/src && chown -R $USR:$USR $CATKIN_WS_DIR/src
 WORKDIR $CATKIN_WS_DIR
 RUN catkin init
 WORKDIR $CATKIN_WS_DIR/src
-RUN git clone https://github.com/uuvsimulator/uuv_simulator.git
+RUN git clone https://github.com/uuvsimulator/uuv_manipulators.git
+RUN git clone https://github.com/skarvtech/uuv_simulator.git
+WORKDIR $CATKIN_WS_DIR/src/uuv_simulator
+RUN git checkout projects/uwrosys
 RUN echo "source /usr/share/gazebo-7/setup.sh" >> ~/.bashrc
 RUN echo "source $CATKIN_WS_DIR/devel/setup.bash" >> ~/.bashrc
 RUN /bin/bash -c "source ~/.bashrc"
@@ -193,6 +196,10 @@ EXPOSE 22
 
 # Fix Gazebo drawing bug
 RUN echo "export QT_X11_NO_MITSHM=1" >> ~/.bashrc
+
+# Install convenient tools
+RUN sudo apt-get update
+RUN sudo apt-get install -y gedit 
 
 # Set up RobMoSys entrypoint
 WORKDIR $SWDIR
