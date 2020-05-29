@@ -31,8 +31,21 @@ dbus-daemon --session --fork
 mkdir -p $REPOS/CustomRepositories
 ln -s /home/$(id -un)/SOFTWARE/$(id -un)/* $REPOS/CustomRepositories
 
+# Fix git pull on start of docker
+cd $CATKIN_WS_DIR/src/uuv_simulator
+git pull
+cd $CATKIN_WS_DIR
+. /opt/ros/kinetic/setup.bash
+catkin_make && catkin_make install
+cd $SWDIR
+
 # Launch Eclipse
-$TOOLCHAIN_DIR/eclipse
+if [ "$1" == "toolchain" ] 
+then
+	$TOOLCHAIN_DIR/eclipse
+else
+	/bin/bash
+fi
     
 # Exit
 exit 0

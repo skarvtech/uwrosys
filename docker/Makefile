@@ -34,7 +34,7 @@ interactive:
 			-e DISPLAY=$(DISPLAY) \
 			-v /tmp/.X11-unix:/tmp/.X11-unix \
 			-v $(SOURCE_DIR):/home/$(USR)/SOFTWARE/$(TAG) \
-			--entrypoint /bin/bash \
+			--entrypoint entrypoint.sh \
 			--name $(TAG) $(TAG):$(VERSION)
 	
 toolchain:

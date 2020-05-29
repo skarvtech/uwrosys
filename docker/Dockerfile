@@ -201,13 +201,6 @@ RUN echo "export QT_X11_NO_MITSHM=1" >> ~/.bashrc
 RUN sudo apt-get update
 RUN sudo apt-get install -y gedit 
 
-# Fix git pull on start of docker
-RUN echo "cd $CATKIN_WS_DIR/src/uuv_simulator" >> ~/.bashrc
-RUN echo "git pull" >> ~/.bashrc
-RUN echo "cd $CATKIN_WS_DIR" >> ~/.bashrc
-RUN echo "catkin_make && catkin_make install" >> ~/.bashrc
-RUN echo "cd $SWDIR" >> ~/.bashrc
-
 # Cleanup
 RUN rm $SWDIR/SmartMDSD-Toolchain-v$TOOLCHAIN_VERSION.tar.gz
 
@@ -215,5 +208,5 @@ RUN rm $SWDIR/SmartMDSD-Toolchain-v$TOOLCHAIN_VERSION.tar.gz
 WORKDIR $SWDIR
 COPY entrypoint.sh /usr/local/bin/entrypoint.sh
 RUN sudo ln -s /usr/local/bin/entrypoint.sh /bin/entrypoint.sh
-ENTRYPOINT ["entrypoint.sh"]
+ENTRYPOINT ["entrypoint.sh", "toolchain"]
 
