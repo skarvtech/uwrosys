@@ -149,7 +149,7 @@ RUN git reset --hard da93f71a80b97d0b61db34036ddac8b61ae9b967
 
 # Install SmartMDSD Toolchain
 ENV TOOLCHAIN_NAME="SmartMDSD-Toolchain"
-ENV TOOLCHAIN_VERSION="3.12"
+ENV TOOLCHAIN_VERSION="3.13"
 ENV TOOLCHAIN_DIR=$SWDIR/$TOOLCHAIN_NAME-v$TOOLCHAIN_VERSION
 ENV TOOLCHAIN_URL="https://github.com/Servicerobotics-Ulm/SmartMDSD-Toolchain/releases/download/v$TOOLCHAIN_VERSION/SmartMDSD-Toolchain-v$TOOLCHAIN_VERSION.tar.gz"
 ENV TOOLCHAIN_LAUNCHER="$TOOLCHAIN_NAME.desktop"
@@ -159,11 +159,13 @@ RUN tar -xzf $SWDIR/$TOOLCHAIN_NAME-v$TOOLCHAIN_VERSION.tar.gz -C $SWDIR
 RUN echo "export TOOLCHAIN_DIR=$TOOLCHAIN_DIR" >> ~/.profile
 
 # Install ROS
+ENV ROS_DISTRO=kinetic
+ENV GAZEBO_VERSION=7
 RUN sudo sh -c 'echo "deb http://packages.ros.org/ros/ubuntu $(lsb_release -sc) main" > /etc/apt/sources.list.d/ros-latest.list'
 RUN sudo apt-key adv --keyserver 'hkp://keyserver.ubuntu.com:80' --recv-key C1CF6E31E6BADE8868B172B4F42ED6FBAB17C654
 RUN sudo apt-get update
-RUN sudo apt-get install -y ros-kinetic-desktop-full
-RUN echo "source /opt/ros/kinetic/setup.bash" >> ~/.bashrc
+RUN sudo apt-get install -y ros-$ROS_DISTRO-desktop-full
+RUN echo "source /opt/ros/$ROS_DISTRO/setup.bash" >> ~/.bashrc
 RUN /bin/bash -c "source ~/.bashrc"
 RUN sudo apt-get install -y python-rosdep python-rosinstall python-rosinstall-generator \
 		python-wstool python-catkin-tools jstest-gtk ros-kinetic-kdl-parser-py
@@ -180,13 +182,13 @@ RUN git clone https://github.com/uuvsimulator/uuv_manipulators.git
 RUN git clone https://github.com/skarvtech/uuv_simulator.git
 WORKDIR $CATKIN_WS_DIR/src/uuv_simulator
 RUN git checkout projects/uwrosys
-RUN echo "source /usr/share/gazebo-7/setup.sh" >> ~/.bashrc
+RUN echo "source /usr/share/gazebo-$GAZEBO_VERSION/setup.sh" >> ~/.bashrc
 RUN echo "source $CATKIN_WS_DIR/devel/setup.bash" >> ~/.bashrc
 RUN /bin/bash -c "source ~/.bashrc"
 WORKDIR $CATKIN_WS_DIR
 RUN rosdep install --from-paths src --ignore-src --rosdistro=kinetic -y
-RUN /bin/bash -c ". /opt/ros/kinetic/setup.bash; cd $CATKIN_WS_DIR; catkin_make"
-RUN /bin/bash -c ". /opt/ros/kinetic/setup.bash; cd $CATKIN_WS_DIR; catkin_make install"
+RUN /bin/bash -c ". /opt/ros/$ROS_DISTRO/setup.bash; cd $CATKIN_WS_DIR; catkin_make"
+RUN /bin/bash -c ". /opt/ros/$ROS_DISTRO/setup.bash; cd $CATKIN_WS_DIR; catkin_make install"
 
 # Make sure correct permissions are set for SWDIR
 RUN sudo chown -HR $USR:$USR $SWDIR

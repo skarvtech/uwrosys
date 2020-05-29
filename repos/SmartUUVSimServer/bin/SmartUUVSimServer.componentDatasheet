@@ -1,0 +1,20 @@
+ComponentDatasheet SmartUUVSimServer {
+	BaseURI "http://skarvtech.com"
+	ShortDescription "The SmartUUVSimServer can be used to command an underwater robot in a 3D environment using the Gazebo simulator."
+	DatasheetProperty SpdxLicense {
+		value "Apache-2.0"
+		semanticID "http://www.apache.org/licenses/LICENSE-2.0"
+	}
+	DatasheetProperty TechnologyReadinessLevel {
+		value "TRL5"
+	}
+	DatasheetProperty Homepage {
+		value "https://github.com/skarvtech/uwrosys/"
+	}
+	DatasheetProperty Supplier {
+		value "Skarv Technologies AS"
+	}
+	DatasheetProperty Purpose {
+		value "Simulation"
+	}
+}
