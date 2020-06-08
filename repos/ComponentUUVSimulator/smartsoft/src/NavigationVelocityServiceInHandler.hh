@@ -14,25 +14,18 @@
 // If you want the toolchain to re-generate this file, please 
 // delete it before running the code generator.
 //--------------------------------------------------------------------------
-#ifndef _COMPONENTUUVSIMULATORCORE_HH
-#define _COMPONENTUUVSIMULATORCORE_HH
+#ifndef _NAVIGATIONVELOCITYSERVICEINHANDLER_HH
+#define _NAVIGATIONVELOCITYSERVICEINHANDLER_HH
+
+#include "NavigationVelocityServiceInHandlerCore.hh"
 	
-#include "aceSmartSoft.hh"
-#include <iostream>
-
-#include <CommBasicObjects/CommBaseState.hh>
-#include <CommBasicObjects/CommBasePose.hh>
-
-#include "BaseState.hh"
-
-class ComponentUUVSimulatorCore
-{
-private:
-
+class NavigationVelocityServiceInHandler  : public NavigationVelocityServiceInHandlerCore
+{		
 public:
-	ComponentUUVSimulatorCore();
-
-	BaseState* state;
-};
+	NavigationVelocityServiceInHandler(Smart::InputSubject<CommBasicObjects::CommNavigationVelocity> *subject, const int &prescaleFactor=1);
+	virtual ~NavigationVelocityServiceInHandler();
 	
+	virtual void on_NavigationVelocityServiceIn(const CommBasicObjects::CommNavigationVelocity &input);
+};
+
 #endif

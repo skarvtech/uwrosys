@@ -3,9 +3,14 @@ ComponentDefinition ComponentUUVSimulator logo "/ComponentUUVSimulator/model/log
 Activity BaseStateTask
 	{
 		MixedPortROSLink _pose
+		MixedPortROSLink _cmd_vel
 		DefaultTrigger PeriodicTimer 10.0 Hz
 	}
 	OutputPort BaseStateServiceOut implements CommBasicObjects.BaseStateService realizedBy BaseStateTask {
 	}
 	MixedPortROS _pose
+MixedPortROS _cmd_vel
+	InputPort NavigationVelocityServiceIn implements CommNavigationObjects.NavigationVelocityService {
+	}
+	InputHandler NavigationVelocityServiceInHandler triggeredFrom NavigationVelocityServiceIn { }
 }

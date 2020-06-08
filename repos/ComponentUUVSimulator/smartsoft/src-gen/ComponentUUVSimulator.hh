@@ -42,12 +42,16 @@ class ComponentUUVSimulatorExtension;
 // include communication objects
 #include <CommBasicObjects/CommBaseState.hh>
 #include <CommBasicObjects/CommBaseStateACE.hh>
+#include <CommBasicObjects/CommNavigationVelocity.hh>
+#include <CommBasicObjects/CommNavigationVelocityACE.hh>
 
 // include tasks
 #include "BaseStateTask.hh"
 // include UpcallManagers
+#include "NavigationVelocityServiceInUpcallManager.hh"
 
 // include input-handler(s)
+#include "NavigationVelocityServiceInHandler.hh"
 // include request-handler(s)
 
 // include handler
@@ -93,10 +97,15 @@ public:
 	BaseStateTask *baseStateTask;
 	
 	// define input-ports
+	// InputPort NavigationVelocityServiceIn
+	Smart::ISendServerPattern<CommBasicObjects::CommNavigationVelocity> *navigationVelocityServiceIn;
+	Smart::InputTaskTrigger<CommBasicObjects::CommNavigationVelocity> *navigationVelocityServiceInInputTaskTrigger;
+	NavigationVelocityServiceInUpcallManager *navigationVelocityServiceInUpcallManager;
 	
 	// define request-ports
 	
 	// define input-handler
+	NavigationVelocityServiceInHandler *navigationVelocityServiceInHandler;
 	
 	// define output-ports
 	Smart::IPushServerPattern<CommBasicObjects::CommBaseState> *baseStateServiceOut;
@@ -206,12 +215,19 @@ public:
 		} baseStateTask;
 		
 		//--- upcall parameter ---
+		struct NavigationVelocityServiceInHandler_struct {
+			int prescale;
+		} navigationVelocityServiceInHandler;
 		
 		//--- server port parameter ---
 		struct BaseStateServiceOut_struct {
 				std::string serviceName;
 				std::string roboticMiddleware;
 		} baseStateServiceOut;
+		struct NavigationVelocityServiceIn_struct {
+				std::string serviceName;
+				std::string roboticMiddleware;
+		} navigationVelocityServiceIn;
 	
 		//--- client port parameter ---
 		

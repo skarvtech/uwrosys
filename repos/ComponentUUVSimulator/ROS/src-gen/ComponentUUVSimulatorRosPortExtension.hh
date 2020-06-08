@@ -44,6 +44,9 @@ public:
 	virtual void initialize(ComponentUUVSimulator *component, int argc, char* argv[]) override;
 	virtual int onStartup() override;
 
+	inline ros::Publisher* get_cmd_velPtr() {
+		return &_cmd_vel;
+	}
 	inline ros::Subscriber* get_posePtr() {
 		return &_pose;
 	}

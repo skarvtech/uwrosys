@@ -30,6 +30,7 @@
 
 // include referenced CommunicationObject SeRoNetSDK self description implementations
 #include "CommBasicObjectsOpcUa/CommBaseStateOpcUa.hh"
+#include "CommBasicObjectsOpcUa/CommNavigationVelocityOpcUa.hh"
 
 // create a static instance of the OpcUaBackendPortFactory
 static ComponentUUVSimulatorOpcUaBackendPortFactory OpcUaBackendPortFactory;
@@ -61,6 +62,11 @@ int ComponentUUVSimulatorOpcUaBackendPortFactory::onStartup()
 Smart::IPushServerPattern<CommBasicObjects::CommBaseState> * ComponentUUVSimulatorOpcUaBackendPortFactory::createBaseStateServiceOut(const std::string &serviceName)
 {
 	return new SeRoNet::OPCUA::Server::PushServer<CommBasicObjects::CommBaseState>(componentImpl, serviceName);
+}
+
+Smart::ISendServerPattern<CommBasicObjects::CommNavigationVelocity> * ComponentUUVSimulatorOpcUaBackendPortFactory::createNavigationVelocityServiceIn(const std::string &serviceName)
+{
+	return new SeRoNet::OPCUA::Server::SendServer<CommBasicObjects::CommNavigationVelocity>(componentImpl, serviceName);
 }
 
 

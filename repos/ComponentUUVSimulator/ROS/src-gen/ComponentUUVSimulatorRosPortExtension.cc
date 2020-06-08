@@ -44,6 +44,7 @@ void ComponentUUVSimulatorRosPortExtension::initialize(ComponentUUVSimulator *co
 	
 	component->rosPorts = this;
 	
+	_cmd_vel = nh->advertise<geometry_msgs::Twist>("/rexrov/cmd_vel", 10);
 	_pose = nh->subscribe("/rexrov/pose_gt", 10, &ComponentUUVSimulatorRosPortCallbacks::_pose_cb, callbacksPtr);
 }
 

@@ -52,11 +52,18 @@ periodicActFreqHz 10.0
 ##########################
 # InputHandler parameters
 
+[NavigationVelocityServiceInHandler]
+prescale 1
+
 ##########################
 # server port parameter
 
 [BaseStateServiceOut]
 serviceName BaseStateServiceOut
+roboticMiddleware ACE_SmartSoft
+
+[NavigationVelocityServiceIn]
+serviceName NavigationVelocityServiceIn
 roboticMiddleware ACE_SmartSoft
 
 ##########################

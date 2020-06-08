@@ -10,26 +10,19 @@
 // Information about the SmartSoft MDSD Toolchain is available at:
 // www.servicerobotik-ulm.de
 //
-// This file is generated once. Modify this file to your needs. 
-// If you want the toolchain to re-generate this file, please 
-// delete it before running the code generator.
+// Please do not modify this file. It will be re-generated
+// running the code generator.
 //--------------------------------------------------------------------------
-#ifndef _BASESTATETASK_HH
-#define _BASESTATETASK_HH
+#ifndef _NAVIGATIONVELOCITYSERVICEIN_UPCALL_INTERFACE_HH
+#define _NAVIGATIONVELOCITYSERVICEIN_UPCALL_INTERFACE_HH
 
-#include "BaseStateTaskCore.hh"
+#include "CommBasicObjects/CommNavigationVelocity.hh"
 
-class BaseStateTask  : public BaseStateTaskCore
-{
-private:
-
+class NavigationVelocityServiceInUpcallInterface {
 public:
-	BaseStateTask(SmartACE::SmartComponent *comp);
-	virtual ~BaseStateTask();
+	virtual ~NavigationVelocityServiceInUpcallInterface() {  }
 
-	virtual int on_entry();
-	virtual int on_execute();
-	virtual int on_exit();
+	virtual void on_NavigationVelocityServiceIn(const CommBasicObjects::CommNavigationVelocity &input) = 0;
 };
 
 #endif

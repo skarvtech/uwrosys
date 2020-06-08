@@ -18,6 +18,7 @@
 
 // constructor
 ComponentUUVSimulatorCore::ComponentUUVSimulatorCore()
+: state (NULL)
 {
 	std::cout << "constructor ComponentUUVSimulatorCore\n";
 }

@@ -58,6 +58,11 @@ Smart::IPushServerPattern<CommBasicObjects::CommBaseState> * ComponentUUVSimulat
 	return new SmartACE::PushServer<CommBasicObjects::CommBaseState>(componentImpl, serviceName);
 }
 
+Smart::ISendServerPattern<CommBasicObjects::CommNavigationVelocity> * ComponentUUVSimulatorAcePortFactory::createNavigationVelocityServiceIn(const std::string &serviceName)
+{
+	return new SmartACE::SendServer<CommBasicObjects::CommNavigationVelocity>(componentImpl, serviceName);
+}
+
 
 SmartACE::SmartComponent* ComponentUUVSimulatorAcePortFactory::getComponentImpl()
 {

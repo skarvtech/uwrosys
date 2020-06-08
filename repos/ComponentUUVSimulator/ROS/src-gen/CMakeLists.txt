@@ -20,7 +20,7 @@
 cmake_minimum_required(VERSION 2.8.3)
 project(ros_componentuuvsimulator)
 
-find_package(catkin REQUIRED COMPONENTS roscpp  nav_msgs)
+find_package(catkin REQUIRED COMPONENTS roscpp  geometry_msgs nav_msgs)
 
 catkin_package()
 

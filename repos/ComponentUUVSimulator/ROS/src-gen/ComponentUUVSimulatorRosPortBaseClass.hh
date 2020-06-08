@@ -27,6 +27,7 @@ public:
 	ComponentUUVSimulatorRosPortBaseClass() { };
 	virtual ~ComponentUUVSimulatorRosPortBaseClass() { }
 	
+	ros::Publisher _cmd_vel;
 	ros::Subscriber _pose;
 };
 

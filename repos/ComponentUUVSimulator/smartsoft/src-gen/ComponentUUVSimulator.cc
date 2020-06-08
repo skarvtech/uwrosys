@@ -34,6 +34,11 @@ ComponentUUVSimulator::ComponentUUVSimulator()
 	baseStateServiceOut = NULL;
 	baseStateTask = NULL;
 	baseStateTaskTrigger = NULL;
+	navigationVelocityServiceIn = NULL;
+	navigationVelocityServiceInInputTaskTrigger = NULL;
+	navigationVelocityServiceInUpcallManager = NULL;
+	navigationVelocityServiceInHandler = NULL;
+	//_cmd_vel = NULL;
 	//_pose = NULL;
 	stateChangeHandler = NULL;
 	stateSlave = NULL;
@@ -47,6 +52,8 @@ ComponentUUVSimulator::ComponentUUVSimulator()
 	
 	connections.baseStateServiceOut.serviceName = "BaseStateServiceOut";
 	connections.baseStateServiceOut.roboticMiddleware = "ACE_SmartSoft";
+	connections.navigationVelocityServiceIn.serviceName = "NavigationVelocityServiceIn";
+	connections.navigationVelocityServiceIn.roboticMiddleware = "ACE_SmartSoft";
 	connections.baseStateTask.minActFreq = 0.0;
 	connections.baseStateTask.maxActFreq = 0.0;
 	connections.baseStateTask.trigger = "PeriodicTimer";
@@ -55,6 +62,7 @@ ComponentUUVSimulator::ComponentUUVSimulator()
 	connections.baseStateTask.scheduler = "DEFAULT";
 	connections.baseStateTask.priority = -1;
 	connections.baseStateTask.cpuAffinity = -1;
+	connections.navigationVelocityServiceInHandler.prescale = 1;
 	
 	// initialize members of ComponentUUVSimulatorROSExtension
 	rosPorts = 0;
@@ -134,6 +142,7 @@ void ComponentUUVSimulator::startAllTimers() {
 
 Smart::TaskTriggerSubject* ComponentUUVSimulator::getInputTaskTriggerFromString(const std::string &client)
 {
+	if(client == "NavigationVelocityServiceIn") return navigationVelocityServiceInInputTaskTrigger;
 	
 	return NULL;
 }
@@ -189,12 +198,16 @@ void ComponentUUVSimulator::init(int argc, char *argv[])
 		// create server ports
 		// TODO: set minCycleTime from Ini-file
 		baseStateServiceOut = portFactoryRegistry[connections.baseStateServiceOut.roboticMiddleware]->createBaseStateServiceOut(connections.baseStateServiceOut.serviceName);
+		navigationVelocityServiceIn = portFactoryRegistry[connections.navigationVelocityServiceIn.roboticMiddleware]->createNavigationVelocityServiceIn(connections.navigationVelocityServiceIn.serviceName);
 		
 		// create client ports
 		
 		// create InputTaskTriggers and UpcallManagers
+		navigationVelocityServiceInInputTaskTrigger = new Smart::InputTaskTrigger<CommBasicObjects::CommNavigationVelocity>(navigationVelocityServiceIn);
+		navigationVelocityServiceInUpcallManager = new NavigationVelocityServiceInUpcallManager(navigationVelocityServiceIn);
 		
 		// create input-handler
+		navigationVelocityServiceInHandler = new NavigationVelocityServiceInHandler(navigationVelocityServiceIn, connections.navigationVelocityServiceInHandler.prescale);
 		
 		// create request-handlers
 		
@@ -318,13 +331,17 @@ void ComponentUUVSimulator::fini()
 	}
 
 	// destroy all input-handler
+	delete navigationVelocityServiceInHandler;
 
 	// destroy InputTaskTriggers and UpcallManagers
+	delete navigationVelocityServiceInInputTaskTrigger;
+	delete navigationVelocityServiceInUpcallManager;
 
 	// destroy client ports
 
 	// destroy server ports
 	delete baseStateServiceOut;
+	delete navigationVelocityServiceIn;
 	// destroy event-test handlers (if needed)
 	
 	// destroy request-handlers
@@ -433,6 +450,11 @@ void ComponentUUVSimulator::loadParameter(int argc, char *argv[])
 		if(parameter.checkIfParameterExists("BaseStateServiceOut", "roboticMiddleware")) {
 			parameter.getString("BaseStateServiceOut", "roboticMiddleware", connections.baseStateServiceOut.roboticMiddleware);
 		}
+		// load parameters for server NavigationVelocityServiceIn
+		parameter.getString("NavigationVelocityServiceIn", "serviceName", connections.navigationVelocityServiceIn.serviceName);
+		if(parameter.checkIfParameterExists("NavigationVelocityServiceIn", "roboticMiddleware")) {
+			parameter.getString("NavigationVelocityServiceIn", "roboticMiddleware", connections.navigationVelocityServiceIn.roboticMiddleware);
+		}
 		
 		// load parameters for task BaseStateTask
 		parameter.getDouble("BaseStateTask", "minActFreqHz", connections.baseStateTask.minActFreq);
@@ -452,6 +474,9 @@ void ComponentUUVSimulator::loadParameter(int argc, char *argv[])
 		}
 		if(parameter.checkIfParameterExists("BaseStateTask", "cpuAffinity")) {
 			parameter.getInteger("BaseStateTask", "cpuAffinity", connections.baseStateTask.cpuAffinity);
+		}
+		if(parameter.checkIfParameterExists("NavigationVelocityServiceInHandler", "prescale")) {
+			parameter.getInteger("NavigationVelocityServiceInHandler", "prescale", connections.navigationVelocityServiceInHandler.prescale);
 		}
 		
 		// load parameters for ComponentUUVSimulatorROSExtension

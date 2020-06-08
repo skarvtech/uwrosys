@@ -20,13 +20,17 @@
 #include <iostream>
 
 // include communication objects
-
+#include <CommBasicObjects/CommBaseState.hh>
+#include <CommBasicObjects/CommNavigationVelocity.hh>
 
 void CompHandler::onStartup() 
 {
 	std::cout << "startup - put your startupCode in CompHandler::onStartup()!!!\n";
 
 	Smart::StatusCode status;
+
+	COMP->state = new BaseState();
+	COMP->state->init();
 
 	// Start all services. If you need manual control, use the content of this function to
 	// connect and start each service individually, e.g:
@@ -50,4 +54,6 @@ void CompHandler::onShutdown()
 {
 	std::cout << "shutdown - put your cleanup code in CompHandler::onShutdown()!!!\n";
 	
+	delete COMP->state;
+	COMP->state = NULL;
 }

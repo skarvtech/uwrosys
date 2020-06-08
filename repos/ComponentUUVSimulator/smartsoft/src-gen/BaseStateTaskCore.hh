@@ -27,6 +27,7 @@
 #include <BaseStateTaskObserverInterface.hh>
 
 #include <nav_msgs/Odometry.h>
+#include <geometry_msgs/Twist.h>
 
 class BaseStateTaskCore
 :	public SmartACE::ManagedTask
