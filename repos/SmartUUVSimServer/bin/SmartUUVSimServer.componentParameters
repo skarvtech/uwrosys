@@ -1,9 +1,0 @@
-ComponentParameter SmartUUVSimServerParams component SmartUUVSimServer {
-	InternalParameter Settings {
-		sendVelTopic :String = "~/rexrov/vel_cmd"
-		basePoseTopic:String = "~/rexrov/pose_gt"
-  	    baseVelTopic:String = "~/rexrov::rexrov::base_footprint"
-		laserTopic: String = "~/rexrov/rexrov/base_footprint/base_laser/scan"
-			
-	}
-}

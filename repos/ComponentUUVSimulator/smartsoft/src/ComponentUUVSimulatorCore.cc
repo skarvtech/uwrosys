@@ -10,8 +10,14 @@
 // Information about the SmartSoft MDSD Toolchain is available at:
 // www.servicerobotik-ulm.de
 //
-// Please do not modify this file. It will be re-generated
-// running the code generator.
+// This file is generated once. Modify this file to your needs. 
+// If you want the toolchain to re-generate this file, please 
+// delete it before running the code generator.
 //--------------------------------------------------------------------------
+#include "ComponentUUVSimulatorCore.hh"
 
-// Generated with SmartMDSD Toolchain Version 3.13.0.202003231126
+// constructor
+ComponentUUVSimulatorCore::ComponentUUVSimulatorCore()
+{
+	std::cout << "constructor ComponentUUVSimulatorCore\n";
+}

@@ -1,0 +1,11 @@
+ComponentDefinition ComponentUUVSimulator logo "/ComponentUUVSimulator/model/logo.png"
+{
+Activity BaseStateTask
+	{
+		MixedPortROSLink _pose
+		DefaultTrigger PeriodicTimer 10.0 Hz
+	}
+	OutputPort BaseStateServiceOut implements CommBasicObjects.BaseStateService realizedBy BaseStateTask {
+	}
+	MixedPortROS _pose
+}

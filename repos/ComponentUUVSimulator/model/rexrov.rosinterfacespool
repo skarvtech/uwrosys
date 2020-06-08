@@ -1,0 +1,4 @@
+RosInterfacesPool {
+	RosSubscriber _pose { topicName "/rexrov/pose_gt" type "nav_msgs.Odometry" }
+	RosPublisher _cmd_vel { topicName "/rexrov/cmd_vel" type "geometry_msgs.Twist" }
+}

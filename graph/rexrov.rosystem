@@ -1,0 +1,431 @@
+RosSystem { Name 'rexrov'
+    RosComponents ( 
+        ComponentInterface { name '/rexrov/controller_spawner_oberon7_gripper'
+},
+        ComponentInterface { name '/world_ned_frame_publisher'
+},
+        ComponentInterface { name '/rexrov/ground_truth_to_tf_rexrov'
+            RosPublishers {
+                RosPublisher '/rexrov/ground_truth_to_tf_rexrov/euler' {RefPublisher 'uuv_sim./rexrov/ground_truth_to_tf_rexrov./rexrov/ground_truth_to_tf_rexrov./rexrov/ground_truth_to_tf_rexrov/euler'},
+                RosPublisher '/rexrov/ground_truth_to_tf_rexrov/pose' {RefPublisher 'uuv_sim./rexrov/ground_truth_to_tf_rexrov./rexrov/ground_truth_to_tf_rexrov./rexrov/ground_truth_to_tf_rexrov/pose'}}
+            RosSubscribers {
+                RosSubscriber '/rexrov/pose_gt' {RefSubscriber 'uuv_sim./rexrov/ground_truth_to_tf_rexrov./rexrov/ground_truth_to_tf_rexrov./rexrov/pose_gt'}}
+},
+        ComponentInterface { name '/rexrov/velocity_control'
+            RosPublishers {
+                RosPublisher '/rexrov/cmd_accel' {RefPublisher 'uuv_sim./rexrov/velocity_control./rexrov/velocity_control./rexrov/cmd_accel'},
+                RosPublisher '/rexrov/velocity_control/parameter_updates' {RefPublisher 'uuv_sim./rexrov/velocity_control./rexrov/velocity_control./rexrov/velocity_control/parameter_updates'},
+                RosPublisher '/rexrov/velocity_control/parameter_descriptions' {RefPublisher 'uuv_sim./rexrov/velocity_control./rexrov/velocity_control./rexrov/velocity_control/parameter_descriptions'}}
+            RosSubscribers {
+                RosSubscriber '/rexrov/cmd_vel' {RefSubscriber 'uuv_sim./rexrov/velocity_control./rexrov/velocity_control./rexrov/cmd_vel'},
+                RosSubscriber '/rexrov/pose_gt' {RefSubscriber 'uuv_sim./rexrov/velocity_control./rexrov/velocity_control./rexrov/pose_gt'}}
+            RosSrvServers {
+                RosServiceServer '/rexrov/velocity_control/set_parameters' {RefServer 'uuv_sim./rexrov/velocity_control./rexrov/velocity_control./rexrov/velocity_control/set_parameters'}}
+},
+        ComponentInterface { name '/rexrov/oberon7/joint_position_controller_oberon7'
+            RosPublishers {
+                RosPublisher '/rexrov/oberon7/shoulder/controller/command' {RefPublisher 'uuv_sim./rexrov/oberon7/joint_position_controller_oberon7./rexrov/oberon7/joint_position_controller_oberon7./rexrov/oberon7/shoulder/controller/command'},
+                RosPublisher '/rexrov/oberon7/elbow/controller/command' {RefPublisher 'uuv_sim./rexrov/oberon7/joint_position_controller_oberon7./rexrov/oberon7/joint_position_controller_oberon7./rexrov/oberon7/elbow/controller/command'},
+                RosPublisher '/rexrov/oberon7/azimuth/controller/command' {RefPublisher 'uuv_sim./rexrov/oberon7/joint_position_controller_oberon7./rexrov/oberon7/joint_position_controller_oberon7./rexrov/oberon7/azimuth/controller/command'},
+                RosPublisher '/rexrov/oberon7/pitch/controller/command' {RefPublisher 'uuv_sim./rexrov/oberon7/joint_position_controller_oberon7./rexrov/oberon7/joint_position_controller_oberon7./rexrov/oberon7/pitch/controller/command'},
+                RosPublisher '/rexrov/oberon7/wrist/controller/command' {RefPublisher 'uuv_sim./rexrov/oberon7/joint_position_controller_oberon7./rexrov/oberon7/joint_position_controller_oberon7./rexrov/oberon7/wrist/controller/command'},
+                RosPublisher '/rexrov/oberon7/roll/controller/command' {RefPublisher 'uuv_sim./rexrov/oberon7/joint_position_controller_oberon7./rexrov/oberon7/joint_position_controller_oberon7./rexrov/oberon7/roll/controller/command'}}
+            RosSubscribers {
+                RosSubscriber '/rexrov/joy' {RefSubscriber 'uuv_sim./rexrov/oberon7/joint_position_controller_oberon7./rexrov/oberon7/joint_position_controller_oberon7./rexrov/joy'},
+                RosSubscriber '/rexrov/joint_states' {RefSubscriber 'uuv_sim./rexrov/oberon7/joint_position_controller_oberon7./rexrov/oberon7/joint_position_controller_oberon7./rexrov/joint_states'}}
+},
+        ComponentInterface { name '/rexrov/controller_spawner_oberon7'
+},
+        ComponentInterface { name '/rexrov/acceleration_control'
+            RosPublishers {
+                RosPublisher '/rexrov/thruster_manager/input' {RefPublisher 'uuv_sim./rexrov/acceleration_control./rexrov/acceleration_control./rexrov/thruster_manager/input'}}
+            RosSubscribers {
+                RosSubscriber '/rexrov/cmd_force' {RefSubscriber 'uuv_sim./rexrov/acceleration_control./rexrov/acceleration_control./rexrov/cmd_force'},
+                RosSubscriber '/rexrov/cmd_accel' {RefSubscriber 'uuv_sim./rexrov/acceleration_control./rexrov/acceleration_control./rexrov/cmd_accel'}}
+},
+        ComponentInterface { name '/rexrov/thruster_allocator'
+            RosPublishers {
+                RosPublisher '/rexrov/thrusters/6/input' {RefPublisher 'uuv_sim./rexrov/thruster_allocator./rexrov/thruster_allocator./rexrov/thrusters/6/input'},
+                RosPublisher '/rexrov/thrusters/7/input' {RefPublisher 'uuv_sim./rexrov/thruster_allocator./rexrov/thruster_allocator./rexrov/thrusters/7/input'},
+                RosPublisher '/rexrov/thrusters/3/input' {RefPublisher 'uuv_sim./rexrov/thruster_allocator./rexrov/thruster_allocator./rexrov/thrusters/3/input'},
+                RosPublisher '/rexrov/thrusters/1/input' {RefPublisher 'uuv_sim./rexrov/thruster_allocator./rexrov/thruster_allocator./rexrov/thrusters/1/input'},
+                RosPublisher '/rexrov/thrusters/0/input' {RefPublisher 'uuv_sim./rexrov/thruster_allocator./rexrov/thruster_allocator./rexrov/thrusters/0/input'},
+                RosPublisher '/rexrov/thrusters/2/input' {RefPublisher 'uuv_sim./rexrov/thruster_allocator./rexrov/thruster_allocator./rexrov/thrusters/2/input'},
+                RosPublisher '/rexrov/thrusters/5/input' {RefPublisher 'uuv_sim./rexrov/thruster_allocator./rexrov/thruster_allocator./rexrov/thrusters/5/input'},
+                RosPublisher '/rexrov/thrusters/4/input' {RefPublisher 'uuv_sim./rexrov/thruster_allocator./rexrov/thruster_allocator./rexrov/thrusters/4/input'}}
+            RosSubscribers {
+                RosSubscriber '/rexrov/thruster_manager/input_stamped' {RefSubscriber 'uuv_sim./rexrov/thruster_allocator./rexrov/thruster_allocator./rexrov/thruster_manager/input_stamped'},
+                RosSubscriber '/rexrov/thruster_manager/input' {RefSubscriber 'uuv_sim./rexrov/thruster_allocator./rexrov/thruster_allocator./rexrov/thruster_manager/input'}}
+            RosSrvServers {
+                RosServiceServer '/rexrov/thruster_manager/get_thruster_curve' {RefServer 'uuv_sim./rexrov/thruster_allocator./rexrov/thruster_allocator./rexrov/thruster_manager/get_thruster_curve'},
+                RosServiceServer '/rexrov/thruster_manager/set_config' {RefServer 'uuv_sim./rexrov/thruster_allocator./rexrov/thruster_allocator./rexrov/thruster_manager/set_config'},
+                RosServiceServer '/rexrov/thruster_allocator/tf2_frames' {RefServer 'uuv_sim./rexrov/thruster_allocator./rexrov/thruster_allocator./rexrov/thruster_allocator/tf2_frames'},
+                RosServiceServer '/rexrov/thruster_manager/get_thrusters_info' {RefServer 'uuv_sim./rexrov/thruster_allocator./rexrov/thruster_allocator./rexrov/thruster_manager/get_thrusters_info'},
+                RosServiceServer '/rexrov/thruster_manager/get_config' {RefServer 'uuv_sim./rexrov/thruster_allocator./rexrov/thruster_allocator./rexrov/thruster_manager/get_config'}}
+},
+        ComponentInterface { name '/rexrov/oberon4/kinematics_service'
+            RosPublishers {
+                RosPublisher '/rexrov/oberon4/man_index' {RefPublisher 'uuv_sim./rexrov/oberon4/kinematics_service./rexrov/oberon4/kinematics_service./rexrov/oberon4/man_index'},
+                RosPublisher '/rexrov/oberon4/endpoint_state' {RefPublisher 'uuv_sim./rexrov/oberon4/kinematics_service./rexrov/oberon4/kinematics_service./rexrov/oberon4/endpoint_state'}}
+            RosSubscribers {
+                RosSubscriber '/rexrov/joint_states' {RefSubscriber 'uuv_sim./rexrov/oberon4/kinematics_service./rexrov/oberon4/kinematics_service./rexrov/joint_states'}}
+            RosSrvServers {
+                RosServiceServer '/rexrov/oberon4/ik_solver' {RefServer 'uuv_sim./rexrov/oberon4/kinematics_service./rexrov/oberon4/kinematics_service./rexrov/oberon4/ik_solver'}}
+},
+        ComponentInterface { name '/gazebo_gui'
+            RosPublishers {
+                RosPublisher '/gazebo_gui/parameter_descriptions' {RefPublisher 'uuv_sim./gazebo_gui./gazebo_gui./gazebo_gui/parameter_descriptions'},
+                RosPublisher '/gazebo_gui/parameter_updates' {RefPublisher 'uuv_sim./gazebo_gui./gazebo_gui./gazebo_gui/parameter_updates'}}
+            RosSrvServers {
+                RosServiceServer '/gazebo_gui/set_parameters' {RefServer 'uuv_sim./gazebo_gui./gazebo_gui./gazebo_gui/set_parameters'}}
+},
+        ComponentInterface { name '/rexrov/oberon4/joint_position_controller_oberon4'
+            RosPublishers {
+                RosPublisher '/rexrov/oberon4/wrist_joint/controller/command' {RefPublisher 'uuv_sim./rexrov/oberon4/joint_position_controller_oberon4./rexrov/oberon4/joint_position_controller_oberon4./rexrov/oberon4/wrist_joint/controller/command'},
+                RosPublisher '/rexrov/oberon4/azimuth/controller/command' {RefPublisher 'uuv_sim./rexrov/oberon4/joint_position_controller_oberon4./rexrov/oberon4/joint_position_controller_oberon4./rexrov/oberon4/azimuth/controller/command'},
+                RosPublisher '/rexrov/oberon4/shoulder/controller/command' {RefPublisher 'uuv_sim./rexrov/oberon4/joint_position_controller_oberon4./rexrov/oberon4/joint_position_controller_oberon4./rexrov/oberon4/shoulder/controller/command'}}
+            RosSubscribers {
+                RosSubscriber '/rexrov/joy' {RefSubscriber 'uuv_sim./rexrov/oberon4/joint_position_controller_oberon4./rexrov/oberon4/joint_position_controller_oberon4./rexrov/joy'},
+                RosSubscriber '/rexrov/joint_states' {RefSubscriber 'uuv_sim./rexrov/oberon4/joint_position_controller_oberon4./rexrov/oberon4/joint_position_controller_oberon4./rexrov/joint_states'}}
+},
+        ComponentInterface { name '/rexrov/oberon7/kinematics_service'
+            RosPublishers {
+                RosPublisher '/rexrov/oberon7/endpoint_state' {RefPublisher 'uuv_sim./rexrov/oberon7/kinematics_service./rexrov/oberon7/kinematics_service./rexrov/oberon7/endpoint_state'},
+                RosPublisher '/rexrov/oberon7/man_index' {RefPublisher 'uuv_sim./rexrov/oberon7/kinematics_service./rexrov/oberon7/kinematics_service./rexrov/oberon7/man_index'}}
+            RosSubscribers {
+                RosSubscriber '/rexrov/joint_states' {RefSubscriber 'uuv_sim./rexrov/oberon7/kinematics_service./rexrov/oberon7/kinematics_service./rexrov/joint_states'}}
+            RosSrvServers {
+                RosServiceServer '/rexrov/oberon7/ik_solver' {RefServer 'uuv_sim./rexrov/oberon7/kinematics_service./rexrov/oberon7/kinematics_service./rexrov/oberon7/ik_solver'}}
+},
+        ComponentInterface { name '/gazebo'
+            RosPublishers {
+                RosPublisher '/rexrov/thrusters/2/thrust_wrench' {RefPublisher 'uuv_sim./gazebo./gazebo./rexrov/thrusters/2/thrust_wrench'},
+                RosPublisher '/rexrov/magnetometer/state' {RefPublisher 'uuv_sim./gazebo./gazebo./rexrov/magnetometer/state'},
+                RosPublisher '/rexrov/thrusters/3/thrust_efficiency' {RefPublisher 'uuv_sim./gazebo./gazebo./rexrov/thrusters/3/thrust_efficiency'},
+                RosPublisher '/gazebo/model_states' {RefPublisher 'uuv_sim./gazebo./gazebo./gazebo/model_states'},
+                RosPublisher '/rexrov/rexrov/cameraright/camera_image' {RefPublisher 'uuv_sim./gazebo./gazebo./rexrov/rexrov/cameraright/camera_image'},
+                RosPublisher '/rexrov/rexrov/cameraright/camera_image/theora' {RefPublisher 'uuv_sim./gazebo./gazebo./rexrov/rexrov/cameraright/camera_image/theora'},
+                RosPublisher '/rexrov/thrusters/5/thrust_efficiency' {RefPublisher 'uuv_sim./gazebo./gazebo./rexrov/thrusters/5/thrust_efficiency'},
+                RosPublisher '/rexrov/thrusters/3/dynamic_state_efficiency' {RefPublisher 'uuv_sim./gazebo./gazebo./rexrov/thrusters/3/dynamic_state_efficiency'},
+                RosPublisher '/rexrov/imu/state' {RefPublisher 'uuv_sim./gazebo./gazebo./rexrov/imu/state'},
+                RosPublisher '/rexrov/thrusters/6/is_on' {RefPublisher 'uuv_sim./gazebo./gazebo./rexrov/thrusters/6/is_on'},
+                RosPublisher '/rexrov/rexrov/cameraright/parameter_updates' {RefPublisher 'uuv_sim./gazebo./gazebo./rexrov/rexrov/cameraright/parameter_updates'},
+                RosPublisher '/rexrov/dvl_sonar0' {RefPublisher 'uuv_sim./gazebo./gazebo./rexrov/dvl_sonar0'},
+                RosPublisher '/rexrov/dvl_sonar1' {RefPublisher 'uuv_sim./gazebo./gazebo./rexrov/dvl_sonar1'},
+                RosPublisher '/rexrov/dvl_sonar2' {RefPublisher 'uuv_sim./gazebo./gazebo./rexrov/dvl_sonar2'},
+                RosPublisher '/gazebo/link_states' {RefPublisher 'uuv_sim./gazebo./gazebo./gazebo/link_states'},
+                RosPublisher '/rexrov/dvl_sonar3' {RefPublisher 'uuv_sim./gazebo./gazebo./rexrov/dvl_sonar3'},
+                RosPublisher '/rexrov/thrusters/7/thrust' {RefPublisher 'uuv_sim./gazebo./gazebo./rexrov/thrusters/7/thrust'},
+                RosPublisher '/rexrov/rexrov/camera/camera_info' {RefPublisher 'uuv_sim./gazebo./gazebo./rexrov/rexrov/camera/camera_info'},
+                RosPublisher '/rexrov/rexrov/cameraleft/camera_image/compressedDepth/parameter_descriptions' {RefPublisher 'uuv_sim./gazebo./gazebo./rexrov/rexrov/cameraleft/camera_image/compressedDepth/parameter_descriptions'},
+                RosPublisher '/rexrov/rexrov/camera/camera_image/compressedDepth' {RefPublisher 'uuv_sim./gazebo./gazebo./rexrov/rexrov/camera/camera_image/compressedDepth'},
+                RosPublisher '/rexrov/dvl_twist' {RefPublisher 'uuv_sim./gazebo./gazebo./rexrov/dvl_twist'},
+                RosPublisher '/rexrov/thrusters/7/dynamic_state_efficiency' {RefPublisher 'uuv_sim./gazebo./gazebo./rexrov/thrusters/7/dynamic_state_efficiency'},
+                RosPublisher '/rexrov/thrusters/4/dynamic_state_efficiency' {RefPublisher 'uuv_sim./gazebo./gazebo./rexrov/thrusters/4/dynamic_state_efficiency'},
+                RosPublisher '/gazebo/parameter_descriptions' {RefPublisher 'uuv_sim./gazebo./gazebo./gazebo/parameter_descriptions'},
+                RosPublisher '/rexrov/rexrov/camera/camera_image/compressedDepth/parameter_updates' {RefPublisher 'uuv_sim./gazebo./gazebo./rexrov/rexrov/camera/camera_image/compressedDepth/parameter_updates'},
+                RosPublisher '/rexrov/thrusters/6/thrust_wrench' {RefPublisher 'uuv_sim./gazebo./gazebo./rexrov/thrusters/6/thrust_wrench'},
+                RosPublisher '/rexrov/thrusters/5/thrust_wrench' {RefPublisher 'uuv_sim./gazebo./gazebo./rexrov/thrusters/5/thrust_wrench'},
+                RosPublisher '/rexrov/thrusters/0/is_on' {RefPublisher 'uuv_sim./gazebo./gazebo./rexrov/thrusters/0/is_on'},
+                RosPublisher '/rexrov/thrusters/5/dynamic_state_efficiency' {RefPublisher 'uuv_sim./gazebo./gazebo./rexrov/thrusters/5/dynamic_state_efficiency'},
+                RosPublisher '/rexrov/current_velocity_marker' {RefPublisher 'uuv_sim./gazebo./gazebo./rexrov/current_velocity_marker'},
+                RosPublisher '/rexrov/thrusters/3/thrust' {RefPublisher 'uuv_sim./gazebo./gazebo./rexrov/thrusters/3/thrust'},
+                RosPublisher '/rexrov/rexrov/cameraleft/camera_image/compressed/parameter_descriptions' {RefPublisher 'uuv_sim./gazebo./gazebo./rexrov/rexrov/cameraleft/camera_image/compressed/parameter_descriptions'},
+                RosPublisher '/rexrov/rexrov/cameraright/camera_image/compressed/parameter_descriptions' {RefPublisher 'uuv_sim./gazebo./gazebo./rexrov/rexrov/cameraright/camera_image/compressed/parameter_descriptions'},
+                RosPublisher '/rexrov/thrusters/5/is_on' {RefPublisher 'uuv_sim./gazebo./gazebo./rexrov/thrusters/5/is_on'},
+                RosPublisher '/rexrov/rexrov/cameraleft/camera_image' {RefPublisher 'uuv_sim./gazebo./gazebo./rexrov/rexrov/cameraleft/camera_image'},
+                RosPublisher '/rexrov/thrusters/1/thrust_efficiency' {RefPublisher 'uuv_sim./gazebo./gazebo./rexrov/thrusters/1/thrust_efficiency'},
+                RosPublisher '/rexrov/thrusters/5/thrust' {RefPublisher 'uuv_sim./gazebo./gazebo./rexrov/thrusters/5/thrust'},
+                RosPublisher '/rexrov/rexrov/cameraright/camera_image/compressed/parameter_updates' {RefPublisher 'uuv_sim./gazebo./gazebo./rexrov/rexrov/cameraright/camera_image/compressed/parameter_updates'},
+                RosPublisher '/rexrov/rexrov/cameraleft/parameter_updates' {RefPublisher 'uuv_sim./gazebo./gazebo./rexrov/rexrov/cameraleft/parameter_updates'},
+                RosPublisher '/rexrov/rexrov/camera/parameter_descriptions' {RefPublisher 'uuv_sim./gazebo./gazebo./rexrov/rexrov/camera/parameter_descriptions'},
+                RosPublisher '/rexrov/is_submerged' {RefPublisher 'uuv_sim./gazebo./gazebo./rexrov/is_submerged'},
+                RosPublisher '/rexrov/thrusters/3/is_on' {RefPublisher 'uuv_sim./gazebo./gazebo./rexrov/thrusters/3/is_on'},
+                RosPublisher '/hydrodynamics/current_velocity' {RefPublisher 'uuv_sim./gazebo./gazebo./hydrodynamics/current_velocity'},
+                RosPublisher '/rexrov/rexrov/cameraright/parameter_descriptions' {RefPublisher 'uuv_sim./gazebo./gazebo./rexrov/rexrov/cameraright/parameter_descriptions'},
+                RosPublisher '/rexrov/rexrov/camera/camera_image' {RefPublisher 'uuv_sim./gazebo./gazebo./rexrov/rexrov/camera/camera_image'},
+                RosPublisher '/rexrov/rexrov/cameraleft/camera_image/theora/parameter_descriptions' {RefPublisher 'uuv_sim./gazebo./gazebo./rexrov/rexrov/cameraleft/camera_image/theora/parameter_descriptions'},
+                RosPublisher '/rexrov/using_global_current_velocity' {RefPublisher 'uuv_sim./gazebo./gazebo./rexrov/using_global_current_velocity'},
+                RosPublisher '/rexrov/rexrov/cameraright/camera_image/compressedDepth' {RefPublisher 'uuv_sim./gazebo./gazebo./rexrov/rexrov/cameraright/camera_image/compressedDepth'},
+                RosPublisher '/rexrov/thrusters/7/is_on' {RefPublisher 'uuv_sim./gazebo./gazebo./rexrov/thrusters/7/is_on'},
+                RosPublisher '/rexrov/rexrov/camera/camera_image/compressed' {RefPublisher 'uuv_sim./gazebo./gazebo./rexrov/rexrov/camera/camera_image/compressed'},
+                RosPublisher '/rexrov/rexrov/cameraleft/camera_image/theora/parameter_updates' {RefPublisher 'uuv_sim./gazebo./gazebo./rexrov/rexrov/cameraleft/camera_image/theora/parameter_updates'},
+                RosPublisher '/rexrov/thrusters/0/thrust_wrench' {RefPublisher 'uuv_sim./gazebo./gazebo./rexrov/thrusters/0/thrust_wrench'},
+                RosPublisher '/rexrov/rexrov/camera/camera_image/theora/parameter_updates' {RefPublisher 'uuv_sim./gazebo./gazebo./rexrov/rexrov/camera/camera_image/theora/parameter_updates'},
+                RosPublisher '/rexrov/joint_states' {RefPublisher 'uuv_sim./gazebo./gazebo./rexrov/joint_states'},
+                RosPublisher '/rexrov/thrusters/4/thrust_efficiency' {RefPublisher 'uuv_sim./gazebo./gazebo./rexrov/thrusters/4/thrust_efficiency'},
+                RosPublisher '/rexrov/thrusters/6/thrust' {RefPublisher 'uuv_sim./gazebo./gazebo./rexrov/thrusters/6/thrust'},
+                RosPublisher '/rexrov/gps' {RefPublisher 'uuv_sim./gazebo./gazebo./rexrov/gps'},
+                RosPublisher '/rexrov/rexrov/camera/parameter_updates' {RefPublisher 'uuv_sim./gazebo./gazebo./rexrov/rexrov/camera/parameter_updates'},
+                RosPublisher '/rexrov/rexrov/cameraright/camera_image/compressedDepth/parameter_updates' {RefPublisher 'uuv_sim./gazebo./gazebo./rexrov/rexrov/cameraright/camera_image/compressedDepth/parameter_updates'},
+                RosPublisher '/rexrov/pressure/state' {RefPublisher 'uuv_sim./gazebo./gazebo./rexrov/pressure/state'},
+                RosPublisher '/rexrov/rexrov/cameraright/camera_image/compressed' {RefPublisher 'uuv_sim./gazebo./gazebo./rexrov/rexrov/cameraright/camera_image/compressed'},
+                RosPublisher '/rexrov/rexrov/cameraleft/camera_image/theora' {RefPublisher 'uuv_sim./gazebo./gazebo./rexrov/rexrov/cameraleft/camera_image/theora'},
+                RosPublisher '/rexrov/thrusters/2/thrust' {RefPublisher 'uuv_sim./gazebo./gazebo./rexrov/thrusters/2/thrust'},
+                RosPublisher '/rexrov/rexrov/cameraright/camera_image/theora/parameter_descriptions' {RefPublisher 'uuv_sim./gazebo./gazebo./rexrov/rexrov/cameraright/camera_image/theora/parameter_descriptions'},
+                RosPublisher '/rexrov/thrusters/1/thrust' {RefPublisher 'uuv_sim./gazebo./gazebo./rexrov/thrusters/1/thrust'},
+                RosPublisher '/rexrov/thrusters/2/dynamic_state_efficiency' {RefPublisher 'uuv_sim./gazebo./gazebo./rexrov/thrusters/2/dynamic_state_efficiency'},
+                RosPublisher '/rexrov/pose_gt' {RefPublisher 'uuv_sim./gazebo./gazebo./rexrov/pose_gt'},
+                RosPublisher '/rexrov/rexrov/camera/camera_image/compressedDepth/parameter_descriptions' {RefPublisher 'uuv_sim./gazebo./gazebo./rexrov/rexrov/camera/camera_image/compressedDepth/parameter_descriptions'},
+                RosPublisher '/rexrov/thrusters/2/is_on' {RefPublisher 'uuv_sim./gazebo./gazebo./rexrov/thrusters/2/is_on'},
+                RosPublisher '/gazebo/parameter_updates' {RefPublisher 'uuv_sim./gazebo./gazebo./gazebo/parameter_updates'},
+                RosPublisher '/rexrov/pose_gt/state' {RefPublisher 'uuv_sim./gazebo./gazebo./rexrov/pose_gt/state'},
+                RosPublisher '/rexrov/thrusters/0/thrust' {RefPublisher 'uuv_sim./gazebo./gazebo./rexrov/thrusters/0/thrust'},
+                RosPublisher '/rexrov/thrusters/6/thrust_efficiency' {RefPublisher 'uuv_sim./gazebo./gazebo./rexrov/thrusters/6/thrust_efficiency'},
+                RosPublisher '/rexrov/rexrov/cameraleft/camera_image/compressed/parameter_updates' {RefPublisher 'uuv_sim./gazebo./gazebo./rexrov/rexrov/cameraleft/camera_image/compressed/parameter_updates'},
+                RosPublisher '/rexrov/dvl' {RefPublisher 'uuv_sim./gazebo./gazebo./rexrov/dvl'},
+                RosPublisher '/rexrov/rexrov/cameraright/camera_image/theora/parameter_updates' {RefPublisher 'uuv_sim./gazebo./gazebo./rexrov/rexrov/cameraright/camera_image/theora/parameter_updates'},
+                RosPublisher '/rexrov/thrusters/2/thrust_efficiency' {RefPublisher 'uuv_sim./gazebo./gazebo./rexrov/thrusters/2/thrust_efficiency'},
+                RosPublisher '/rexrov/rpt/state' {RefPublisher 'uuv_sim./gazebo./gazebo./rexrov/rpt/state'},
+                RosPublisher '/rexrov/thrusters/3/thrust_wrench' {RefPublisher 'uuv_sim./gazebo./gazebo./rexrov/thrusters/3/thrust_wrench'},
+                RosPublisher '/rexrov/rexrov/cameraleft/parameter_descriptions' {RefPublisher 'uuv_sim./gazebo./gazebo./rexrov/rexrov/cameraleft/parameter_descriptions'},
+                RosPublisher '/rexrov/gps/state' {RefPublisher 'uuv_sim./gazebo./gazebo./rexrov/gps/state'},
+                RosPublisher '/rexrov/thrusters/0/dynamic_state_efficiency' {RefPublisher 'uuv_sim./gazebo./gazebo./rexrov/thrusters/0/dynamic_state_efficiency'},
+                RosPublisher '/rexrov/pressure' {RefPublisher 'uuv_sim./gazebo./gazebo./rexrov/pressure'},
+                RosPublisher '/rexrov/rpt' {RefPublisher 'uuv_sim./gazebo./gazebo./rexrov/rpt'},
+                RosPublisher '/rexrov/rexrov/camera/camera_image/compressed/parameter_descriptions' {RefPublisher 'uuv_sim./gazebo./gazebo./rexrov/rexrov/camera/camera_image/compressed/parameter_descriptions'},
+                RosPublisher '/rexrov/rexrov/camera/camera_image/compressed/parameter_updates' {RefPublisher 'uuv_sim./gazebo./gazebo./rexrov/rexrov/camera/camera_image/compressed/parameter_updates'},
+                RosPublisher '/rexrov/rexrov/cameraleft/camera_info' {RefPublisher 'uuv_sim./gazebo./gazebo./rexrov/rexrov/cameraleft/camera_info'},
+                RosPublisher '/rexrov/thrusters/4/is_on' {RefPublisher 'uuv_sim./gazebo./gazebo./rexrov/thrusters/4/is_on'},
+                RosPublisher '/rexrov/thrusters/1/is_on' {RefPublisher 'uuv_sim./gazebo./gazebo./rexrov/thrusters/1/is_on'},
+                RosPublisher '/rexrov/rexrov/cameraright/camera_image/compressedDepth/parameter_descriptions' {RefPublisher 'uuv_sim./gazebo./gazebo./rexrov/rexrov/cameraright/camera_image/compressedDepth/parameter_descriptions'},
+                RosPublisher '/rexrov/rexrov/cameraleft/camera_image/compressedDepth/parameter_updates' {RefPublisher 'uuv_sim./gazebo./gazebo./rexrov/rexrov/cameraleft/camera_image/compressedDepth/parameter_updates'},
+                RosPublisher '/rexrov/thrusters/4/thrust_wrench' {RefPublisher 'uuv_sim./gazebo./gazebo./rexrov/thrusters/4/thrust_wrench'},
+                RosPublisher '/rexrov/rexrov/cameraleft/camera_image/compressed' {RefPublisher 'uuv_sim./gazebo./gazebo./rexrov/rexrov/cameraleft/camera_image/compressed'},
+                RosPublisher '/rexrov/rexrov/camera/camera_image/theora' {RefPublisher 'uuv_sim./gazebo./gazebo./rexrov/rexrov/camera/camera_image/theora'},
+                RosPublisher '/rexrov/rexrov/cameraleft/camera_image/compressedDepth' {RefPublisher 'uuv_sim./gazebo./gazebo./rexrov/rexrov/cameraleft/camera_image/compressedDepth'},
+                RosPublisher '/rexrov/thrusters/0/thrust_efficiency' {RefPublisher 'uuv_sim./gazebo./gazebo./rexrov/thrusters/0/thrust_efficiency'},
+                RosPublisher '/rexrov/thrusters/4/thrust' {RefPublisher 'uuv_sim./gazebo./gazebo./rexrov/thrusters/4/thrust'},
+                RosPublisher '/rexrov/rexrov/camera/camera_image/theora/parameter_descriptions' {RefPublisher 'uuv_sim./gazebo./gazebo./rexrov/rexrov/camera/camera_image/theora/parameter_descriptions'},
+                RosPublisher '/rexrov/thrusters/6/dynamic_state_efficiency' {RefPublisher 'uuv_sim./gazebo./gazebo./rexrov/thrusters/6/dynamic_state_efficiency'},
+                RosPublisher '/rexrov/imu' {RefPublisher 'uuv_sim./gazebo./gazebo./rexrov/imu'},
+                RosPublisher '/rexrov/dvl/state' {RefPublisher 'uuv_sim./gazebo./gazebo./rexrov/dvl/state'},
+                RosPublisher '/rexrov/rexrov/cameraright/camera_info' {RefPublisher 'uuv_sim./gazebo./gazebo./rexrov/rexrov/cameraright/camera_info'},
+                RosPublisher '/rexrov/thrusters/7/thrust_wrench' {RefPublisher 'uuv_sim./gazebo./gazebo./rexrov/thrusters/7/thrust_wrench'},
+                RosPublisher '/rexrov/thrusters/1/thrust_wrench' {RefPublisher 'uuv_sim./gazebo./gazebo./rexrov/thrusters/1/thrust_wrench'},
+                RosPublisher '/rexrov/magnetometer' {RefPublisher 'uuv_sim./gazebo./gazebo./rexrov/magnetometer'},
+                RosPublisher '/rexrov/thrusters/7/thrust_efficiency' {RefPublisher 'uuv_sim./gazebo./gazebo./rexrov/thrusters/7/thrust_efficiency'},
+                RosPublisher '/rexrov/thrusters/1/dynamic_state_efficiency' {RefPublisher 'uuv_sim./gazebo./gazebo./rexrov/thrusters/1/dynamic_state_efficiency'}}
+            RosSubscribers {
+                RosSubscriber '/rexrov/thrusters/6/input' {RefSubscriber 'uuv_sim./gazebo./gazebo./rexrov/thrusters/6/input'},
+                RosSubscriber '/rexrov/dvl_sonar2' {RefSubscriber 'uuv_sim./gazebo./gazebo./rexrov/dvl_sonar2'},
+                RosSubscriber '/rexrov/oberon7/wrist/controller/command' {RefSubscriber 'uuv_sim./gazebo./gazebo./rexrov/oberon7/wrist/controller/command'},
+                RosSubscriber '/rexrov/thrusters/0/input' {RefSubscriber 'uuv_sim./gazebo./gazebo./rexrov/thrusters/0/input'},
+                RosSubscriber '/gazebo/set_model_state' {RefSubscriber 'uuv_sim./gazebo./gazebo./gazebo/set_model_state'},
+                RosSubscriber '/rexrov/oberon4/jaw_2_joint/controller/command' {RefSubscriber 'uuv_sim./gazebo./gazebo./rexrov/oberon4/jaw_2_joint/controller/command'},
+                RosSubscriber '/rexrov/oberon4/azimuth/controller/command' {RefSubscriber 'uuv_sim./gazebo./gazebo./rexrov/oberon4/azimuth/controller/command'},
+                RosSubscriber '/rexrov/oberon7/finger_left_joint/controller/command' {RefSubscriber 'uuv_sim./gazebo./gazebo./rexrov/oberon7/finger_left_joint/controller/command'},
+                RosSubscriber '/rexrov/oberon7/elbow/controller/command' {RefSubscriber 'uuv_sim./gazebo./gazebo./rexrov/oberon7/elbow/controller/command'},
+                RosSubscriber '/rexrov/thrusters/5/input' {RefSubscriber 'uuv_sim./gazebo./gazebo./rexrov/thrusters/5/input'},
+                RosSubscriber '/rexrov/oberon7/shoulder/controller/command' {RefSubscriber 'uuv_sim./gazebo./gazebo./rexrov/oberon7/shoulder/controller/command'},
+                RosSubscriber '/rexrov/oberon7/azimuth/controller/command' {RefSubscriber 'uuv_sim./gazebo./gazebo./rexrov/oberon7/azimuth/controller/command'},
+                RosSubscriber '/gazebo/set_link_state' {RefSubscriber 'uuv_sim./gazebo./gazebo./gazebo/set_link_state'},
+                RosSubscriber '/rexrov/dvl_sonar0' {RefSubscriber 'uuv_sim./gazebo./gazebo./rexrov/dvl_sonar0'},
+                RosSubscriber '/rexrov/thrusters/1/input' {RefSubscriber 'uuv_sim./gazebo./gazebo./rexrov/thrusters/1/input'},
+                RosSubscriber '/rexrov/dvl_sonar1' {RefSubscriber 'uuv_sim./gazebo./gazebo./rexrov/dvl_sonar1'},
+                RosSubscriber '/rexrov/dvl_sonar3' {RefSubscriber 'uuv_sim./gazebo./gazebo./rexrov/dvl_sonar3'},
+                RosSubscriber '/rexrov/oberon4/wrist_joint/controller/command' {RefSubscriber 'uuv_sim./gazebo./gazebo./rexrov/oberon4/wrist_joint/controller/command'},
+                RosSubscriber '/rexrov/oberon7/roll/controller/command' {RefSubscriber 'uuv_sim./gazebo./gazebo./rexrov/oberon7/roll/controller/command'},
+                RosSubscriber '/rexrov/oberon7/pitch/controller/command' {RefSubscriber 'uuv_sim./gazebo./gazebo./rexrov/oberon7/pitch/controller/command'},
+                RosSubscriber '/rexrov/thrusters/4/input' {RefSubscriber 'uuv_sim./gazebo./gazebo./rexrov/thrusters/4/input'},
+                RosSubscriber '/rexrov/thrusters/7/input' {RefSubscriber 'uuv_sim./gazebo./gazebo./rexrov/thrusters/7/input'},
+                RosSubscriber '/rexrov/oberon4/shoulder/controller/command' {RefSubscriber 'uuv_sim./gazebo./gazebo./rexrov/oberon4/shoulder/controller/command'},
+                RosSubscriber '/rexrov/thrusters/3/input' {RefSubscriber 'uuv_sim./gazebo./gazebo./rexrov/thrusters/3/input'},
+                RosSubscriber '/rexrov/current_velocity' {RefSubscriber 'uuv_sim./gazebo./gazebo./rexrov/current_velocity'},
+                RosSubscriber '/rexrov/oberon7/finger_right_joint/controller/command' {RefSubscriber 'uuv_sim./gazebo./gazebo./rexrov/oberon7/finger_right_joint/controller/command'},
+                RosSubscriber '/rexrov/oberon4/jaw_1_joint/controller/command' {RefSubscriber 'uuv_sim./gazebo./gazebo./rexrov/oberon4/jaw_1_joint/controller/command'},
+                RosSubscriber '/rexrov/thrusters/2/input' {RefSubscriber 'uuv_sim./gazebo./gazebo./rexrov/thrusters/2/input'}}
+            RosSrvServers {
+                RosServiceServer '/rexrov/rexrov/cameraleft/set_camera_info' {RefServer 'uuv_sim./gazebo./gazebo./rexrov/rexrov/cameraleft/set_camera_info'},
+                RosServiceServer '/rexrov/get_linear_damping_offset' {RefServer 'uuv_sim./gazebo./gazebo./rexrov/get_linear_damping_offset'},
+                RosServiceServer '/rexrov/thrusters/6/set_dynamic_state_efficiency' {RefServer 'uuv_sim./gazebo./gazebo./rexrov/thrusters/6/set_dynamic_state_efficiency'},
+                RosServiceServer '/rexrov/thrusters/1/get_thrust_force_efficiency' {RefServer 'uuv_sim./gazebo./gazebo./rexrov/thrusters/1/get_thrust_force_efficiency'},
+                RosServiceServer '/rexrov/thrusters/3/get_thruster_state' {RefServer 'uuv_sim./gazebo./gazebo./rexrov/thrusters/3/get_thruster_state'},
+                RosServiceServer '/rexrov/thrusters/0/get_dynamic_state_efficiency' {RefServer 'uuv_sim./gazebo./gazebo./rexrov/thrusters/0/get_dynamic_state_efficiency'},
+                RosServiceServer '/rexrov/pose_gt/change_state' {RefServer 'uuv_sim./gazebo./gazebo./rexrov/pose_gt/change_state'},
+                RosServiceServer '/rexrov/get_added_mass_scaling' {RefServer 'uuv_sim./gazebo./gazebo./rexrov/get_added_mass_scaling'},
+                RosServiceServer '/rexrov/pressure/change_state' {RefServer 'uuv_sim./gazebo./gazebo./rexrov/pressure/change_state'},
+                RosServiceServer '/gazebo/set_model_configuration' {RefServer 'uuv_sim./gazebo./gazebo./gazebo/set_model_configuration'},
+                RosServiceServer '/rexrov/thrusters/3/get_thruster_conversion_fcn' {RefServer 'uuv_sim./gazebo./gazebo./rexrov/thrusters/3/get_thruster_conversion_fcn'},
+                RosServiceServer '/rexrov/thrusters/5/get_dynamic_state_efficiency' {RefServer 'uuv_sim./gazebo./gazebo./rexrov/thrusters/5/get_dynamic_state_efficiency'},
+                RosServiceServer '/gazebo/delete_model' {RefServer 'uuv_sim./gazebo./gazebo./gazebo/delete_model'},
+                RosServiceServer '/rexrov/get_volume_offset' {RefServer 'uuv_sim./gazebo./gazebo./rexrov/get_volume_offset'},
+                RosServiceServer '/rexrov/thrusters/5/set_dynamic_state_efficiency' {RefServer 'uuv_sim./gazebo./gazebo./rexrov/thrusters/5/set_dynamic_state_efficiency'},
+                RosServiceServer '/rexrov/thrusters/6/get_thruster_state' {RefServer 'uuv_sim./gazebo./gazebo./rexrov/thrusters/6/get_thruster_state'},
+                RosServiceServer '/rexrov/thrusters/7/get_thruster_state' {RefServer 'uuv_sim./gazebo./gazebo./rexrov/thrusters/7/get_thruster_state'},
+                RosServiceServer '/rexrov/get_nonlinear_damping_offset' {RefServer 'uuv_sim./gazebo./gazebo./rexrov/get_nonlinear_damping_offset'},
+                RosServiceServer '/rexrov/thrusters/6/get_thruster_conversion_fcn' {RefServer 'uuv_sim./gazebo./gazebo./rexrov/thrusters/6/get_thruster_conversion_fcn'},
+                RosServiceServer '/rexrov/get_added_mass_offset' {RefServer 'uuv_sim./gazebo./gazebo./rexrov/get_added_mass_offset'},
+                RosServiceServer '/gazebo/set_model_state' {RefServer 'uuv_sim./gazebo./gazebo./gazebo/set_model_state'},
+                RosServiceServer '/rexrov/thrusters/0/set_thrust_force_efficiency' {RefServer 'uuv_sim./gazebo./gazebo./rexrov/thrusters/0/set_thrust_force_efficiency'},
+                RosServiceServer '/rexrov/set_volume_offset' {RefServer 'uuv_sim./gazebo./gazebo./rexrov/set_volume_offset'},
+                RosServiceServer '/rexrov/thrusters/6/get_dynamic_state_efficiency' {RefServer 'uuv_sim./gazebo./gazebo./rexrov/thrusters/6/get_dynamic_state_efficiency'},
+                RosServiceServer '/rexrov/get_linear_forward_speed_damping_offset' {RefServer 'uuv_sim./gazebo./gazebo./rexrov/get_linear_forward_speed_damping_offset'},
+                RosServiceServer '/rexrov/thrusters/3/set_thruster_state' {RefServer 'uuv_sim./gazebo./gazebo./rexrov/thrusters/3/set_thruster_state'},
+                RosServiceServer '/rexrov/rpt/change_state' {RefServer 'uuv_sim./gazebo./gazebo./rexrov/rpt/change_state'},
+                RosServiceServer '/rexrov/controller_manager/list_controller_types' {RefServer 'uuv_sim./gazebo./gazebo./rexrov/controller_manager/list_controller_types'},
+                RosServiceServer '/rexrov/rexrov/camera/camera_image/compressedDepth/set_parameters' {RefServer 'uuv_sim./gazebo./gazebo./rexrov/rexrov/camera/camera_image/compressedDepth/set_parameters'},
+                RosServiceServer '/rexrov/thrusters/5/set_thrust_force_efficiency' {RefServer 'uuv_sim./gazebo./gazebo./rexrov/thrusters/5/set_thrust_force_efficiency'},
+                RosServiceServer '/rexrov/thrusters/6/get_thrust_force_efficiency' {RefServer 'uuv_sim./gazebo./gazebo./rexrov/thrusters/6/get_thrust_force_efficiency'},
+                RosServiceServer '/rexrov/get_model_properties' {RefServer 'uuv_sim./gazebo./gazebo./rexrov/get_model_properties'},
+                RosServiceServer '/rexrov/thrusters/3/set_dynamic_state_efficiency' {RefServer 'uuv_sim./gazebo./gazebo./rexrov/thrusters/3/set_dynamic_state_efficiency'},
+                RosServiceServer '/rexrov/thrusters/2/set_dynamic_state_efficiency' {RefServer 'uuv_sim./gazebo./gazebo./rexrov/thrusters/2/set_dynamic_state_efficiency'},
+                RosServiceServer '/rexrov/rexrov/camera/camera_image/theora/set_parameters' {RefServer 'uuv_sim./gazebo./gazebo./rexrov/rexrov/camera/camera_image/theora/set_parameters'},
+                RosServiceServer '/gazebo/get_link_properties' {RefServer 'uuv_sim./gazebo./gazebo./gazebo/get_link_properties'},
+                RosServiceServer '/rexrov/get_volume_scaling' {RefServer 'uuv_sim./gazebo./gazebo./rexrov/get_volume_scaling'},
+                RosServiceServer '/hydrodynamics/get_current_velocity_model' {RefServer 'uuv_sim./gazebo./gazebo./hydrodynamics/get_current_velocity_model'},
+                RosServiceServer '/rexrov/thrusters/2/get_thruster_conversion_fcn' {RefServer 'uuv_sim./gazebo./gazebo./rexrov/thrusters/2/get_thruster_conversion_fcn'},
+                RosServiceServer '/rexrov/get_fluid_density' {RefServer 'uuv_sim./gazebo./gazebo./rexrov/get_fluid_density'},
+                RosServiceServer '/gazebo/set_link_state' {RefServer 'uuv_sim./gazebo./gazebo./gazebo/set_link_state'},
+                RosServiceServer '/rexrov/set_added_mass_offset' {RefServer 'uuv_sim./gazebo./gazebo./rexrov/set_added_mass_offset'},
+                RosServiceServer '/rexrov/set_linear_damping_offset' {RefServer 'uuv_sim./gazebo./gazebo./rexrov/set_linear_damping_offset'},
+                RosServiceServer '/rexrov/thrusters/0/set_dynamic_state_efficiency' {RefServer 'uuv_sim./gazebo./gazebo./rexrov/thrusters/0/set_dynamic_state_efficiency'},
+                RosServiceServer '/hydrodynamics/set_current_horz_angle_model' {RefServer 'uuv_sim./gazebo./gazebo./hydrodynamics/set_current_horz_angle_model'},
+                RosServiceServer '/rexrov/thrusters/3/get_thrust_force_efficiency' {RefServer 'uuv_sim./gazebo./gazebo./rexrov/thrusters/3/get_thrust_force_efficiency'},
+                RosServiceServer '/rexrov/set_added_mass_scaling' {RefServer 'uuv_sim./gazebo./gazebo./rexrov/set_added_mass_scaling'},
+                RosServiceServer '/rexrov/thrusters/4/get_dynamic_state_efficiency' {RefServer 'uuv_sim./gazebo./gazebo./rexrov/thrusters/4/get_dynamic_state_efficiency'},
+                RosServiceServer '/rexrov/controller_manager/list_controllers' {RefServer 'uuv_sim./gazebo./gazebo./rexrov/controller_manager/list_controllers'},
+                RosServiceServer '/rexrov/thrusters/1/get_thruster_state' {RefServer 'uuv_sim./gazebo./gazebo./rexrov/thrusters/1/get_thruster_state'},
+                RosServiceServer '/rexrov/thrusters/0/get_thruster_conversion_fcn' {RefServer 'uuv_sim./gazebo./gazebo./rexrov/thrusters/0/get_thruster_conversion_fcn'},
+                RosServiceServer '/rexrov/thrusters/4/get_thruster_conversion_fcn' {RefServer 'uuv_sim./gazebo./gazebo./rexrov/thrusters/4/get_thruster_conversion_fcn'},
+                RosServiceServer '/hydrodynamics/set_current_horz_angle' {RefServer 'uuv_sim./gazebo./gazebo./hydrodynamics/set_current_horz_angle'},
+                RosServiceServer '/rexrov/thrusters/2/set_thrust_force_efficiency' {RefServer 'uuv_sim./gazebo./gazebo./rexrov/thrusters/2/set_thrust_force_efficiency'},
+                RosServiceServer '/rexrov/thrusters/1/get_thruster_conversion_fcn' {RefServer 'uuv_sim./gazebo./gazebo./rexrov/thrusters/1/get_thruster_conversion_fcn'},
+                RosServiceServer '/rexrov/thrusters/2/get_thruster_state' {RefServer 'uuv_sim./gazebo./gazebo./rexrov/thrusters/2/get_thruster_state'},
+                RosServiceServer '/gazebo/reset_world' {RefServer 'uuv_sim./gazebo./gazebo./gazebo/reset_world'},
+                RosServiceServer '/gazebo/get_model_state' {RefServer 'uuv_sim./gazebo./gazebo./gazebo/get_model_state'},
+                RosServiceServer '/rexrov/set_fluid_density' {RefServer 'uuv_sim./gazebo./gazebo./rexrov/set_fluid_density'},
+                RosServiceServer '/rexrov/thrusters/0/get_thrust_force_efficiency' {RefServer 'uuv_sim./gazebo./gazebo./rexrov/thrusters/0/get_thrust_force_efficiency'},
+                RosServiceServer '/gazebo/transform_to_spherical_coordinates' {RefServer 'uuv_sim./gazebo./gazebo./gazebo/transform_to_spherical_coordinates'},
+                RosServiceServer '/gazebo/set_origin_spherical_coordinates' {RefServer 'uuv_sim./gazebo./gazebo./gazebo/set_origin_spherical_coordinates'},
+                RosServiceServer '/rexrov/rexrov/cameraright/camera_image/compressed/set_parameters' {RefServer 'uuv_sim./gazebo./gazebo./rexrov/rexrov/cameraright/camera_image/compressed/set_parameters'},
+                RosServiceServer '/rexrov/thrusters/6/set_thrust_force_efficiency' {RefServer 'uuv_sim./gazebo./gazebo./rexrov/thrusters/6/set_thrust_force_efficiency'},
+                RosServiceServer '/gazebo/get_model_properties' {RefServer 'uuv_sim./gazebo./gazebo./gazebo/get_model_properties'},
+                RosServiceServer '/rexrov/thrusters/4/set_dynamic_state_efficiency' {RefServer 'uuv_sim./gazebo./gazebo./rexrov/thrusters/4/set_dynamic_state_efficiency'},
+                RosServiceServer '/gazebo/clear_joint_forces' {RefServer 'uuv_sim./gazebo./gazebo./gazebo/clear_joint_forces'},
+                RosServiceServer '/rexrov/thrusters/7/set_thruster_state' {RefServer 'uuv_sim./gazebo./gazebo./rexrov/thrusters/7/set_thruster_state'},
+                RosServiceServer '/gazebo/set_physics_properties' {RefServer 'uuv_sim./gazebo./gazebo./gazebo/set_physics_properties'},
+                RosServiceServer '/gazebo/spawn_sdf_model' {RefServer 'uuv_sim./gazebo./gazebo./gazebo/spawn_sdf_model'},
+                RosServiceServer '/rexrov/rexrov/camera/set_parameters' {RefServer 'uuv_sim./gazebo./gazebo./rexrov/rexrov/camera/set_parameters'},
+                RosServiceServer '/rexrov/rexrov/cameraright/camera_image/theora/set_parameters' {RefServer 'uuv_sim./gazebo./gazebo./rexrov/rexrov/cameraright/camera_image/theora/set_parameters'},
+                RosServiceServer '/rexrov/thrusters/1/set_thrust_force_efficiency' {RefServer 'uuv_sim./gazebo./gazebo./rexrov/thrusters/1/set_thrust_force_efficiency'},
+                RosServiceServer '/rexrov/thrusters/0/get_thruster_state' {RefServer 'uuv_sim./gazebo./gazebo./rexrov/thrusters/0/get_thruster_state'},
+                RosServiceServer '/gazebo/unpause_physics' {RefServer 'uuv_sim./gazebo./gazebo./gazebo/unpause_physics'},
+                RosServiceServer '/gazebo/clear_body_wrenches' {RefServer 'uuv_sim./gazebo./gazebo./gazebo/clear_body_wrenches'},
+                RosServiceServer '/rexrov/thrusters/1/set_dynamic_state_efficiency' {RefServer 'uuv_sim./gazebo./gazebo./rexrov/thrusters/1/set_dynamic_state_efficiency'},
+                RosServiceServer '/gazebo/pause_physics' {RefServer 'uuv_sim./gazebo./gazebo./gazebo/pause_physics'},
+                RosServiceServer '/rexrov/gps/change_state' {RefServer 'uuv_sim./gazebo./gazebo./rexrov/gps/change_state'},
+                RosServiceServer '/rexrov/rexrov/cameraright/set_parameters' {RefServer 'uuv_sim./gazebo./gazebo./rexrov/rexrov/cameraright/set_parameters'},
+                RosServiceServer '/gazebo/get_light_properties' {RefServer 'uuv_sim./gazebo./gazebo./gazebo/get_light_properties'},
+                RosServiceServer '/hydrodynamics/set_current_vert_angle' {RefServer 'uuv_sim./gazebo./gazebo./hydrodynamics/set_current_vert_angle'},
+                RosServiceServer '/hydrodynamics/set_current_velocity_model' {RefServer 'uuv_sim./gazebo./gazebo./hydrodynamics/set_current_velocity_model'},
+                RosServiceServer '/rexrov/thrusters/7/get_thrust_force_efficiency' {RefServer 'uuv_sim./gazebo./gazebo./rexrov/thrusters/7/get_thrust_force_efficiency'},
+                RosServiceServer '/gazebo/transform_from_spherical_coordinates' {RefServer 'uuv_sim./gazebo./gazebo./gazebo/transform_from_spherical_coordinates'},
+                RosServiceServer '/rexrov/rexrov/cameraleft/camera_image/theora/set_parameters' {RefServer 'uuv_sim./gazebo./gazebo./rexrov/rexrov/cameraleft/camera_image/theora/set_parameters'},
+                RosServiceServer '/rexrov/thrusters/4/get_thrust_force_efficiency' {RefServer 'uuv_sim./gazebo./gazebo./rexrov/thrusters/4/get_thrust_force_efficiency'},
+                RosServiceServer '/rexrov/thrusters/1/set_thruster_state' {RefServer 'uuv_sim./gazebo./gazebo./rexrov/thrusters/1/set_thruster_state'},
+                RosServiceServer '/rexrov/controller_manager/load_controller' {RefServer 'uuv_sim./gazebo./gazebo./rexrov/controller_manager/load_controller'},
+                RosServiceServer '/gazebo/apply_body_wrench' {RefServer 'uuv_sim./gazebo./gazebo./gazebo/apply_body_wrench'},
+                RosServiceServer '/rexrov/imu/change_state' {RefServer 'uuv_sim./gazebo./gazebo./rexrov/imu/change_state'},
+                RosServiceServer '/hydrodynamics/get_current_vert_angle_model' {RefServer 'uuv_sim./gazebo./gazebo./hydrodynamics/get_current_vert_angle_model'},
+                RosServiceServer '/rexrov/rexrov/camera/camera_image/compressed/set_parameters' {RefServer 'uuv_sim./gazebo./gazebo./rexrov/rexrov/camera/camera_image/compressed/set_parameters'},
+                RosServiceServer '/rexrov/thrusters/3/set_thrust_force_efficiency' {RefServer 'uuv_sim./gazebo./gazebo./rexrov/thrusters/3/set_thrust_force_efficiency'},
+                RosServiceServer '/rexrov/thrusters/7/set_thrust_force_efficiency' {RefServer 'uuv_sim./gazebo./gazebo./rexrov/thrusters/7/set_thrust_force_efficiency'},
+                RosServiceServer '/rexrov/thrusters/4/set_thrust_force_efficiency' {RefServer 'uuv_sim./gazebo./gazebo./rexrov/thrusters/4/set_thrust_force_efficiency'},
+                RosServiceServer '/rexrov/get_damping_scaling' {RefServer 'uuv_sim./gazebo./gazebo./rexrov/get_damping_scaling'},
+                RosServiceServer '/rexrov/controller_manager/unload_controller' {RefServer 'uuv_sim./gazebo./gazebo./rexrov/controller_manager/unload_controller'},
+                RosServiceServer '/gazebo/get_origin_spherical_coordinates' {RefServer 'uuv_sim./gazebo./gazebo./gazebo/get_origin_spherical_coordinates'},
+                RosServiceServer '/gazebo/spawn_urdf_model' {RefServer 'uuv_sim./gazebo./gazebo./gazebo/spawn_urdf_model'},
+                RosServiceServer '/rexrov/dvl/change_state' {RefServer 'uuv_sim./gazebo./gazebo./rexrov/dvl/change_state'},
+                RosServiceServer '/rexrov/set_damping_scaling' {RefServer 'uuv_sim./gazebo./gazebo./rexrov/set_damping_scaling'},
+                RosServiceServer '/gazebo/set_link_properties' {RefServer 'uuv_sim./gazebo./gazebo./gazebo/set_link_properties'},
+                RosServiceServer '/rexrov/thrusters/3/get_dynamic_state_efficiency' {RefServer 'uuv_sim./gazebo./gazebo./rexrov/thrusters/3/get_dynamic_state_efficiency'},
+                RosServiceServer '/rexrov/thrusters/1/get_dynamic_state_efficiency' {RefServer 'uuv_sim./gazebo./gazebo./rexrov/thrusters/1/get_dynamic_state_efficiency'},
+                RosServiceServer '/gazebo/get_joint_properties' {RefServer 'uuv_sim./gazebo./gazebo./gazebo/get_joint_properties'},
+                RosServiceServer '/gazebo/set_parameters' {RefServer 'uuv_sim./gazebo./gazebo./gazebo/set_parameters'},
+                RosServiceServer '/gazebo/get_link_state' {RefServer 'uuv_sim./gazebo./gazebo./gazebo/get_link_state'},
+                RosServiceServer '/rexrov/thrusters/7/get_thruster_conversion_fcn' {RefServer 'uuv_sim./gazebo./gazebo./rexrov/thrusters/7/get_thruster_conversion_fcn'},
+                RosServiceServer '/rexrov/thrusters/5/get_thruster_state' {RefServer 'uuv_sim./gazebo./gazebo./rexrov/thrusters/5/get_thruster_state'},
+                RosServiceServer '/hydrodynamics/set_current_velocity' {RefServer 'uuv_sim./gazebo./gazebo./hydrodynamics/set_current_velocity'},
+                RosServiceServer '/rexrov/rexrov/cameraright/set_camera_info' {RefServer 'uuv_sim./gazebo./gazebo./rexrov/rexrov/cameraright/set_camera_info'},
+                RosServiceServer '/rexrov/set_volume_scaling' {RefServer 'uuv_sim./gazebo./gazebo./rexrov/set_volume_scaling'},
+                RosServiceServer '/rexrov/rexrov/cameraright/camera_image/compressedDepth/set_parameters' {RefServer 'uuv_sim./gazebo./gazebo./rexrov/rexrov/cameraright/camera_image/compressedDepth/set_parameters'},
+                RosServiceServer '/rexrov/set_nonlinear_damping_offset' {RefServer 'uuv_sim./gazebo./gazebo./rexrov/set_nonlinear_damping_offset'},
+                RosServiceServer '/gazebo/set_light_properties' {RefServer 'uuv_sim./gazebo./gazebo./gazebo/set_light_properties'},
+                RosServiceServer '/rexrov/controller_manager/reload_controller_libraries' {RefServer 'uuv_sim./gazebo./gazebo./rexrov/controller_manager/reload_controller_libraries'},
+                RosServiceServer '/rexrov/set_linear_forward_speed_damping_offset' {RefServer 'uuv_sim./gazebo./gazebo./rexrov/set_linear_forward_speed_damping_offset'},
+                RosServiceServer '/rexrov/thrusters/5/set_thruster_state' {RefServer 'uuv_sim./gazebo./gazebo./rexrov/thrusters/5/set_thruster_state'},
+                RosServiceServer '/rexrov/magnetometer/change_state' {RefServer 'uuv_sim./gazebo./gazebo./rexrov/magnetometer/change_state'},
+                RosServiceServer '/rexrov/thrusters/2/get_dynamic_state_efficiency' {RefServer 'uuv_sim./gazebo./gazebo./rexrov/thrusters/2/get_dynamic_state_efficiency'},
+                RosServiceServer '/hydrodynamics/get_current_horz_angle_model' {RefServer 'uuv_sim./gazebo./gazebo./hydrodynamics/get_current_horz_angle_model'},
+                RosServiceServer '/rexrov/thrusters/5/get_thrust_force_efficiency' {RefServer 'uuv_sim./gazebo./gazebo./rexrov/thrusters/5/get_thrust_force_efficiency'},
+                RosServiceServer '/rexrov/thrusters/2/set_thruster_state' {RefServer 'uuv_sim./gazebo./gazebo./rexrov/thrusters/2/set_thruster_state'},
+                RosServiceServer '/gazebo/apply_joint_effort' {RefServer 'uuv_sim./gazebo./gazebo./gazebo/apply_joint_effort'},
+                RosServiceServer '/rexrov/rexrov/cameraleft/camera_image/compressed/set_parameters' {RefServer 'uuv_sim./gazebo./gazebo./rexrov/rexrov/cameraleft/camera_image/compressed/set_parameters'},
+                RosServiceServer '/gazebo/set_joint_properties' {RefServer 'uuv_sim./gazebo./gazebo./gazebo/set_joint_properties'},
+                RosServiceServer '/gazebo/get_physics_properties' {RefServer 'uuv_sim./gazebo./gazebo./gazebo/get_physics_properties'},
+                RosServiceServer '/rexrov/thrusters/0/set_thruster_state' {RefServer 'uuv_sim./gazebo./gazebo./rexrov/thrusters/0/set_thruster_state'},
+                RosServiceServer '/rexrov/thrusters/6/set_thruster_state' {RefServer 'uuv_sim./gazebo./gazebo./rexrov/thrusters/6/set_thruster_state'},
+                RosServiceServer '/rexrov/thrusters/7/set_dynamic_state_efficiency' {RefServer 'uuv_sim./gazebo./gazebo./rexrov/thrusters/7/set_dynamic_state_efficiency'},
+                RosServiceServer '/rexrov/rexrov/cameraleft/camera_image/compressedDepth/set_parameters' {RefServer 'uuv_sim./gazebo./gazebo./rexrov/rexrov/cameraleft/camera_image/compressedDepth/set_parameters'},
+                RosServiceServer '/rexrov/rexrov/cameraleft/set_parameters' {RefServer 'uuv_sim./gazebo./gazebo./rexrov/rexrov/cameraleft/set_parameters'},
+                RosServiceServer '/rexrov/controller_manager/switch_controller' {RefServer 'uuv_sim./gazebo./gazebo./rexrov/controller_manager/switch_controller'},
+                RosServiceServer '/gazebo/get_world_properties' {RefServer 'uuv_sim./gazebo./gazebo./gazebo/get_world_properties'},
+                RosServiceServer '/rexrov/thrusters/4/get_thruster_state' {RefServer 'uuv_sim./gazebo./gazebo./rexrov/thrusters/4/get_thruster_state'},
+                RosServiceServer '/gazebo/delete_light' {RefServer 'uuv_sim./gazebo./gazebo./gazebo/delete_light'},
+                RosServiceServer '/rexrov/thrusters/2/get_thrust_force_efficiency' {RefServer 'uuv_sim./gazebo./gazebo./rexrov/thrusters/2/get_thrust_force_efficiency'},
+                RosServiceServer '/gazebo/reset_simulation' {RefServer 'uuv_sim./gazebo./gazebo./gazebo/reset_simulation'},
+                RosServiceServer '/rexrov/set_use_global_current_velocity' {RefServer 'uuv_sim./gazebo./gazebo./rexrov/set_use_global_current_velocity'},
+                RosServiceServer '/rexrov/thrusters/4/set_thruster_state' {RefServer 'uuv_sim./gazebo./gazebo./rexrov/thrusters/4/set_thruster_state'},
+                RosServiceServer '/rexrov/rexrov/camera/set_camera_info' {RefServer 'uuv_sim./gazebo./gazebo./rexrov/rexrov/camera/set_camera_info'},
+                RosServiceServer '/hydrodynamics/set_current_vert_angle_model' {RefServer 'uuv_sim./gazebo./gazebo./hydrodynamics/set_current_vert_angle_model'},
+                RosServiceServer '/rexrov/thrusters/7/get_dynamic_state_efficiency' {RefServer 'uuv_sim./gazebo./gazebo./rexrov/thrusters/7/get_dynamic_state_efficiency'},
+                RosServiceServer '/rexrov/thrusters/5/get_thruster_conversion_fcn' {RefServer 'uuv_sim./gazebo./gazebo./rexrov/thrusters/5/get_thruster_conversion_fcn'}}
+},
+        ComponentInterface { name '/rexrov/controller_spawner_oberon4'
+},
+        ComponentInterface { name '/rexrov/joy_uuv_velocity_teleop'
+            RosPublishers {
+                RosPublisher '/rexrov/cmd_vel' {RefPublisher 'uuv_sim./rexrov/joy_uuv_velocity_teleop./rexrov/joy_uuv_velocity_teleop./rexrov/cmd_vel'},
+                RosPublisher '/rexrov/home_pressed' {RefPublisher 'uuv_sim./rexrov/joy_uuv_velocity_teleop./rexrov/joy_uuv_velocity_teleop./rexrov/home_pressed'}}
+            RosSubscribers {
+                RosSubscriber '/rexrov/joy' {RefSubscriber 'uuv_sim./rexrov/joy_uuv_velocity_teleop./rexrov/joy_uuv_velocity_teleop./rexrov/joy'}}
+},
+        ComponentInterface { name '/rexrov/sname_frame_publisher'
+},
+        ComponentInterface { name '/rexrov/joystick'
+            RosPublishers {
+                RosPublisher '/rexrov/joy' {RefPublisher 'uuv_sim./rexrov/joystick./rexrov/joystick./rexrov/joy'},
+                RosPublisher '/diagnostics' {RefPublisher 'uuv_sim./rexrov/joystick./rexrov/joystick./diagnostics'}}
+            RosSubscribers {
+                RosSubscriber '/rexrov/joy/set_feedback' {RefSubscriber 'uuv_sim./rexrov/joystick./rexrov/joystick./rexrov/joy/set_feedback'}}
+},
+        ComponentInterface { name '/rexrov/oberon7/gripper_controller_oberon7'
+            RosPublishers {
+                RosPublisher '/rexrov/oberon7/finger_tip_left_joint/controller/command' {RefPublisher 'uuv_sim./rexrov/oberon7/gripper_controller_oberon7./rexrov/oberon7/gripper_controller_oberon7./rexrov/oberon7/finger_tip_left_joint/controller/command'},
+                RosPublisher '/rexrov/oberon7/finger_right_joint/controller/command' {RefPublisher 'uuv_sim./rexrov/oberon7/gripper_controller_oberon7./rexrov/oberon7/gripper_controller_oberon7./rexrov/oberon7/finger_right_joint/controller/command'},
+                RosPublisher '/rexrov/oberon7/finger_left_joint/controller/command' {RefPublisher 'uuv_sim./rexrov/oberon7/gripper_controller_oberon7./rexrov/oberon7/gripper_controller_oberon7./rexrov/oberon7/finger_left_joint/controller/command'},
+                RosPublisher '/rexrov/oberon7/ee_state' {RefPublisher 'uuv_sim./rexrov/oberon7/gripper_controller_oberon7./rexrov/oberon7/gripper_controller_oberon7./rexrov/oberon7/ee_state'},
+                RosPublisher '/rexrov/oberon7/finger_tip_right_joint/controller/command' {RefPublisher 'uuv_sim./rexrov/oberon7/gripper_controller_oberon7./rexrov/oberon7/gripper_controller_oberon7./rexrov/oberon7/finger_tip_right_joint/controller/command'}}
+            RosSubscribers {
+                RosSubscriber '/rexrov/joy' {RefSubscriber 'uuv_sim./rexrov/oberon7/gripper_controller_oberon7./rexrov/oberon7/gripper_controller_oberon7./rexrov/joy'},
+                RosSubscriber '/rexrov/joint_states' {RefSubscriber 'uuv_sim./rexrov/oberon7/gripper_controller_oberon7./rexrov/oberon7/gripper_controller_oberon7./rexrov/joint_states'}}
+},
+        ComponentInterface { name '/rexrov/robot_state_publisher'
+            RosSubscribers {
+                RosSubscriber '/rexrov/joint_states' {RefSubscriber 'uuv_sim./rexrov/robot_state_publisher./rexrov/robot_state_publisher./rexrov/joint_states'}}
+},
+        ComponentInterface { name '/rexrov/oberon4/gripper_controller_oberon4'
+            RosPublishers {
+                RosPublisher '/rexrov/oberon4/jaw_1_joint/controller/command' {RefPublisher 'uuv_sim./rexrov/oberon4/gripper_controller_oberon4./rexrov/oberon4/gripper_controller_oberon4./rexrov/oberon4/jaw_1_joint/controller/command'},
+                RosPublisher '/rexrov/oberon4/jaw_2_joint/controller/command' {RefPublisher 'uuv_sim./rexrov/oberon4/gripper_controller_oberon4./rexrov/oberon4/gripper_controller_oberon4./rexrov/oberon4/jaw_2_joint/controller/command'},
+                RosPublisher '/rexrov/oberon4/ee_state' {RefPublisher 'uuv_sim./rexrov/oberon4/gripper_controller_oberon4./rexrov/oberon4/gripper_controller_oberon4./rexrov/oberon4/ee_state'}}
+            RosSubscribers {
+                RosSubscriber '/rexrov/joy' {RefSubscriber 'uuv_sim./rexrov/oberon4/gripper_controller_oberon4./rexrov/oberon4/gripper_controller_oberon4./rexrov/joy'},
+                RosSubscriber '/rexrov/joint_states' {RefSubscriber 'uuv_sim./rexrov/oberon4/gripper_controller_oberon4./rexrov/oberon4/gripper_controller_oberon4./rexrov/joint_states'}}
+},
+        ComponentInterface { name '/publish_world_models'
+            RosPublishers {
+                RosPublisher '/world_models' {RefPublisher 'uuv_sim./publish_world_models./publish_world_models./world_models'}}
+}
+)}

@@ -1,0 +1,452 @@
+PackageSet { package { 
+  CatkinPackage uuv_sim { artifact {
+    Artifact /rexrov/controller_spawner_oberon7_gripper {
+      node Node { name /rexrov/controller_spawner_oberon7_gripper
+}},
+    Artifact /world_ned_frame_publisher {
+      node Node { name /world_ned_frame_publisher
+}},
+    Artifact /rexrov/ground_truth_to_tf_rexrov {
+      node Node { name /rexrov/ground_truth_to_tf_rexrov
+
+        publisher {
+          Publisher { name '/rexrov/ground_truth_to_tf_rexrov/euler' message 'geometry_msgs.Vector3Stamped'},
+          Publisher { name '/rexrov/ground_truth_to_tf_rexrov/pose' message 'geometry_msgs.PoseStamped'}}
+        subscriber {
+          Subscriber { name '/rexrov/pose_gt' message 'nav_msgs.Odometry'}}}},
+    Artifact /rexrov/velocity_control {
+      node Node { name /rexrov/velocity_control
+
+        serviceserver {
+          ServiceServer { name '/rexrov/velocity_control/set_parameters' service 'dynamic_reconfigure.Reconfigure'}}
+        publisher {
+          Publisher { name '/rexrov/cmd_accel' message 'geometry_msgs.Accel'},
+          Publisher { name '/rexrov/velocity_control/parameter_updates' message 'dynamic_reconfigure.Config'},
+          Publisher { name '/rexrov/velocity_control/parameter_descriptions' message 'dynamic_reconfigure.ConfigDescription'}}
+        subscriber {
+          Subscriber { name '/rexrov/cmd_vel' message 'geometry_msgs.Twist'},
+          Subscriber { name '/rexrov/pose_gt' message 'nav_msgs.Odometry'}}}},
+    Artifact /rexrov/oberon7/joint_position_controller_oberon7 {
+      node Node { name /rexrov/oberon7/joint_position_controller_oberon7
+
+        publisher {
+          Publisher { name '/rexrov/oberon7/shoulder/controller/command' message 'std_msgs.Float64'},
+          Publisher { name '/rexrov/oberon7/elbow/controller/command' message 'std_msgs.Float64'},
+          Publisher { name '/rexrov/oberon7/azimuth/controller/command' message 'std_msgs.Float64'},
+          Publisher { name '/rexrov/oberon7/pitch/controller/command' message 'std_msgs.Float64'},
+          Publisher { name '/rexrov/oberon7/wrist/controller/command' message 'std_msgs.Float64'},
+          Publisher { name '/rexrov/oberon7/roll/controller/command' message 'std_msgs.Float64'}}
+        subscriber {
+          Subscriber { name '/rexrov/joy' message 'sensor_msgs.Joy'},
+          Subscriber { name '/rexrov/joint_states' message 'sensor_msgs.JointState'}}}},
+    Artifact /rexrov/controller_spawner_oberon7 {
+      node Node { name /rexrov/controller_spawner_oberon7
+}},
+    Artifact /rexrov/acceleration_control {
+      node Node { name /rexrov/acceleration_control
+
+        publisher {
+          Publisher { name '/rexrov/thruster_manager/input' message 'geometry_msgs.Wrench'}}
+        subscriber {
+          Subscriber { name '/rexrov/cmd_force' message 'geometry_msgs.Accel'},
+          Subscriber { name '/rexrov/cmd_accel' message 'geometry_msgs.Accel'}}}},
+    Artifact /rexrov/thruster_allocator {
+      node Node { name /rexrov/thruster_allocator
+
+        serviceserver {
+          ServiceServer { name '/rexrov/thruster_manager/get_thruster_curve' service 'uuv_thruster_manager.GetThrusterCurve'},
+          ServiceServer { name '/rexrov/thruster_manager/set_config' service 'uuv_thruster_manager.SetThrusterManagerConfig'},
+          ServiceServer { name '/rexrov/thruster_allocator/tf2_frames' service 'tf2_msgs.FrameGraph'},
+          ServiceServer { name '/rexrov/thruster_manager/get_thrusters_info' service 'uuv_thruster_manager.ThrusterManagerInfo'},
+          ServiceServer { name '/rexrov/thruster_manager/get_config' service 'uuv_thruster_manager.GetThrusterManagerConfig'}}
+        publisher {
+          Publisher { name '/rexrov/thrusters/6/input' message 'uuv_gazebo_ros_plugins_msgs.FloatStamped'},
+          Publisher { name '/rexrov/thrusters/7/input' message 'uuv_gazebo_ros_plugins_msgs.FloatStamped'},
+          Publisher { name '/rexrov/thrusters/3/input' message 'uuv_gazebo_ros_plugins_msgs.FloatStamped'},
+          Publisher { name '/rexrov/thrusters/1/input' message 'uuv_gazebo_ros_plugins_msgs.FloatStamped'},
+          Publisher { name '/rexrov/thrusters/0/input' message 'uuv_gazebo_ros_plugins_msgs.FloatStamped'},
+          Publisher { name '/rexrov/thrusters/2/input' message 'uuv_gazebo_ros_plugins_msgs.FloatStamped'},
+          Publisher { name '/rexrov/thrusters/5/input' message 'uuv_gazebo_ros_plugins_msgs.FloatStamped'},
+          Publisher { name '/rexrov/thrusters/4/input' message 'uuv_gazebo_ros_plugins_msgs.FloatStamped'}}
+        subscriber {
+          Subscriber { name '/rexrov/thruster_manager/input_stamped' message 'geometry_msgs.WrenchStamped'},
+          Subscriber { name '/rexrov/thruster_manager/input' message 'geometry_msgs.Wrench'}}}},
+    Artifact /rexrov/oberon4/kinematics_service {
+      node Node { name /rexrov/oberon4/kinematics_service
+
+        serviceserver {
+          ServiceServer { name '/rexrov/oberon4/ik_solver' service 'uuv_manipulators_msgs.SolveIK'}}
+        publisher {
+          Publisher { name '/rexrov/oberon4/man_index' message 'std_msgs.Float64'},
+          Publisher { name '/rexrov/oberon4/endpoint_state' message 'uuv_manipulators_msgs.EndPointState'}}
+        subscriber {
+          Subscriber { name '/rexrov/joint_states' message 'sensor_msgs.JointState'}}}},
+    Artifact /gazebo_gui {
+      node Node { name /gazebo_gui
+
+        serviceserver {
+          ServiceServer { name '/gazebo_gui/set_parameters' service 'dynamic_reconfigure.Reconfigure'}}
+        publisher {
+          Publisher { name '/gazebo_gui/parameter_descriptions' message 'dynamic_reconfigure.ConfigDescription'},
+          Publisher { name '/gazebo_gui/parameter_updates' message 'dynamic_reconfigure.Config'}}}},
+    Artifact /rexrov/oberon4/joint_position_controller_oberon4 {
+      node Node { name /rexrov/oberon4/joint_position_controller_oberon4
+
+        publisher {
+          Publisher { name '/rexrov/oberon4/wrist_joint/controller/command' message 'std_msgs.Float64'},
+          Publisher { name '/rexrov/oberon4/azimuth/controller/command' message 'std_msgs.Float64'},
+          Publisher { name '/rexrov/oberon4/shoulder/controller/command' message 'std_msgs.Float64'}}
+        subscriber {
+          Subscriber { name '/rexrov/joy' message 'sensor_msgs.Joy'},
+          Subscriber { name '/rexrov/joint_states' message 'sensor_msgs.JointState'}}}},
+    Artifact /rexrov/oberon7/kinematics_service {
+      node Node { name /rexrov/oberon7/kinematics_service
+
+        serviceserver {
+          ServiceServer { name '/rexrov/oberon7/ik_solver' service 'uuv_manipulators_msgs.SolveIK'}}
+        publisher {
+          Publisher { name '/rexrov/oberon7/endpoint_state' message 'uuv_manipulators_msgs.EndPointState'},
+          Publisher { name '/rexrov/oberon7/man_index' message 'std_msgs.Float64'}}
+        subscriber {
+          Subscriber { name '/rexrov/joint_states' message 'sensor_msgs.JointState'}}}},
+    Artifact /gazebo {
+      node Node { name /gazebo
+
+        serviceserver {
+          ServiceServer { name '/rexrov/rexrov/cameraleft/set_camera_info' service 'sensor_msgs.SetCameraInfo'},
+          ServiceServer { name '/rexrov/get_linear_damping_offset' service 'uuv_gazebo_ros_plugins_msgs.GetFloat'},
+          ServiceServer { name '/rexrov/thrusters/6/set_dynamic_state_efficiency' service 'uuv_gazebo_ros_plugins_msgs.SetThrusterEfficiency'},
+          ServiceServer { name '/rexrov/thrusters/1/get_thrust_force_efficiency' service 'uuv_gazebo_ros_plugins_msgs.GetThrusterEfficiency'},
+          ServiceServer { name '/rexrov/thrusters/3/get_thruster_state' service 'uuv_gazebo_ros_plugins_msgs.GetThrusterState'},
+          ServiceServer { name '/rexrov/thrusters/0/get_dynamic_state_efficiency' service 'uuv_gazebo_ros_plugins_msgs.GetThrusterEfficiency'},
+          ServiceServer { name '/rexrov/pose_gt/change_state' service 'uuv_sensor_ros_plugins_msgs.ChangeSensorState'},
+          ServiceServer { name '/rexrov/get_added_mass_scaling' service 'uuv_gazebo_ros_plugins_msgs.GetFloat'},
+          ServiceServer { name '/rexrov/pressure/change_state' service 'uuv_sensor_ros_plugins_msgs.ChangeSensorState'},
+          ServiceServer { name '/gazebo/set_model_configuration' service 'gazebo_msgs.SetModelConfiguration'},
+          ServiceServer { name '/rexrov/thrusters/3/get_thruster_conversion_fcn' service 'uuv_gazebo_ros_plugins_msgs.GetThrusterConversionFcn'},
+          ServiceServer { name '/rexrov/thrusters/5/get_dynamic_state_efficiency' service 'uuv_gazebo_ros_plugins_msgs.GetThrusterEfficiency'},
+          ServiceServer { name '/gazebo/delete_model' service 'gazebo_msgs.DeleteModel'},
+          ServiceServer { name '/rexrov/get_volume_offset' service 'uuv_gazebo_ros_plugins_msgs.GetFloat'},
+          ServiceServer { name '/rexrov/thrusters/5/set_dynamic_state_efficiency' service 'uuv_gazebo_ros_plugins_msgs.SetThrusterEfficiency'},
+          ServiceServer { name '/rexrov/thrusters/6/get_thruster_state' service 'uuv_gazebo_ros_plugins_msgs.GetThrusterState'},
+          ServiceServer { name '/rexrov/thrusters/7/get_thruster_state' service 'uuv_gazebo_ros_plugins_msgs.GetThrusterState'},
+          ServiceServer { name '/rexrov/get_nonlinear_damping_offset' service 'uuv_gazebo_ros_plugins_msgs.GetFloat'},
+          ServiceServer { name '/rexrov/thrusters/6/get_thruster_conversion_fcn' service 'uuv_gazebo_ros_plugins_msgs.GetThrusterConversionFcn'},
+          ServiceServer { name '/rexrov/get_added_mass_offset' service 'uuv_gazebo_ros_plugins_msgs.GetFloat'},
+          ServiceServer { name '/gazebo/set_model_state' service 'gazebo_msgs.SetModelState'},
+          ServiceServer { name '/rexrov/thrusters/0/set_thrust_force_efficiency' service 'uuv_gazebo_ros_plugins_msgs.SetThrusterEfficiency'},
+          ServiceServer { name '/rexrov/set_volume_offset' service 'uuv_gazebo_ros_plugins_msgs.SetFloat'},
+          ServiceServer { name '/rexrov/thrusters/6/get_dynamic_state_efficiency' service 'uuv_gazebo_ros_plugins_msgs.GetThrusterEfficiency'},
+          ServiceServer { name '/rexrov/get_linear_forward_speed_damping_offset' service 'uuv_gazebo_ros_plugins_msgs.GetFloat'},
+          ServiceServer { name '/rexrov/thrusters/3/set_thruster_state' service 'uuv_gazebo_ros_plugins_msgs.SetThrusterState'},
+          ServiceServer { name '/rexrov/rpt/change_state' service 'uuv_sensor_ros_plugins_msgs.ChangeSensorState'},
+          ServiceServer { name '/rexrov/controller_manager/list_controller_types' service 'controller_manager_msgs.ListControllerTypes'},
+          ServiceServer { name '/rexrov/rexrov/camera/camera_image/compressedDepth/set_parameters' service 'dynamic_reconfigure.Reconfigure'},
+          ServiceServer { name '/rexrov/thrusters/5/set_thrust_force_efficiency' service 'uuv_gazebo_ros_plugins_msgs.SetThrusterEfficiency'},
+          ServiceServer { name '/rexrov/thrusters/6/get_thrust_force_efficiency' service 'uuv_gazebo_ros_plugins_msgs.GetThrusterEfficiency'},
+          ServiceServer { name '/rexrov/get_model_properties' service 'uuv_gazebo_ros_plugins_msgs.GetModelProperties'},
+          ServiceServer { name '/rexrov/thrusters/3/set_dynamic_state_efficiency' service 'uuv_gazebo_ros_plugins_msgs.SetThrusterEfficiency'},
+          ServiceServer { name '/rexrov/thrusters/2/set_dynamic_state_efficiency' service 'uuv_gazebo_ros_plugins_msgs.SetThrusterEfficiency'},
+          ServiceServer { name '/rexrov/rexrov/camera/camera_image/theora/set_parameters' service 'dynamic_reconfigure.Reconfigure'},
+          ServiceServer { name '/gazebo/get_link_properties' service 'gazebo_msgs.GetLinkProperties'},
+          ServiceServer { name '/rexrov/get_volume_scaling' service 'uuv_gazebo_ros_plugins_msgs.GetFloat'},
+          ServiceServer { name '/hydrodynamics/get_current_velocity_model' service 'uuv_world_ros_plugins_msgs.GetCurrentModel'},
+          ServiceServer { name '/rexrov/thrusters/2/get_thruster_conversion_fcn' service 'uuv_gazebo_ros_plugins_msgs.GetThrusterConversionFcn'},
+          ServiceServer { name '/rexrov/get_fluid_density' service 'uuv_gazebo_ros_plugins_msgs.GetFloat'},
+          ServiceServer { name '/gazebo/set_link_state' service 'gazebo_msgs.SetLinkState'},
+          ServiceServer { name '/rexrov/set_added_mass_offset' service 'uuv_gazebo_ros_plugins_msgs.SetFloat'},
+          ServiceServer { name '/rexrov/set_linear_damping_offset' service 'uuv_gazebo_ros_plugins_msgs.SetFloat'},
+          ServiceServer { name '/rexrov/thrusters/0/set_dynamic_state_efficiency' service 'uuv_gazebo_ros_plugins_msgs.SetThrusterEfficiency'},
+          ServiceServer { name '/hydrodynamics/set_current_horz_angle_model' service 'uuv_world_ros_plugins_msgs.SetCurrentModel'},
+          ServiceServer { name '/rexrov/thrusters/3/get_thrust_force_efficiency' service 'uuv_gazebo_ros_plugins_msgs.GetThrusterEfficiency'},
+          ServiceServer { name '/rexrov/set_added_mass_scaling' service 'uuv_gazebo_ros_plugins_msgs.SetFloat'},
+          ServiceServer { name '/rexrov/thrusters/4/get_dynamic_state_efficiency' service 'uuv_gazebo_ros_plugins_msgs.GetThrusterEfficiency'},
+          ServiceServer { name '/rexrov/controller_manager/list_controllers' service 'controller_manager_msgs.ListControllers'},
+          ServiceServer { name '/rexrov/thrusters/1/get_thruster_state' service 'uuv_gazebo_ros_plugins_msgs.GetThrusterState'},
+          ServiceServer { name '/rexrov/thrusters/0/get_thruster_conversion_fcn' service 'uuv_gazebo_ros_plugins_msgs.GetThrusterConversionFcn'},
+          ServiceServer { name '/rexrov/thrusters/4/get_thruster_conversion_fcn' service 'uuv_gazebo_ros_plugins_msgs.GetThrusterConversionFcn'},
+          ServiceServer { name '/hydrodynamics/set_current_horz_angle' service 'uuv_world_ros_plugins_msgs.SetCurrentDirection'},
+          ServiceServer { name '/rexrov/thrusters/2/set_thrust_force_efficiency' service 'uuv_gazebo_ros_plugins_msgs.SetThrusterEfficiency'},
+          ServiceServer { name '/rexrov/thrusters/1/get_thruster_conversion_fcn' service 'uuv_gazebo_ros_plugins_msgs.GetThrusterConversionFcn'},
+          ServiceServer { name '/rexrov/thrusters/2/get_thruster_state' service 'uuv_gazebo_ros_plugins_msgs.GetThrusterState'},
+          ServiceServer { name '/gazebo/reset_world' service 'std_srvs.Empty'},
+          ServiceServer { name '/gazebo/get_model_state' service 'gazebo_msgs.GetModelState'},
+          ServiceServer { name '/rexrov/set_fluid_density' service 'uuv_gazebo_ros_plugins_msgs.SetFloat'},
+          ServiceServer { name '/rexrov/thrusters/0/get_thrust_force_efficiency' service 'uuv_gazebo_ros_plugins_msgs.GetThrusterEfficiency'},
+          ServiceServer { name '/gazebo/transform_to_spherical_coordinates' service 'uuv_world_ros_plugins_msgs.TransformToSphericalCoord'},
+          ServiceServer { name '/gazebo/set_origin_spherical_coordinates' service 'uuv_world_ros_plugins_msgs.SetOriginSphericalCoord'},
+          ServiceServer { name '/rexrov/rexrov/cameraright/camera_image/compressed/set_parameters' service 'dynamic_reconfigure.Reconfigure'},
+          ServiceServer { name '/rexrov/thrusters/6/set_thrust_force_efficiency' service 'uuv_gazebo_ros_plugins_msgs.SetThrusterEfficiency'},
+          ServiceServer { name '/gazebo/get_model_properties' service 'gazebo_msgs.GetModelProperties'},
+          ServiceServer { name '/rexrov/thrusters/4/set_dynamic_state_efficiency' service 'uuv_gazebo_ros_plugins_msgs.SetThrusterEfficiency'},
+          ServiceServer { name '/gazebo/clear_joint_forces' service 'gazebo_msgs.JointRequest'},
+          ServiceServer { name '/rexrov/thrusters/7/set_thruster_state' service 'uuv_gazebo_ros_plugins_msgs.SetThrusterState'},
+          ServiceServer { name '/gazebo/set_physics_properties' service 'gazebo_msgs.SetPhysicsProperties'},
+          ServiceServer { name '/gazebo/spawn_sdf_model' service 'gazebo_msgs.SpawnModel'},
+          ServiceServer { name '/rexrov/rexrov/camera/set_parameters' service 'dynamic_reconfigure.Reconfigure'},
+          ServiceServer { name '/rexrov/rexrov/cameraright/camera_image/theora/set_parameters' service 'dynamic_reconfigure.Reconfigure'},
+          ServiceServer { name '/rexrov/thrusters/1/set_thrust_force_efficiency' service 'uuv_gazebo_ros_plugins_msgs.SetThrusterEfficiency'},
+          ServiceServer { name '/rexrov/thrusters/0/get_thruster_state' service 'uuv_gazebo_ros_plugins_msgs.GetThrusterState'},
+          ServiceServer { name '/gazebo/unpause_physics' service 'std_srvs.Empty'},
+          ServiceServer { name '/gazebo/clear_body_wrenches' service 'gazebo_msgs.BodyRequest'},
+          ServiceServer { name '/rexrov/thrusters/1/set_dynamic_state_efficiency' service 'uuv_gazebo_ros_plugins_msgs.SetThrusterEfficiency'},
+          ServiceServer { name '/gazebo/pause_physics' service 'std_srvs.Empty'},
+          ServiceServer { name '/rexrov/gps/change_state' service 'uuv_sensor_ros_plugins_msgs.ChangeSensorState'},
+          ServiceServer { name '/rexrov/rexrov/cameraright/set_parameters' service 'dynamic_reconfigure.Reconfigure'},
+          ServiceServer { name '/gazebo/get_light_properties' service 'gazebo_msgs.GetLightProperties'},
+          ServiceServer { name '/hydrodynamics/set_current_vert_angle' service 'uuv_world_ros_plugins_msgs.SetCurrentDirection'},
+          ServiceServer { name '/hydrodynamics/set_current_velocity_model' service 'uuv_world_ros_plugins_msgs.SetCurrentModel'},
+          ServiceServer { name '/rexrov/thrusters/7/get_thrust_force_efficiency' service 'uuv_gazebo_ros_plugins_msgs.GetThrusterEfficiency'},
+          ServiceServer { name '/gazebo/transform_from_spherical_coordinates' service 'uuv_world_ros_plugins_msgs.TransformFromSphericalCoord'},
+          ServiceServer { name '/rexrov/rexrov/cameraleft/camera_image/theora/set_parameters' service 'dynamic_reconfigure.Reconfigure'},
+          ServiceServer { name '/rexrov/thrusters/4/get_thrust_force_efficiency' service 'uuv_gazebo_ros_plugins_msgs.GetThrusterEfficiency'},
+          ServiceServer { name '/rexrov/thrusters/1/set_thruster_state' service 'uuv_gazebo_ros_plugins_msgs.SetThrusterState'},
+          ServiceServer { name '/rexrov/controller_manager/load_controller' service 'controller_manager_msgs.LoadController'},
+          ServiceServer { name '/gazebo/apply_body_wrench' service 'gazebo_msgs.ApplyBodyWrench'},
+          ServiceServer { name '/rexrov/imu/change_state' service 'uuv_sensor_ros_plugins_msgs.ChangeSensorState'},
+          ServiceServer { name '/hydrodynamics/get_current_vert_angle_model' service 'uuv_world_ros_plugins_msgs.GetCurrentModel'},
+          ServiceServer { name '/rexrov/rexrov/camera/camera_image/compressed/set_parameters' service 'dynamic_reconfigure.Reconfigure'},
+          ServiceServer { name '/rexrov/thrusters/3/set_thrust_force_efficiency' service 'uuv_gazebo_ros_plugins_msgs.SetThrusterEfficiency'},
+          ServiceServer { name '/rexrov/thrusters/7/set_thrust_force_efficiency' service 'uuv_gazebo_ros_plugins_msgs.SetThrusterEfficiency'},
+          ServiceServer { name '/rexrov/thrusters/4/set_thrust_force_efficiency' service 'uuv_gazebo_ros_plugins_msgs.SetThrusterEfficiency'},
+          ServiceServer { name '/rexrov/get_damping_scaling' service 'uuv_gazebo_ros_plugins_msgs.GetFloat'},
+          ServiceServer { name '/rexrov/controller_manager/unload_controller' service 'controller_manager_msgs.UnloadController'},
+          ServiceServer { name '/gazebo/get_origin_spherical_coordinates' service 'uuv_world_ros_plugins_msgs.GetOriginSphericalCoord'},
+          ServiceServer { name '/gazebo/spawn_urdf_model' service 'gazebo_msgs.SpawnModel'},
+          ServiceServer { name '/rexrov/dvl/change_state' service 'uuv_sensor_ros_plugins_msgs.ChangeSensorState'},
+          ServiceServer { name '/rexrov/set_damping_scaling' service 'uuv_gazebo_ros_plugins_msgs.SetFloat'},
+          ServiceServer { name '/gazebo/set_link_properties' service 'gazebo_msgs.SetLinkProperties'},
+          ServiceServer { name '/rexrov/thrusters/3/get_dynamic_state_efficiency' service 'uuv_gazebo_ros_plugins_msgs.GetThrusterEfficiency'},
+          ServiceServer { name '/rexrov/thrusters/1/get_dynamic_state_efficiency' service 'uuv_gazebo_ros_plugins_msgs.GetThrusterEfficiency'},
+          ServiceServer { name '/gazebo/get_joint_properties' service 'gazebo_msgs.GetJointProperties'},
+          ServiceServer { name '/gazebo/set_parameters' service 'dynamic_reconfigure.Reconfigure'},
+          ServiceServer { name '/gazebo/get_link_state' service 'gazebo_msgs.GetLinkState'},
+          ServiceServer { name '/rexrov/thrusters/7/get_thruster_conversion_fcn' service 'uuv_gazebo_ros_plugins_msgs.GetThrusterConversionFcn'},
+          ServiceServer { name '/rexrov/thrusters/5/get_thruster_state' service 'uuv_gazebo_ros_plugins_msgs.GetThrusterState'},
+          ServiceServer { name '/hydrodynamics/set_current_velocity' service 'uuv_world_ros_plugins_msgs.SetCurrentVelocity'},
+          ServiceServer { name '/rexrov/rexrov/cameraright/set_camera_info' service 'sensor_msgs.SetCameraInfo'},
+          ServiceServer { name '/rexrov/set_volume_scaling' service 'uuv_gazebo_ros_plugins_msgs.SetFloat'},
+          ServiceServer { name '/rexrov/rexrov/cameraright/camera_image/compressedDepth/set_parameters' service 'dynamic_reconfigure.Reconfigure'},
+          ServiceServer { name '/rexrov/set_nonlinear_damping_offset' service 'uuv_gazebo_ros_plugins_msgs.SetFloat'},
+          ServiceServer { name '/gazebo/set_light_properties' service 'gazebo_msgs.SetLightProperties'},
+          ServiceServer { name '/rexrov/controller_manager/reload_controller_libraries' service 'controller_manager_msgs.ReloadControllerLibraries'},
+          ServiceServer { name '/rexrov/set_linear_forward_speed_damping_offset' service 'uuv_gazebo_ros_plugins_msgs.SetFloat'},
+          ServiceServer { name '/rexrov/thrusters/5/set_thruster_state' service 'uuv_gazebo_ros_plugins_msgs.SetThrusterState'},
+          ServiceServer { name '/rexrov/magnetometer/change_state' service 'uuv_sensor_ros_plugins_msgs.ChangeSensorState'},
+          ServiceServer { name '/rexrov/thrusters/2/get_dynamic_state_efficiency' service 'uuv_gazebo_ros_plugins_msgs.GetThrusterEfficiency'},
+          ServiceServer { name '/hydrodynamics/get_current_horz_angle_model' service 'uuv_world_ros_plugins_msgs.GetCurrentModel'},
+          ServiceServer { name '/rexrov/thrusters/5/get_thrust_force_efficiency' service 'uuv_gazebo_ros_plugins_msgs.GetThrusterEfficiency'},
+          ServiceServer { name '/rexrov/thrusters/2/set_thruster_state' service 'uuv_gazebo_ros_plugins_msgs.SetThrusterState'},
+          ServiceServer { name '/gazebo/apply_joint_effort' service 'gazebo_msgs.ApplyJointEffort'},
+          ServiceServer { name '/rexrov/rexrov/cameraleft/camera_image/compressed/set_parameters' service 'dynamic_reconfigure.Reconfigure'},
+          ServiceServer { name '/gazebo/set_joint_properties' service 'gazebo_msgs.SetJointProperties'},
+          ServiceServer { name '/gazebo/get_physics_properties' service 'gazebo_msgs.GetPhysicsProperties'},
+          ServiceServer { name '/rexrov/thrusters/0/set_thruster_state' service 'uuv_gazebo_ros_plugins_msgs.SetThrusterState'},
+          ServiceServer { name '/rexrov/thrusters/6/set_thruster_state' service 'uuv_gazebo_ros_plugins_msgs.SetThrusterState'},
+          ServiceServer { name '/rexrov/thrusters/7/set_dynamic_state_efficiency' service 'uuv_gazebo_ros_plugins_msgs.SetThrusterEfficiency'},
+          ServiceServer { name '/rexrov/rexrov/cameraleft/camera_image/compressedDepth/set_parameters' service 'dynamic_reconfigure.Reconfigure'},
+          ServiceServer { name '/rexrov/rexrov/cameraleft/set_parameters' service 'dynamic_reconfigure.Reconfigure'},
+          ServiceServer { name '/rexrov/controller_manager/switch_controller' service 'controller_manager_msgs.SwitchController'},
+          ServiceServer { name '/gazebo/get_world_properties' service 'gazebo_msgs.GetWorldProperties'},
+          ServiceServer { name '/rexrov/thrusters/4/get_thruster_state' service 'uuv_gazebo_ros_plugins_msgs.GetThrusterState'},
+          ServiceServer { name '/gazebo/delete_light' service 'gazebo_msgs.DeleteLight'},
+          ServiceServer { name '/rexrov/thrusters/2/get_thrust_force_efficiency' service 'uuv_gazebo_ros_plugins_msgs.GetThrusterEfficiency'},
+          ServiceServer { name '/gazebo/reset_simulation' service 'std_srvs.Empty'},
+          ServiceServer { name '/rexrov/set_use_global_current_velocity' service 'uuv_gazebo_ros_plugins_msgs.SetUseGlobalCurrentVel'},
+          ServiceServer { name '/rexrov/thrusters/4/set_thruster_state' service 'uuv_gazebo_ros_plugins_msgs.SetThrusterState'},
+          ServiceServer { name '/rexrov/rexrov/camera/set_camera_info' service 'sensor_msgs.SetCameraInfo'},
+          ServiceServer { name '/hydrodynamics/set_current_vert_angle_model' service 'uuv_world_ros_plugins_msgs.SetCurrentModel'},
+          ServiceServer { name '/rexrov/thrusters/7/get_dynamic_state_efficiency' service 'uuv_gazebo_ros_plugins_msgs.GetThrusterEfficiency'},
+          ServiceServer { name '/rexrov/thrusters/5/get_thruster_conversion_fcn' service 'uuv_gazebo_ros_plugins_msgs.GetThrusterConversionFcn'}}
+        publisher {
+          Publisher { name '/rexrov/thrusters/2/thrust_wrench' message 'geometry_msgs.WrenchStamped'},
+          Publisher { name '/rexrov/magnetometer/state' message 'std_msgs.Bool'},
+          Publisher { name '/rexrov/thrusters/3/thrust_efficiency' message 'std_msgs.Float64'},
+          Publisher { name '/gazebo/model_states' message 'gazebo_msgs.ModelStates'},
+          Publisher { name '/rexrov/rexrov/cameraright/camera_image' message 'sensor_msgs.Image'},
+          Publisher { name '/rexrov/rexrov/cameraright/camera_image/theora' message 'theora_image_transport.Packet'},
+          Publisher { name '/rexrov/thrusters/5/thrust_efficiency' message 'std_msgs.Float64'},
+          Publisher { name '/rexrov/thrusters/3/dynamic_state_efficiency' message 'std_msgs.Float64'},
+          Publisher { name '/rexrov/imu/state' message 'std_msgs.Bool'},
+          Publisher { name '/rexrov/thrusters/6/is_on' message 'std_msgs.Bool'},
+          Publisher { name '/rexrov/rexrov/cameraright/parameter_updates' message 'dynamic_reconfigure.Config'},
+          Publisher { name '/rexrov/dvl_sonar0' message 'sensor_msgs.Range'},
+          Publisher { name '/rexrov/dvl_sonar1' message 'sensor_msgs.Range'},
+          Publisher { name '/rexrov/dvl_sonar2' message 'sensor_msgs.Range'},
+          Publisher { name '/gazebo/link_states' message 'gazebo_msgs.LinkStates'},
+          Publisher { name '/rexrov/dvl_sonar3' message 'sensor_msgs.Range'},
+          Publisher { name '/rexrov/thrusters/7/thrust' message 'uuv_gazebo_ros_plugins_msgs.FloatStamped'},
+          Publisher { name '/rexrov/rexrov/camera/camera_info' message 'sensor_msgs.CameraInfo'},
+          Publisher { name '/rexrov/rexrov/cameraleft/camera_image/compressedDepth/parameter_descriptions' message 'dynamic_reconfigure.ConfigDescription'},
+          Publisher { name '/rexrov/rexrov/camera/camera_image/compressedDepth' message 'sensor_msgs.CompressedImage'},
+          Publisher { name '/rexrov/dvl_twist' message 'geometry_msgs.TwistWithCovarianceStamped'},
+          Publisher { name '/rexrov/thrusters/7/dynamic_state_efficiency' message 'std_msgs.Float64'},
+          Publisher { name '/rexrov/thrusters/4/dynamic_state_efficiency' message 'std_msgs.Float64'},
+          Publisher { name '/gazebo/parameter_descriptions' message 'dynamic_reconfigure.ConfigDescription'},
+          Publisher { name '/rexrov/rexrov/camera/camera_image/compressedDepth/parameter_updates' message 'dynamic_reconfigure.Config'},
+          Publisher { name '/rexrov/thrusters/6/thrust_wrench' message 'geometry_msgs.WrenchStamped'},
+          Publisher { name '/rexrov/thrusters/5/thrust_wrench' message 'geometry_msgs.WrenchStamped'},
+          Publisher { name '/rexrov/thrusters/0/is_on' message 'std_msgs.Bool'},
+          Publisher { name '/rexrov/thrusters/5/dynamic_state_efficiency' message 'std_msgs.Float64'},
+          Publisher { name '/rexrov/current_velocity_marker' message 'visualization_msgs.Marker'},
+          Publisher { name '/rexrov/thrusters/3/thrust' message 'uuv_gazebo_ros_plugins_msgs.FloatStamped'},
+          Publisher { name '/rexrov/rexrov/cameraleft/camera_image/compressed/parameter_descriptions' message 'dynamic_reconfigure.ConfigDescription'},
+          Publisher { name '/rexrov/rexrov/cameraright/camera_image/compressed/parameter_descriptions' message 'dynamic_reconfigure.ConfigDescription'},
+          Publisher { name '/rexrov/thrusters/5/is_on' message 'std_msgs.Bool'},
+          Publisher { name '/rexrov/rexrov/cameraleft/camera_image' message 'sensor_msgs.Image'},
+          Publisher { name '/rexrov/thrusters/1/thrust_efficiency' message 'std_msgs.Float64'},
+          Publisher { name '/rexrov/thrusters/5/thrust' message 'uuv_gazebo_ros_plugins_msgs.FloatStamped'},
+          Publisher { name '/rexrov/rexrov/cameraright/camera_image/compressed/parameter_updates' message 'dynamic_reconfigure.Config'},
+          Publisher { name '/rexrov/rexrov/cameraleft/parameter_updates' message 'dynamic_reconfigure.Config'},
+          Publisher { name '/rexrov/rexrov/camera/parameter_descriptions' message 'dynamic_reconfigure.ConfigDescription'},
+          Publisher { name '/rexrov/is_submerged' message 'std_msgs.Bool'},
+          Publisher { name '/rexrov/thrusters/3/is_on' message 'std_msgs.Bool'},
+          Publisher { name '/hydrodynamics/current_velocity' message 'geometry_msgs.TwistStamped'},
+          Publisher { name '/rexrov/rexrov/cameraright/parameter_descriptions' message 'dynamic_reconfigure.ConfigDescription'},
+          Publisher { name '/rexrov/rexrov/camera/camera_image' message 'sensor_msgs.Image'},
+          Publisher { name '/rexrov/rexrov/cameraleft/camera_image/theora/parameter_descriptions' message 'dynamic_reconfigure.ConfigDescription'},
+          Publisher { name '/rexrov/using_global_current_velocity' message 'std_msgs.Bool'},
+          Publisher { name '/rexrov/rexrov/cameraright/camera_image/compressedDepth' message 'sensor_msgs.CompressedImage'},
+          Publisher { name '/rexrov/thrusters/7/is_on' message 'std_msgs.Bool'},
+          Publisher { name '/rexrov/rexrov/camera/camera_image/compressed' message 'sensor_msgs.CompressedImage'},
+          Publisher { name '/rexrov/rexrov/cameraleft/camera_image/theora/parameter_updates' message 'dynamic_reconfigure.Config'},
+          Publisher { name '/rexrov/thrusters/0/thrust_wrench' message 'geometry_msgs.WrenchStamped'},
+          Publisher { name '/rexrov/rexrov/camera/camera_image/theora/parameter_updates' message 'dynamic_reconfigure.Config'},
+          Publisher { name '/rexrov/joint_states' message 'sensor_msgs.JointState'},
+          Publisher { name '/rexrov/thrusters/4/thrust_efficiency' message 'std_msgs.Float64'},
+          Publisher { name '/rexrov/thrusters/6/thrust' message 'uuv_gazebo_ros_plugins_msgs.FloatStamped'},
+          Publisher { name '/rexrov/gps' message 'sensor_msgs.NavSatFix'},
+          Publisher { name '/rexrov/rexrov/camera/parameter_updates' message 'dynamic_reconfigure.Config'},
+          Publisher { name '/rexrov/rexrov/cameraright/camera_image/compressedDepth/parameter_updates' message 'dynamic_reconfigure.Config'},
+          Publisher { name '/rexrov/pressure/state' message 'std_msgs.Bool'},
+          Publisher { name '/rexrov/rexrov/cameraright/camera_image/compressed' message 'sensor_msgs.CompressedImage'},
+          Publisher { name '/rexrov/rexrov/cameraleft/camera_image/theora' message 'theora_image_transport.Packet'},
+          Publisher { name '/rexrov/thrusters/2/thrust' message 'uuv_gazebo_ros_plugins_msgs.FloatStamped'},
+          Publisher { name '/rexrov/rexrov/cameraright/camera_image/theora/parameter_descriptions' message 'dynamic_reconfigure.ConfigDescription'},
+          Publisher { name '/rexrov/thrusters/1/thrust' message 'uuv_gazebo_ros_plugins_msgs.FloatStamped'},
+          Publisher { name '/rexrov/thrusters/2/dynamic_state_efficiency' message 'std_msgs.Float64'},
+          Publisher { name '/rexrov/pose_gt' message 'nav_msgs.Odometry'},
+          Publisher { name '/rexrov/rexrov/camera/camera_image/compressedDepth/parameter_descriptions' message 'dynamic_reconfigure.ConfigDescription'},
+          Publisher { name '/rexrov/thrusters/2/is_on' message 'std_msgs.Bool'},
+          Publisher { name '/gazebo/parameter_updates' message 'dynamic_reconfigure.Config'},
+          Publisher { name '/rexrov/pose_gt/state' message 'std_msgs.Bool'},
+          Publisher { name '/rexrov/thrusters/0/thrust' message 'uuv_gazebo_ros_plugins_msgs.FloatStamped'},
+          Publisher { name '/rexrov/thrusters/6/thrust_efficiency' message 'std_msgs.Float64'},
+          Publisher { name '/rexrov/rexrov/cameraleft/camera_image/compressed/parameter_updates' message 'dynamic_reconfigure.Config'},
+          Publisher { name '/rexrov/dvl' message 'uuv_sensor_ros_plugins_msgs.DVL'},
+          Publisher { name '/rexrov/rexrov/cameraright/camera_image/theora/parameter_updates' message 'dynamic_reconfigure.Config'},
+          Publisher { name '/rexrov/thrusters/2/thrust_efficiency' message 'std_msgs.Float64'},
+          Publisher { name '/rexrov/rpt/state' message 'std_msgs.Bool'},
+          Publisher { name '/rexrov/thrusters/3/thrust_wrench' message 'geometry_msgs.WrenchStamped'},
+          Publisher { name '/rexrov/rexrov/cameraleft/parameter_descriptions' message 'dynamic_reconfigure.ConfigDescription'},
+          Publisher { name '/rexrov/gps/state' message 'std_msgs.Bool'},
+          Publisher { name '/rexrov/thrusters/0/dynamic_state_efficiency' message 'std_msgs.Float64'},
+          Publisher { name '/rexrov/pressure' message 'sensor_msgs.FluidPressure'},
+          Publisher { name '/rexrov/rpt' message 'uuv_sensor_ros_plugins_msgs.PositionWithCovarianceStamped'},
+          Publisher { name '/rexrov/rexrov/camera/camera_image/compressed/parameter_descriptions' message 'dynamic_reconfigure.ConfigDescription'},
+          Publisher { name '/rexrov/rexrov/camera/camera_image/compressed/parameter_updates' message 'dynamic_reconfigure.Config'},
+          Publisher { name '/rexrov/rexrov/cameraleft/camera_info' message 'sensor_msgs.CameraInfo'},
+          Publisher { name '/rexrov/thrusters/4/is_on' message 'std_msgs.Bool'},
+          Publisher { name '/rexrov/thrusters/1/is_on' message 'std_msgs.Bool'},
+          Publisher { name '/rexrov/rexrov/cameraright/camera_image/compressedDepth/parameter_descriptions' message 'dynamic_reconfigure.ConfigDescription'},
+          Publisher { name '/rexrov/rexrov/cameraleft/camera_image/compressedDepth/parameter_updates' message 'dynamic_reconfigure.Config'},
+          Publisher { name '/rexrov/thrusters/4/thrust_wrench' message 'geometry_msgs.WrenchStamped'},
+          Publisher { name '/rexrov/rexrov/cameraleft/camera_image/compressed' message 'sensor_msgs.CompressedImage'},
+          Publisher { name '/rexrov/rexrov/camera/camera_image/theora' message 'theora_image_transport.Packet'},
+          Publisher { name '/rexrov/rexrov/cameraleft/camera_image/compressedDepth' message 'sensor_msgs.CompressedImage'},
+          Publisher { name '/rexrov/thrusters/0/thrust_efficiency' message 'std_msgs.Float64'},
+          Publisher { name '/rexrov/thrusters/4/thrust' message 'uuv_gazebo_ros_plugins_msgs.FloatStamped'},
+          Publisher { name '/rexrov/rexrov/camera/camera_image/theora/parameter_descriptions' message 'dynamic_reconfigure.ConfigDescription'},
+          Publisher { name '/rexrov/thrusters/6/dynamic_state_efficiency' message 'std_msgs.Float64'},
+          Publisher { name '/rexrov/imu' message 'sensor_msgs.Imu'},
+          Publisher { name '/rexrov/dvl/state' message 'std_msgs.Bool'},
+          Publisher { name '/rexrov/rexrov/cameraright/camera_info' message 'sensor_msgs.CameraInfo'},
+          Publisher { name '/rexrov/thrusters/7/thrust_wrench' message 'geometry_msgs.WrenchStamped'},
+          Publisher { name '/rexrov/thrusters/1/thrust_wrench' message 'geometry_msgs.WrenchStamped'},
+          Publisher { name '/rexrov/magnetometer' message 'sensor_msgs.MagneticField'},
+          Publisher { name '/rexrov/thrusters/7/thrust_efficiency' message 'std_msgs.Float64'},
+          Publisher { name '/rexrov/thrusters/1/dynamic_state_efficiency' message 'std_msgs.Float64'}}
+        subscriber {
+          Subscriber { name '/rexrov/thrusters/6/input' message 'uuv_gazebo_ros_plugins_msgs.FloatStamped'},
+          Subscriber { name '/rexrov/dvl_sonar2' message 'sensor_msgs.Range'},
+          Subscriber { name '/rexrov/oberon7/wrist/controller/command' message 'std_msgs.Float64'},
+          Subscriber { name '/rexrov/thrusters/0/input' message 'uuv_gazebo_ros_plugins_msgs.FloatStamped'},
+          Subscriber { name '/gazebo/set_model_state' message 'gazebo_msgs.ModelState'},
+          Subscriber { name '/rexrov/oberon4/jaw_2_joint/controller/command' message 'std_msgs.Float64'},
+          Subscriber { name '/rexrov/oberon4/azimuth/controller/command' message 'std_msgs.Float64'},
+          Subscriber { name '/rexrov/oberon7/finger_left_joint/controller/command' message 'std_msgs.Float64'},
+          Subscriber { name '/rexrov/oberon7/elbow/controller/command' message 'std_msgs.Float64'},
+          Subscriber { name '/rexrov/thrusters/5/input' message 'uuv_gazebo_ros_plugins_msgs.FloatStamped'},
+          Subscriber { name '/rexrov/oberon7/shoulder/controller/command' message 'std_msgs.Float64'},
+          Subscriber { name '/rexrov/oberon7/azimuth/controller/command' message 'std_msgs.Float64'},
+          Subscriber { name '/gazebo/set_link_state' message 'gazebo_msgs.LinkState'},
+          Subscriber { name '/rexrov/dvl_sonar0' message 'sensor_msgs.Range'},
+          Subscriber { name '/rexrov/thrusters/1/input' message 'uuv_gazebo_ros_plugins_msgs.FloatStamped'},
+          Subscriber { name '/rexrov/dvl_sonar1' message 'sensor_msgs.Range'},
+          Subscriber { name '/rexrov/dvl_sonar3' message 'sensor_msgs.Range'},
+          Subscriber { name '/rexrov/oberon4/wrist_joint/controller/command' message 'std_msgs.Float64'},
+          Subscriber { name '/rexrov/oberon7/roll/controller/command' message 'std_msgs.Float64'},
+          Subscriber { name '/rexrov/oberon7/pitch/controller/command' message 'std_msgs.Float64'},
+          Subscriber { name '/rexrov/thrusters/4/input' message 'uuv_gazebo_ros_plugins_msgs.FloatStamped'},
+          Subscriber { name '/rexrov/thrusters/7/input' message 'uuv_gazebo_ros_plugins_msgs.FloatStamped'},
+          Subscriber { name '/rexrov/oberon4/shoulder/controller/command' message 'std_msgs.Float64'},
+          Subscriber { name '/rexrov/thrusters/3/input' message 'uuv_gazebo_ros_plugins_msgs.FloatStamped'},
+          Subscriber { name '/rexrov/current_velocity' message 'geometry_msgs.Vector3'},
+          Subscriber { name '/rexrov/oberon7/finger_right_joint/controller/command' message 'std_msgs.Float64'},
+          Subscriber { name '/rexrov/oberon4/jaw_1_joint/controller/command' message 'std_msgs.Float64'},
+          Subscriber { name '/rexrov/thrusters/2/input' message 'uuv_gazebo_ros_plugins_msgs.FloatStamped'}}}},
+    Artifact /rexrov/controller_spawner_oberon4 {
+      node Node { name /rexrov/controller_spawner_oberon4
+}},
+    Artifact /rexrov/joy_uuv_velocity_teleop {
+      node Node { name /rexrov/joy_uuv_velocity_teleop
+
+        publisher {
+          Publisher { name '/rexrov/cmd_vel' message 'geometry_msgs.Twist'},
+          Publisher { name '/rexrov/home_pressed' message 'std_msgs.Bool'}}
+        subscriber {
+          Subscriber { name '/rexrov/joy' message 'sensor_msgs.Joy'}}}},
+    Artifact /rexrov/sname_frame_publisher {
+      node Node { name /rexrov/sname_frame_publisher
+}},
+    Artifact /rexrov/joystick {
+      node Node { name /rexrov/joystick
+
+        publisher {
+          Publisher { name '/rexrov/joy' message 'sensor_msgs.Joy'},
+          Publisher { name '/diagnostics' message 'diagnostic_msgs.DiagnosticArray'}}
+        subscriber {
+          Subscriber { name '/rexrov/joy/set_feedback' message 'sensor_msgs.JoyFeedbackArray'}}}},
+    Artifact /rexrov/oberon7/gripper_controller_oberon7 {
+      node Node { name /rexrov/oberon7/gripper_controller_oberon7
+
+        publisher {
+          Publisher { name '/rexrov/oberon7/finger_tip_left_joint/controller/command' message 'std_msgs.Float64'},
+          Publisher { name '/rexrov/oberon7/finger_right_joint/controller/command' message 'std_msgs.Float64'},
+          Publisher { name '/rexrov/oberon7/finger_left_joint/controller/command' message 'std_msgs.Float64'},
+          Publisher { name '/rexrov/oberon7/ee_state' message 'uuv_manipulators_msgs.EndeffectorState'},
+          Publisher { name '/rexrov/oberon7/finger_tip_right_joint/controller/command' message 'std_msgs.Float64'}}
+        subscriber {
+          Subscriber { name '/rexrov/joy' message 'sensor_msgs.Joy'},
+          Subscriber { name '/rexrov/joint_states' message 'sensor_msgs.JointState'}}}},
+    Artifact /rexrov/robot_state_publisher {
+      node Node { name /rexrov/robot_state_publisher
+
+        subscriber {
+          Subscriber { name '/rexrov/joint_states' message 'sensor_msgs.JointState'}}}},
+    Artifact /rexrov/oberon4/gripper_controller_oberon4 {
+      node Node { name /rexrov/oberon4/gripper_controller_oberon4
+
+        publisher {
+          Publisher { name '/rexrov/oberon4/jaw_1_joint/controller/command' message 'std_msgs.Float64'},
+          Publisher { name '/rexrov/oberon4/jaw_2_joint/controller/command' message 'std_msgs.Float64'},
+          Publisher { name '/rexrov/oberon4/ee_state' message 'uuv_manipulators_msgs.EndeffectorState'}}
+        subscriber {
+          Subscriber { name '/rexrov/joy' message 'sensor_msgs.Joy'},
+          Subscriber { name '/rexrov/joint_states' message 'sensor_msgs.JointState'}}}},
+    Artifact /publish_world_models {
+      node Node { name /publish_world_models
+
+        publisher {
+          Publisher { name '/world_models' message 'visualization_msgs.MarkerArray'}}}}
+}}}}
