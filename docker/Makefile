@@ -47,7 +47,11 @@ toolchain:
 			
 shell:
 	docker exec -it $(TAG) /bin/bash
-	
+
+filebrowser:
+	docker exec -it $(TAG) nautilus --browser /home/$(USR)/SOFTWARE
+	#docker exec -it $(TAG) /bin/bash -c "nautilus --browser /home/$(USR)/SOFTWARE"
+
 clean:
 	docker container prune
 	

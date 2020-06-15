@@ -32,9 +32,7 @@ class ComponentRosJoystickRosPortExtension : public ComponentRosJoystickExtensio
 {
 private:
 	ros::NodeHandle *nh;
-	
 	ComponentRosJoystickRosPortCallbacks *callbacksPtr;
-	
 	virtual int extensionExecution() override;
 public:
 	ComponentRosJoystickRosPortExtension();

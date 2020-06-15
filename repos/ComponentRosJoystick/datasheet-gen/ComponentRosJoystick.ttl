@@ -25,7 +25,7 @@
 @prefix sh: <http://www.w3.org/ns/shacl#> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 
-# TODO past ?Durchstich?: exactly identify which elements belong to SeRoNet and which belong to RobMoSys
+# TODO past “Durchstich”: exactly identify which elements belong to SeRoNet and which belong to RobMoSys
 @prefix robmosys: <http://robmosys.eu/rdf/composition-structures#> .
 
 # these namespaces can be different in generated files

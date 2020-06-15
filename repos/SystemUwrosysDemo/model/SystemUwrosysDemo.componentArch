@@ -1,0 +1,8 @@
+SystemComponentArchitecture SystemUwrosysDemo
+{
+ComponentInstance ComponentUUVSimulator instantiates ComponentUUVSimulator
+	{
+		ProvidedService BaseStateServiceOut
+		ProvidedService NavigationVelocityServiceIn
+	}
+}

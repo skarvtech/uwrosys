@@ -199,9 +199,29 @@ EXPOSE 22
 # Fix Gazebo drawing bug
 RUN echo "export QT_X11_NO_MITSHM=1" >> ~/.bashrc
 
+# Set default keyboard
+RUN sudo /bin/bash -c 'echo "# KEYBOARD CONFIGURATION FILE\n\n" >> /etc/default/keyboard'
+RUN sudo /bin/bash -c 'echo "# Consult the keyboard(5) manual page.\n\n" >> /etc/default/keyboard'
+RUN sudo /bin/bash -c 'echo "XKBMODEL="pc105"" >> /etc/default/keyboard'
+RUN sudo /bin/bash -c 'echo "XKBLAYOUT="no"" >> /etc/default/keyboard'
+RUN sudo /bin/bash -c 'echo "XKBVARIANT=""" >> /etc/default/keyboard'
+RUN sudo /bin/bash -c 'echo "XKBOPTIONS=""" >> /etc/default/keyboard'
+RUN sudo /bin/bash -c 'echo "BACKSPACE="guess"" >> /etc/default/keyboard'
+
 # Install convenient tools
 RUN sudo apt-get update
-RUN sudo apt-get install -y gedit 
+RUN sudo apt-get install -y gedit xterm xserver-xorg
+
+USER root
+RUN printf 'Section "ServerFlags"\n  Option "AllowIndirectGLX" "on"\n  Option "IndirectGLX" "on"\nEndSection\n' >> /etc/X11/xorg.conf
+USER $USR
+
+#RUN sudo /bin/bash -c "echo 'Section "ServerFlags"' >> /etc/X11/xorg.conf"
+#RUN sudo /bin/bash -c 'echo '    Option "IndirectGLX" "on"' >> /etc/X11/xorg.conf'
+#RUN sudo /bin/bash -c 'echo 'EndSection' >> /etc/X11/xorg.conf'
+
+# Color support in terminal
+ENV TERM=xterm-256color
 
 # Cleanup
 RUN rm $SWDIR/SmartMDSD-Toolchain-v$TOOLCHAIN_VERSION.tar.gz

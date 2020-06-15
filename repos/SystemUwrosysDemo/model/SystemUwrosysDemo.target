@@ -1,0 +1,7 @@
+TargetPlatformModel SystemUwrosysDemo
+{
+TargetPlatformDefinition PC1
+	{
+		NetworkInterface eth1 { HostAddress "localhost" }
+		LoginAccount norgren { FullName "Underwater Robotic Simulator for RobMoSys" Email "contact@skarvtech.com" }
+	} }

@@ -17,6 +17,10 @@
 
 CMAKE_MINIMUM_REQUIRED(VERSION 3.0)
 
+if (POLICY CMP0074)
+  cmake_policy(SET CMP0074 NEW)
+endif()
+
 # find the SmartSoft CMake Macros (version 2 that uses CMake v3)
 FIND_FILE(SMART_MACROS SmartMacros2.cmake PATHS $ENV{SMART_ROOT_ACE}/CMakeMacros /opt/smartSoftAce/CMakeMacros/)
 INCLUDE(${SMART_MACROS})

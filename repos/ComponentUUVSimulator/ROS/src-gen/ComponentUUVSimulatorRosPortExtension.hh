@@ -32,9 +32,7 @@ class ComponentUUVSimulatorRosPortExtension : public ComponentUUVSimulatorExtens
 {
 private:
 	ros::NodeHandle *nh;
-	
 	ComponentUUVSimulatorRosPortCallbacks *callbacksPtr;
-	
 	virtual int extensionExecution() override;
 public:
 	ComponentUUVSimulatorRosPortExtension();

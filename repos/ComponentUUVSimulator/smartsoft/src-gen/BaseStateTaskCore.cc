@@ -36,9 +36,6 @@ BaseStateTaskCore::~BaseStateTaskCore()
 {
 }
 
-void BaseStateTaskCore::_pose_cb (const nav_msgs::Odometry::ConstPtr &msg) {
-	// implement this method
-}
 
 void BaseStateTaskCore::notify_all_interaction_observers() {
 	std::unique_lock<std::mutex> lock(interaction_observers_mutex);

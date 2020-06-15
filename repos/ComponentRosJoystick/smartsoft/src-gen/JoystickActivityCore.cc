@@ -36,9 +36,6 @@ JoystickActivityCore::~JoystickActivityCore()
 {
 }
 
-void JoystickActivityCore::_joy_cb (const sensor_msgs::Joy::ConstPtr &msg) {
-	// implement this method
-}
 
 void JoystickActivityCore::notify_all_interaction_observers() {
 	std::unique_lock<std::mutex> lock(interaction_observers_mutex);

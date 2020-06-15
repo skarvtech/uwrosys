@@ -1,0 +1,8 @@
+CMAKE_MINIMUM_REQUIRED(VERSION 3.0)
+
+FIND_FILE(SMART_MACROS SmartMacros2.cmake PATHS $ENV{SMART_ROOT_ACE}/CMakeMacros /opt/smartSoftAce/CMakeMacros)
+INCLUDE(${SMART_MACROS})
+
+SMART_ADD_PACKAGE(ComponentRosJoystick)
+SMART_ADD_PACKAGE(ComponentUUVSimulator)
+

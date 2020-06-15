@@ -22,12 +22,16 @@
 
 #include <ros/ros.h>
 
+
+
 class ComponentRosJoystickRosPortBaseClass {
 public:
 	ComponentRosJoystickRosPortBaseClass() { };
 	virtual ~ComponentRosJoystickRosPortBaseClass() { }
 	
 	ros::Subscriber _joy;
+	
+
 };
 
 #endif // ROS_PORT_BASE_CLASS_H_
