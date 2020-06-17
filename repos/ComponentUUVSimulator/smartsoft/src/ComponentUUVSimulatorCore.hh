@@ -21,9 +21,9 @@
 #include <iostream>
 
 #include <CommBasicObjects/CommBaseState.hh>
-#include <CommBasicObjects/CommBasePose.hh>
 
 #include "BaseState.hh"
+#include "NavigationVelocity.hh"
 
 class ComponentUUVSimulatorCore
 {
@@ -33,6 +33,7 @@ public:
 	ComponentUUVSimulatorCore();
 
 	BaseState* state;
+	NavigationVelocity *navvel;
 };
 	
 #endif

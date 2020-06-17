@@ -19,6 +19,7 @@
 // constructor
 ComponentUUVSimulatorCore::ComponentUUVSimulatorCore()
 : state (NULL)
+, navvel (NULL)
 {
 	std::cout << "constructor ComponentUUVSimulatorCore\n";
 }

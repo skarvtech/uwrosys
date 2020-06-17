@@ -15,6 +15,7 @@
 // delete it before running the code generator.
 //--------------------------------------------------------------------------
 #include "NavigationVelocityServiceInHandler.hh"
+#include "ComponentUUVSimulator.hh"
 
 #include <iostream>
 
@@ -30,6 +31,8 @@ NavigationVelocityServiceInHandler::~NavigationVelocityServiceInHandler()
 
 void NavigationVelocityServiceInHandler::on_NavigationVelocityServiceIn(const CommBasicObjects::CommNavigationVelocity &input)
 {
-	// implement business logic here
-	// (do not use blocking calls here, otherwise this might block the InputPort NavigationVelocityServiceIn)
+	if (COMP->navvel != NULL)
+	{
+		COMP->navvel->OnMsg(input);
+	}
 }

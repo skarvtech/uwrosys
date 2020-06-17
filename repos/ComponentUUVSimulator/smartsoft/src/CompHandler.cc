@@ -32,6 +32,9 @@ void CompHandler::onStartup()
 	COMP->state = new BaseState();
 	COMP->state->init();
 
+	COMP->navvel = new NavigationVelocity();
+	COMP->navvel->init();
+
 	// Start all services. If you need manual control, use the content of this function to
 	// connect and start each service individually, e.g:
 	// COMP->connectMyPortName("SmartExampleComponent", "examplePort");
@@ -56,4 +59,7 @@ void CompHandler::onShutdown()
 	
 	delete COMP->state;
 	COMP->state = NULL;
+
+	delete COMP->navvel;
+	COMP->navvel = NULL;
 }

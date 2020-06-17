@@ -17,6 +17,8 @@
 #include "BaseStateTask.hh"
 #include "ComponentUUVSimulator.hh"
 
+#include <geometry_msgs/Twist.h>
+
 #include <iostream>
 
 BaseStateTask::BaseStateTask(SmartACE::SmartComponent *comp) 
@@ -62,6 +64,25 @@ int BaseStateTask::on_execute()
 
 	std::cout << "Position: " << commCurrentBaseState.get_base_position() << std::endl;
 	std::cout << "Velocity: " << commCurrentBaseState.get_base_velocity() << std::endl;
+
+	CommBasicObjects::CommNavigationVelocity navvel;
+
+	// get velocity command and publish
+	if (COMP->navvel != NULL)
+	{
+		navvel = COMP->navvel->getNavigationVelocity();
+		geometry_msgs::Twist cmd;
+		cmd.linear.x = navvel.get_vX()/1000.0;
+		cmd.linear.y = navvel.get_vY()/1000.0;
+		cmd.linear.z = 0;		// todo: get manual depth command from joystick
+		cmd.angular.x = 0;
+		cmd.angular.y = 0;
+		cmd.angular.z = navvel.get_omega();
+
+		COMP->rosPorts->_cmd_vel_publish_ros_msg(cmd);
+	}
+
+	std::cout << "Commanded Velocity: " << navvel << std::endl;
 
 	// it is possible to return != 0 (e.g. when the task detects errors), then the outer loop breaks and the task stops
 	return 0;
