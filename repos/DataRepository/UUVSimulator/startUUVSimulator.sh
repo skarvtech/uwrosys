@@ -56,12 +56,12 @@ else
 fi
 
 echo -e "Starting UUVSimulator...\n"
-xterm -title "Gazebo Terminal" -e "pwd; roslaunch uuv_gazebo_worlds $WORLD || bash; sleep 5" &
+xterm -title "Gazebo Terminal" -e "pwd; roslaunch uuv_gazebo_worlds $WORLD; exit || bash; sleep 30; exit" &
 
 echo -e "Waiting for simulator to start... \n"
 sleep 10
 
 echo -e "Spawning RexROV...\n"
-xterm -title "RexROV Terminal" -e "pwd; roslaunch uuv_gazebo $ROBOT || bash; sleep 5" &
+xterm -title "RexROV Terminal" -e "pwd; roslaunch uuv_gazebo $ROBOT; exit || bash; sleep 30; exit" &
 
 cd $FROM

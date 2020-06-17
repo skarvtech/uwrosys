@@ -28,6 +28,8 @@ post-stop)
 	# Insert commands you want to call after all components were stopped
   killall gzserver
 	killall gzclient
+  killall rviz
+  killall roslaunch
 ;;
 
 *)

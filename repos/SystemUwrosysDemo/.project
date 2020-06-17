@@ -3,7 +3,9 @@
 	<name>SystemUwrosysDemo</name>
 	<comment></comment>
 	<projects>
+		<project>ComponentRosJoystick</project>
 		<project>ComponentUUVSimulator</project>
+		<project>SmartJoystickNavigation</project>
 	</projects>
 	<buildSpec>
 		<buildCommand>
