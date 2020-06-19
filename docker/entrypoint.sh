@@ -24,8 +24,8 @@
 source ~/.bashrc
 source ~/.profile
 
-sudo /etc/init.d/dbus start
-dbus-daemon --session --fork
+#sudo /etc/init.d/dbus start
+#dbus-daemon --session --fork
 
 # Connect local repositories
 mkdir -p $REPOS/CustomRepositories
@@ -35,7 +35,7 @@ ln -s /home/$(id -un)/SOFTWARE/$(id -un)/* $REPOS/CustomRepositories
 cd $CATKIN_WS_DIR/src/uuv_simulator
 git pull
 cd $CATKIN_WS_DIR
-. /opt/ros/kinetic/setup.bash
+. /opt/ros/melodic/setup.bash
 catkin_make && catkin_make install
 cd $SWDIR
 

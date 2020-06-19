@@ -19,8 +19,8 @@
 # Author: Petter Norgren
 #
 
-#Download base image ubuntu 16.04
-FROM ubuntu:xenial
+#Download base image ubuntu 18.04 with Nvidia OpenGL support
+FROM nvidia/opengl:1.0-glvnd-runtime-ubuntu18.04
 
 # Update Ubuntu Software repository
 USER root
@@ -30,7 +30,9 @@ RUN apt-get upgrade -y
 RUN apt-get full-upgrade -y
 
 # Install necessary packages
-RUN apt-get install -y build-essential python-pip git lsb-release wget cmake apt-utils nano sudo
+ENV TZ=Europe/Oslo
+RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
+RUN apt-get install -y apt-utils tzdata build-essential python-pip git lsb-release wget cmake nano sudo
 
 ENV USR=uwrosys
 ENV HOME=/home/$USR
@@ -46,10 +48,9 @@ WORKDIR $HOME
 USER $USR
 RUN sudo apt-get update -y
 RUN sudo apt-get install -y openjdk-8-jre libtbb-dev gparted gnome-session-flashback \ 
-			gconf-editor cmake-curses-gui inkscape gimp mplayer qiv \ 
+			gconf-editor cmake-curses-gui inkscape gimp mplayer qiv pkg-config freeglut3-dev \ 
 			nautilus-compare ssh-askpass flex bison htop tree subversion sbcl \
 			doxygen meld expect wmctrl libopencv-dev libboost-all-dev libftdi-dev \
-			libcv-dev libcvaux-dev libhighgui-dev pkg-config freeglut3-dev \
 			zlib1g-dev zlibc libusb-1.0-0-dev libdc1394-22-dev libavformat-dev \
 			libswscale-dev lib3ds-dev libjpeg-dev libgtest-dev libeigen3-dev \ 
 			libglew-dev vim vim-gnome libxml2-dev libxml++2.6-dev libmrpt-dev ssh \
@@ -58,12 +59,12 @@ RUN sudo apt-get install -y openjdk-8-jre libtbb-dev gparted gnome-session-flash
 
 # Export environmental variables
 ENV SWDIR=$HOME/SOFTWARE
-ENV ACE_ROOT=/opt/ACE_wrappers
+#ENV ACE_ROOT=/opt/ACE_wrappers
 ENV SMART_ROOT_ACE=$SWDIR/smartsoft
 ENV SMART_PACKAGE_PATH=$SMART_ROOT_ACE/repos
 ENV LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$SMART_ROOT_ACE/lib
 RUN /bin/bash -c "touch ~/.profile"
-RUN echo "export ACE_ROOT=$ACE_ROOT" >> ~/.profile
+#RUN echo "export ACE_ROOT=$ACE_ROOT" >> ~/.profile
 RUN echo "export SMART_ROOT_ACE=$SMART_ROOT_ACE" >> ~/.profile
 RUN echo "export SMART_PACKAGE_PATH=$SMART_PACKAGE_PATH" >> ~/.profile
 RUN echo "export LD_LIBRARY_PATH=$LD_LIBRARY_PATH" >> ~/.profile
@@ -92,10 +93,12 @@ RUN git clone https://github.com/Servicerobotics-Ulm/SystemRepository.git
 RUN git clone https://github.com/Servicerobotics-Ulm/BehaviorRepository.git
 
 # Install ACE
-RUN wget -nv https://github.com/Servicerobotics-Ulm/AceSmartSoftFramework/raw/master/INSTALL-ACE-6.0.2.sh -O /tmp/INSTALL-ACE-6.0.2.sh
-RUN chmod +x /tmp/INSTALL-ACE-6.0.2.sh
-RUN sudo /tmp/INSTALL-ACE-6.0.2.sh /opt
-RUN sudo bash -c 'echo "/opt/ACE_wrappers/lib" > /etc/ld.so.conf.d/ace.conf'
+#RUN wget -nv https://github.com/Servicerobotics-Ulm/AceSmartSoftFramework/raw/master/INSTALL-ACE-6.0.2.sh -O /tmp/INSTALL-ACE-6.0.2.sh
+#RUN chmod +x /tmp/INSTALL-ACE-6.0.2.sh
+#RUN sudo /tmp/INSTALL-ACE-6.0.2.sh /opt
+#RUN sudo bash -c 'echo "/opt/ACE_wrappers/lib" > /etc/ld.so.conf.d/ace.conf'
+RUN sudo apt-get install -y ace libace-dev
+RUN sudo /bin/bash -c 'echo "$SMART_ROOT_ACE/lib" >> /etc/ld.so.conf.d/smartsoft.conf'
 RUN sudo ldconfig
 
 # Build SmartSoftComponentDeveloperAPIcpp
@@ -148,19 +151,22 @@ WORKDIR $REPOS/BehaviorRepository
 RUN git reset --hard da93f71a80b97d0b61db34036ddac8b61ae9b967
 
 # Install SmartMDSD Toolchain
+RUN sudo apt-get install -y curl
 ENV TOOLCHAIN_NAME="SmartMDSD-Toolchain"
 ENV TOOLCHAIN_VERSION="3.13"
 ENV TOOLCHAIN_DIR=$SWDIR/$TOOLCHAIN_NAME-v$TOOLCHAIN_VERSION
 ENV TOOLCHAIN_URL="https://github.com/Servicerobotics-Ulm/SmartMDSD-Toolchain/releases/download/v$TOOLCHAIN_VERSION/SmartMDSD-Toolchain-v$TOOLCHAIN_VERSION.tar.gz"
 ENV TOOLCHAIN_LAUNCHER="$TOOLCHAIN_NAME.desktop"
 RUN mkdir -p $TOOLCHAIN_DIR && chown -R $USR:$USR $TOOLCHAIN_DIR
-RUN wget -nv $TOOLCHAIN_URL -P $SWDIR
-RUN tar -xzf $SWDIR/$TOOLCHAIN_NAME-v$TOOLCHAIN_VERSION.tar.gz -C $SWDIR
+#RUN wget -nv $TOOLCHAIN_URL -P $SWDIR
+ENV TOOLCHAIN_FILENAME=$SWDIR/$TOOLCHAIN_NAME-v$TOOLCHAIN_VERSION.tar.gz
+RUN curl "${TOOLCHAIN_URL}" -L -o "${TOOLCHAIN_FILENAME}"
+RUN tar -xzf $TOOLCHAIN_FILENAME -C $SWDIR
 RUN echo "export TOOLCHAIN_DIR=$TOOLCHAIN_DIR" >> ~/.profile
 
 # Install ROS
-ENV ROS_DISTRO=kinetic
-ENV GAZEBO_VERSION=7
+ENV ROS_DISTRO=melodic
+ENV GAZEBO_VERSION=9
 RUN sudo sh -c 'echo "deb http://packages.ros.org/ros/ubuntu $(lsb_release -sc) main" > /etc/apt/sources.list.d/ros-latest.list'
 RUN sudo apt-key adv --keyserver 'hkp://keyserver.ubuntu.com:80' --recv-key C1CF6E31E6BADE8868B172B4F42ED6FBAB17C654
 RUN sudo apt-get update
@@ -168,7 +174,7 @@ RUN sudo apt-get install -y ros-$ROS_DISTRO-desktop-full
 RUN echo "source /opt/ros/$ROS_DISTRO/setup.bash" >> ~/.bashrc
 RUN /bin/bash -c "source ~/.bashrc"
 RUN sudo apt-get install -y python-rosdep python-rosinstall python-rosinstall-generator \
-		python-wstool python-catkin-tools jstest-gtk ros-kinetic-kdl-parser-py
+		python-wstool python-catkin-tools jstest-gtk ros-$ROS_DISTRO-kdl-parser-py
 RUN sudo rosdep init
 RUN rosdep update
 
@@ -186,7 +192,7 @@ RUN echo "source /usr/share/gazebo-$GAZEBO_VERSION/setup.sh" >> ~/.bashrc
 RUN echo "source $CATKIN_WS_DIR/devel/setup.bash" >> ~/.bashrc
 RUN /bin/bash -c "source ~/.bashrc"
 WORKDIR $CATKIN_WS_DIR
-RUN rosdep install --from-paths src --ignore-src --rosdistro=kinetic -y
+RUN rosdep install --from-paths src --ignore-src --rosdistro=$ROS_DISTRO -y
 RUN /bin/bash -c ". /opt/ros/$ROS_DISTRO/setup.bash; cd $CATKIN_WS_DIR; catkin_make"
 RUN /bin/bash -c ". /opt/ros/$ROS_DISTRO/setup.bash; cd $CATKIN_WS_DIR; catkin_make install"
 
@@ -200,21 +206,21 @@ EXPOSE 22
 RUN echo "export QT_X11_NO_MITSHM=1" >> ~/.bashrc
 
 # Set default keyboard
-RUN sudo /bin/bash -c 'echo "# KEYBOARD CONFIGURATION FILE\n\n" >> /etc/default/keyboard'
-RUN sudo /bin/bash -c 'echo "# Consult the keyboard(5) manual page.\n\n" >> /etc/default/keyboard'
-RUN sudo /bin/bash -c 'echo "XKBMODEL="pc105"" >> /etc/default/keyboard'
-RUN sudo /bin/bash -c 'echo "XKBLAYOUT="no"" >> /etc/default/keyboard'
-RUN sudo /bin/bash -c 'echo "XKBVARIANT=""" >> /etc/default/keyboard'
-RUN sudo /bin/bash -c 'echo "XKBOPTIONS=""" >> /etc/default/keyboard'
-RUN sudo /bin/bash -c 'echo "BACKSPACE="guess"" >> /etc/default/keyboard'
+RUN sudo /bin/bash -c 'echo -e "\x23 KEYBOARD CONFIGURATION FILE\n" >> /etc/default/keyboard'
+RUN sudo /bin/bash -c 'echo -e "\x23 Consult the keyboard\x285\x29 manual page.\n" >> /etc/default/keyboard'
+RUN sudo /bin/bash -c 'echo -e "XKBMODEL=\x22pc105\x22" >> /etc/default/keyboard'
+RUN sudo /bin/bash -c 'echo -e "XKBLAYOUT=\x22no\x22" >> /etc/default/keyboard'
+RUN sudo /bin/bash -c 'echo -e "XKBVARIANT=\x22\x22" >> /etc/default/keyboard'
+RUN sudo /bin/bash -c 'echo -e "XKBOPTIONS=\x22\x22\n" >> /etc/default/keyboard'
+RUN sudo /bin/bash -c 'echo -e "BACKSPACE=\x22guess\x22" >> /etc/default/keyboard'
 
 # Install convenient tools
 RUN sudo apt-get update
-RUN sudo apt-get install -y gedit xterm xserver-xorg
+RUN sudo apt-get install -y gedit xterm
 
-USER root
-RUN printf 'Section "ServerFlags"\n  Option "AllowIndirectGLX" "on"\n  Option "IndirectGLX" "on"\nEndSection\n' >> /etc/X11/xorg.conf
-USER $USR
+#USER root
+#RUN printf 'Section "ServerFlags"\n  Option "AllowIndirectGLX" "on"\n  Option "IndirectGLX" "on"\nEndSection\n' >> /etc/X11/xorg.conf
+#USER $USR
 
 #RUN sudo /bin/bash -c "echo 'Section "ServerFlags"' >> /etc/X11/xorg.conf"
 #RUN sudo /bin/bash -c 'echo '    Option "IndirectGLX" "on"' >> /etc/X11/xorg.conf'
