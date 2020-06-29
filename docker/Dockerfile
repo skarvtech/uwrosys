@@ -20,7 +20,7 @@
 #
 
 #Download base image ubuntu 18.04 with Nvidia OpenGL support
-FROM nvidia/opengl:1.0-glvnd-runtime-ubuntu18.04
+FROM nvidia/opengl:1.0-glvnd-devel-ubuntu18.04
 
 # Update Ubuntu Software repository
 USER root
@@ -217,14 +217,6 @@ RUN sudo /bin/bash -c 'echo -e "BACKSPACE=\x22guess\x22" >> /etc/default/keyboar
 # Install convenient tools
 RUN sudo apt-get update
 RUN sudo apt-get install -y gedit xterm
-
-#USER root
-#RUN printf 'Section "ServerFlags"\n  Option "AllowIndirectGLX" "on"\n  Option "IndirectGLX" "on"\nEndSection\n' >> /etc/X11/xorg.conf
-#USER $USR
-
-#RUN sudo /bin/bash -c "echo 'Section "ServerFlags"' >> /etc/X11/xorg.conf"
-#RUN sudo /bin/bash -c 'echo '    Option "IndirectGLX" "on"' >> /etc/X11/xorg.conf'
-#RUN sudo /bin/bash -c 'echo 'EndSection' >> /etc/X11/xorg.conf'
 
 # Color support in terminal
 ENV TERM=xterm-256color
