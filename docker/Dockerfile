@@ -216,7 +216,7 @@ RUN sudo /bin/bash -c 'echo -e "BACKSPACE=\x22guess\x22" >> /etc/default/keyboar
 
 # Install convenient tools
 RUN sudo apt-get update
-RUN sudo apt-get install -y gedit xterm
+RUN sudo apt-get install -y gedit xterm rsync
 
 # Color support in terminal
 ENV TERM=xterm-256color
