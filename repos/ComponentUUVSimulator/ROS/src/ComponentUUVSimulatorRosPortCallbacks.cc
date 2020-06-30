@@ -28,10 +28,9 @@ ComponentUUVSimulatorRosPortCallbacks::~ComponentUUVSimulatorRosPortCallbacks() 
 
 void ComponentUUVSimulatorRosPortCallbacks::_pose_cb (const nav_msgs::Odometry::ConstPtr &msg)
 {
-	// for implementing this method, you can use the "COMP->" macro to access the component's class members
-	if (COMP->state != NULL) {
+	if (COMP->state != NULL)
+	{
 		COMP->state->OnMsg(msg);
 	}
 }
-
 

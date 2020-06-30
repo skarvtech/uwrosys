@@ -28,7 +28,7 @@ public:
 	virtual ~ComponentUUVSimulatorRosPortCallbacks();
 	
 	virtual void _pose_cb (const nav_msgs::Odometry::ConstPtr &msg) override;
-	
+
 };
 
 #endif // ROS_PORT_CALLBACKS_H_

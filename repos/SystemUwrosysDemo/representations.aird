@@ -16,6 +16,10 @@
     <semanticResources>platform:/resource/CommNavigationObjects/model/CommNavigationObjects.types</semanticResources>
     <semanticResources>platform:/resource/CommNavigationObjects/model/CommNavigationObjects.modes</semanticResources>
     <semanticResources>platform:/resource/CommNavigationObjects/model/CommNavigationObjects.parameters</semanticResources>
+    <semanticResources>platform:/resource/ComponentRosJoystick/model/ComponentRosJoystick.component</semanticResources>
+    <semanticResources>platform:/resource/ComponentRosJoystick/model/joy.rosinterfacespool</semanticResources>
+    <semanticResources>platform:/resource/SmartJoystickNavigation/model/SmartJoystickNavigation.component</semanticResources>
+    <semanticResources>platform:/resource/SmartJoystickNavigation/model/SmartJoystickNavigation.componentParameters</semanticResources>
     <ownedViews xmi:type="viewpoint:DView" uid="_n92IUK2rEeq1L4gglPKVuQ">
       <viewpoint xmi:type="description:Viewpoint" href="platform:/plugin/org.sirius.system.deployment.design/description/deployment.odesign#//@ownedViewpoints[name='DeploymentViewpoint']"/>
       <ownedRepresentationDescriptors xmi:type="viewpoint:DRepresentationDescriptor" uid="_oEeUwK2rEeq1L4gglPKVuQ" name="SystemUwrosysDemoDeployment" repPath="#_oDak0K2rEeq1L4gglPKVuQ">
@@ -194,7 +198,7 @@
         <description xmi:type="style:FlatContainerStyleDescription" href="platform:/plugin/org.sirius.system.deployment.design/description/deployment.odesign#//@ownedViewpoints[name='DeploymentViewpoint']/@ownedRepresentations[name='DeploymentDiagram']/@defaultLayer/@containerMappings[name='TargetPlatformRefContainer']/@style"/>
       </ownedStyle>
       <actualMapping xmi:type="description_1:ContainerMapping" href="platform:/plugin/org.sirius.system.deployment.design/description/deployment.odesign#//@ownedViewpoints[name='DeploymentViewpoint']/@ownedRepresentations[name='DeploymentDiagram']/@defaultLayer/@containerMappings[name='TargetPlatformRefContainer']"/>
-      <ownedDiagramElements xmi:type="diagram:DNodeContainer" uid="_idXQYK2tEeq1L4gglPKVuQ" name="norgren" tooltipText="LoginAccount">
+      <ownedDiagramElements xmi:type="diagram:DNodeContainer" uid="_idXQYK2tEeq1L4gglPKVuQ" tooltipText="LoginAccount">
         <target xmi:type="Deployment:LoginAccountSelection" href="model/SystemUwrosysDemo.deployment#//@elements.0/@login"/>
         <semanticElements xmi:type="Deployment:LoginAccountSelection" href="model/SystemUwrosysDemo.deployment#//@elements.0/@login"/>
         <arrangeConstraints>KEEP_LOCATION</arrangeConstraints>
