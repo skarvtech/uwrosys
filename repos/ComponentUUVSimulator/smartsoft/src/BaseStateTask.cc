@@ -74,7 +74,7 @@ int BaseStateTask::on_execute()
 		geometry_msgs::Twist cmd;
 		cmd.linear.x = navvel.get_vX()/1000.0;
 		cmd.linear.y = navvel.get_vY()/1000.0;
-		cmd.linear.z = 0;		// todo: get manual depth command from joystick
+		cmd.linear.z = navvel.get_vZ()/1000.0;
 		cmd.angular.x = 0;
 		cmd.angular.y = 0;
 		cmd.angular.z = navvel.get_omega();
