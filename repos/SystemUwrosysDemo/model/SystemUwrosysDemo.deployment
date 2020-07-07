@@ -11,5 +11,5 @@ TargetPlatformReference PC1 using SystemUwrosysDemo.PC1
 		deploy-to PC1 }
 	ComponentArtefact ComponentUUVSimulator deploy-to PC1
 	ComponentArtefact ComponentRosJoystick deploy-to PC1
-	ComponentArtefact SmartJoystickNavigation deploy-to PC1
+	ComponentArtefact SmartJoystickNavigationROV deploy-to PC1
 }

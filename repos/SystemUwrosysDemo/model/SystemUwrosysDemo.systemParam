@@ -1,0 +1,14 @@
+SystemParameterModel SystemUwrosysDemo extendsSystem SystemUwrosysDemo { 
+	ComponentParameterInstance SmartJoystickNavigationROV refinesParamStruct SmartJoystickNavigationParameters 
+	{ 
+		ParameterRefinement Settings {
+			rone_pressed_to_control = false
+		}
+	}
+	ComponentParameterInstance SmartJoystickNavigationManipulator refinesParamStruct SmartJoystickNavigationParameters 
+	{ 
+		ParameterRefinement Settings {
+			rone_pressed_to_control = true
+		}
+	}
+}
