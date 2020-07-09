@@ -9,6 +9,7 @@ case "$1" in
 pre-start)
 	echo "Triggering pre-start hooks FROM COMPONENT ComponentRosJoystick ..."
 	# Insert commands you want to call prior to starting the components
+  xterm -title 'ROS Core Terminal' -e 'screen -S roscoreterm bash -c "roscore || bash; sleep 5"' &
   xterm -title 'ROSJoy Terminal' -e 'screen -S rosjoyterm bash -c "rosrun joy joy_node || bash; sleep 5"' &
 ;;
 
@@ -25,6 +26,7 @@ pre-stop)
 post-stop)
 	echo "Triggering post-stop hooks FROM COMPONENT ComponentRosJoystick ..."
 	# Insert commands you want to call after all components were stopped
+  screen -XS roscoreterm quit
   screen -XS rosjoyterm quit
 ;;
 

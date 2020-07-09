@@ -4,6 +4,7 @@
 	<comment></comment>
 	<projects>
 		<project>ComponentRosJoystick</project>
+		<project>ComponentUUVManipulator</project>
 		<project>ComponentUUVSimulator</project>
 		<project>SmartJoystickNavigation</project>
 	</projects>

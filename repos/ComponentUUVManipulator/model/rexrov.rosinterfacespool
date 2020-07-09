@@ -1,0 +1,3 @@
+RosInterfacesPool {
+	RosPublisher _cmd_vel { topicName "/rexrov/oberon4/cmd_vel" type "geometry_msgs.Twist" }
+}

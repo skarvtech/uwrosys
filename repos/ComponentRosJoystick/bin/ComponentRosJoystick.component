@@ -3,7 +3,7 @@ ComponentDefinition ComponentRosJoystick logo "/ComponentRosJoystick/model/logo.
 Activity JoystickActivity
 	{
 		MixedPortROSLink _joy
-		DefaultTrigger PeriodicTimer 1.0 Hz
+		DefaultTrigger PeriodicTimer 10.0 Hz
 	}
 	OutputPort JoystickServiceOut implements CommBasicObjects.JoystickService realizedBy JoystickActivity {
 	}

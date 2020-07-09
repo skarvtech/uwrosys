@@ -1,0 +1,12 @@
+ComponentDefinition ComponentUUVManipulator logo "/ComponentUUVManipulator/model/logo.png"
+{
+Activity ManipulatorCommandTask
+	{
+		MixedPortROSLink _cmd_vel
+		DefaultTrigger PeriodicTimer 10.0 Hz
+	}
+	InputPort NavigationVelocityServiceIn implements CommNavigationObjects.NavigationVelocityService {
+	}
+	InputHandler NavigationVelocityServiceInHandler triggeredFrom NavigationVelocityServiceIn { }
+	MixedPortROS _cmd_vel
+}

@@ -50,7 +50,7 @@ ComponentRosJoystick::ComponentRosJoystick()
 	connections.joystickActivity.minActFreq = 0.0;
 	connections.joystickActivity.maxActFreq = 0.0;
 	connections.joystickActivity.trigger = "PeriodicTimer";
-	connections.joystickActivity.periodicActFreq = 1.0;
+	connections.joystickActivity.periodicActFreq = 10.0;
 	// scheduling default parameters
 	connections.joystickActivity.scheduler = "DEFAULT";
 	connections.joystickActivity.priority = -1;
@@ -239,7 +239,7 @@ void ComponentRosJoystick::init(int argc, char *argv[])
 		{
 			// setup default task-trigger as PeriodicTimer
 			Smart::TimedTaskTrigger *triggerPtr = new Smart::TimedTaskTrigger();
-			int microseconds = 1000*1000 / 1.0;
+			int microseconds = 1000*1000 / 10.0;
 			if(microseconds > 0) {
 				component->getTimerManager()->scheduleTimer(triggerPtr, (void *) 0, std::chrono::microseconds(microseconds), std::chrono::microseconds(microseconds));
 				triggerPtr->attach(joystickActivity);

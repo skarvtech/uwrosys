@@ -174,7 +174,7 @@ RUN sudo apt-get install -y ros-$ROS_DISTRO-desktop-full
 RUN echo "source /opt/ros/$ROS_DISTRO/setup.bash" >> ~/.bashrc
 RUN /bin/bash -c "source ~/.bashrc"
 RUN sudo apt-get install -y python-rosdep python-rosinstall python-rosinstall-generator \
-		python-wstool python-catkin-tools jstest-gtk ros-$ROS_DISTRO-kdl-parser-py
+		python-wstool python-catkin-tools jstest-gtk ros-$ROS_DISTRO-kdl-parser-py ros-$ROS_DISTRO-effort-controllers
 RUN sudo rosdep init
 RUN rosdep update
 

@@ -19,7 +19,12 @@ ComponentInstance ComponentRosJoystick instantiates ComponentRosJoystick
 		RequiredService JoystickServiceIn
 		RequiredService NavVelServiceOut
 	}
+	ComponentInstance ComponentUUVManipulator instantiates ComponentUUVManipulator
+	{
+		ProvidedService NavigationVelocityServiceIn
+	}
 	Connection SmartJoystickNavigationROV.NavVelServiceOut -> ComponentUUVSimulator.NavigationVelocityServiceIn
 	Connection SmartJoystickNavigationROV.JoystickServiceIn -> ComponentRosJoystick.JoystickServiceOut
 Connection SmartJoystickNavigationManipulator.JoystickServiceIn -> ComponentRosJoystick.JoystickServiceOut
+Connection SmartJoystickNavigationManipulator.NavVelServiceOut -> ComponentUUVManipulator.NavigationVelocityServiceIn
 }
