@@ -17,17 +17,14 @@
 // running the code generator.
 //--------------------------------------------------------------------------
 
-#ifndef ROS_PORT_BASE_CLASS_H_
-#define ROS_PORT_BASE_CLASS_H_
+#include "ComponentUUVManipulatorRosPortCallbacks.hh"
 
-#include <ros/ros.h>
+// include component's main class
+#include "ComponentUUVManipulator.hh"
 
-class ComponentUUVManipulatorRosPortBaseClass {
-public:
-	ComponentUUVManipulatorRosPortBaseClass() { };
-	virtual ~ComponentUUVManipulatorRosPortBaseClass() { }
-	
-	ros::Publisher _cmd_vel;
-};
+ComponentUUVManipulatorRosPortCallbacks::ComponentUUVManipulatorRosPortCallbacks() {  }
 
-#endif // ROS_PORT_BASE_CLASS_H_
+ComponentUUVManipulatorRosPortCallbacks::~ComponentUUVManipulatorRosPortCallbacks() {  }
+
+
+

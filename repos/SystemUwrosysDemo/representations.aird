@@ -249,7 +249,7 @@
         <description xmi:type="style:FlatContainerStyleDescription" href="platform:/plugin/org.sirius.system.deployment.design/description/deployment.odesign#//@ownedViewpoints[name='DeploymentViewpoint']/@ownedRepresentations[name='DeploymentDiagram']/@defaultLayer/@containerMappings[name='TargetPlatformRefContainer']/@style"/>
       </ownedStyle>
       <actualMapping xmi:type="description_1:ContainerMapping" href="platform:/plugin/org.sirius.system.deployment.design/description/deployment.odesign#//@ownedViewpoints[name='DeploymentViewpoint']/@ownedRepresentations[name='DeploymentDiagram']/@defaultLayer/@containerMappings[name='TargetPlatformRefContainer']"/>
-      <ownedDiagramElements xmi:type="diagram:DNodeContainer" uid="_idXQYK2tEeq1L4gglPKVuQ" name="norgren" tooltipText="LoginAccount">
+      <ownedDiagramElements xmi:type="diagram:DNodeContainer" uid="_idXQYK2tEeq1L4gglPKVuQ" tooltipText="LoginAccount">
         <target xmi:type="Deployment:LoginAccountSelection" href="model/SystemUwrosysDemo.deployment#//@elements.0/@login"/>
         <semanticElements xmi:type="Deployment:LoginAccountSelection" href="model/SystemUwrosysDemo.deployment#//@elements.0/@login"/>
         <arrangeConstraints>KEEP_LOCATION</arrangeConstraints>

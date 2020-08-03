@@ -17,17 +17,18 @@
 // running the code generator.
 //--------------------------------------------------------------------------
 
-#ifndef ROS_PORT_BASE_CLASS_H_
-#define ROS_PORT_BASE_CLASS_H_
+#ifndef ROS_PORT_CALLBACKS_INTERFACE_H_
+#define ROS_PORT_CALLBACKS_INTERFACE_H_
 
 #include <ros/ros.h>
 
-class ComponentUUVManipulatorRosPortBaseClass {
+#include <geometry_msgs/Twist.h>
+
+class ComponentUUVManipulatorRosPortCallbacksInterface {
 public:
-	ComponentUUVManipulatorRosPortBaseClass() { };
-	virtual ~ComponentUUVManipulatorRosPortBaseClass() { }
+	ComponentUUVManipulatorRosPortCallbacksInterface() { };
+	virtual ~ComponentUUVManipulatorRosPortCallbacksInterface() { }
 	
-	ros::Publisher _cmd_vel;
 };
 
-#endif // ROS_PORT_BASE_CLASS_H_
+#endif // ROS_PORT_CALLBACKS_INTERFACE_H_

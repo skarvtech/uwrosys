@@ -26,6 +26,7 @@ ComponentUUVManipulatorRosPortExtension::ComponentUUVManipulatorRosPortExtension
 :	ComponentUUVManipulatorExtension("ComponentUUVManipulatorRosPortExtension")
 {
 	nh = 0;
+	callbacksPtr = 0;
 }
 
 ComponentUUVManipulatorRosPortExtension::~ComponentUUVManipulatorRosPortExtension()
@@ -38,13 +39,12 @@ void ComponentUUVManipulatorRosPortExtension::initialize(ComponentUUVManipulator
 {
 	ros::init(argc, argv, "ComponentUUVManipulator", ros::init_options::NoSigintHandler);
 	nh = new ros::NodeHandle();
+	
+	callbacksPtr = new ComponentUUVManipulatorRosPortCallbacks();
+	
 	component->rosPorts = this;
 	
 	_cmd_vel = nh->advertise<geometry_msgs::Twist>("/rexrov/oberon4/cmd_vel", 10);
-}
-
-void ComponentUUVManipulatorRosPortBaseClass::_cmd_vel_publish_ros_msg(const geometry_msgs::Twist &msg){
-	_cmd_vel.publish(msg);
 }
 
 int ComponentUUVManipulatorRosPortExtension::onStartup()
@@ -67,4 +67,5 @@ int ComponentUUVManipulatorRosPortExtension::onShutdown(const std::chrono::stead
 void ComponentUUVManipulatorRosPortExtension::destroy()
 {
 	delete nh;
+	delete callbacksPtr;
 }

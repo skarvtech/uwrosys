@@ -26,6 +26,8 @@
 // include all interaction-observer interfaces
 #include <BaseStateTaskObserverInterface.hh>
 
+#include <nav_msgs/Odometry.h>
+#include <geometry_msgs/Twist.h>
 
 class BaseStateTaskCore
 :	public SmartACE::ManagedTask
@@ -87,5 +89,6 @@ public:
 		return currentUpdateCount;
 	}
 	
+	void _pose_cb (const nav_msgs::Odometry::ConstPtr &msg);
 };
 #endif

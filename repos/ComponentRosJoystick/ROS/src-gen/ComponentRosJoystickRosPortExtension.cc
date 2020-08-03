@@ -39,12 +39,13 @@ void ComponentRosJoystickRosPortExtension::initialize(ComponentRosJoystick *comp
 {
 	ros::init(argc, argv, "ComponentRosJoystick", ros::init_options::NoSigintHandler);
 	nh = new ros::NodeHandle();
+	
 	callbacksPtr = new ComponentRosJoystickRosPortCallbacks();
+	
 	component->rosPorts = this;
 	
 	_joy = nh->subscribe("/joy", 10, &ComponentRosJoystickRosPortCallbacks::_joy_cb, callbacksPtr);
 }
-
 
 int ComponentRosJoystickRosPortExtension::onStartup()
 {

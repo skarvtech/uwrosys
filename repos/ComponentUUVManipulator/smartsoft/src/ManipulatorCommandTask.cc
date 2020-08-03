@@ -59,7 +59,8 @@ int ManipulatorCommandTask::on_execute()
 		cmd.angular.y = 0;
 		cmd.angular.z = navvel.get_omega();
 
-		COMP->rosPorts->_cmd_vel_publish_ros_msg(cmd);
+		COMP->rosPorts->_cmd_vel.publish(cmd);
+		//COMP->rosPorts->_cmd_vel_publish_ros_msg(cmd);
 	}
 
 	std::cout << "Commanded Velocity: " << navvel << std::endl;

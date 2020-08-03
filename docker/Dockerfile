@@ -87,25 +87,22 @@ RUN git clone https://github.com/Servicerobotics-Ulm/SmartSoftComponentDeveloper
 RUN git clone https://github.com/Servicerobotics-Ulm/AceSmartSoftFramework.git
 RUN git clone https://github.com/Servicerobotics-Ulm/UtilityRepository.git
 RUN git clone https://github.com/Servicerobotics-Ulm/DataRepository.git
-RUN git clone https://github.com/Servicerobotics-Ulm/DomainModelsRepositories.git
-RUN git clone https://github.com/Servicerobotics-Ulm/ComponentRepository.git
 RUN git clone https://github.com/Servicerobotics-Ulm/SystemRepository.git
 RUN git clone https://github.com/Servicerobotics-Ulm/BehaviorRepository.git
+# The following repositories contain modifications related to UWROSYS
+RUN git clone https://github.com/skarvtech/DomainModelsRepositories.git
+RUN git clone https://github.com/skarvtech/ComponentRepository.git
 
 # Install ACE
-#RUN wget -nv https://github.com/Servicerobotics-Ulm/AceSmartSoftFramework/raw/master/INSTALL-ACE-6.0.2.sh -O /tmp/INSTALL-ACE-6.0.2.sh
-#RUN chmod +x /tmp/INSTALL-ACE-6.0.2.sh
-#RUN sudo /tmp/INSTALL-ACE-6.0.2.sh /opt
-#RUN sudo bash -c 'echo "/opt/ACE_wrappers/lib" > /etc/ld.so.conf.d/ace.conf'
 RUN sudo apt-get install -y ace libace-dev
-RUN sudo /bin/bash -c 'echo "$SMART_ROOT_ACE/lib" >> /etc/ld.so.conf.d/smartsoft.conf'
+RUN sudo /bin/bash -c 'echo '$SMART_ROOT_ACE/lib' >> /etc/ld.so.conf.d/smartsoft.conf'
 RUN sudo ldconfig
 
 # Build SmartSoftComponentDeveloperAPIcpp
 RUN mkdir -p $REPOS/SmartSoftComponentDeveloperAPIcpp/build \ 
 	&& chown -R $USR:$USR $REPOS/SmartSoftComponentDeveloperAPIcpp/build
 WORKDIR $REPOS/SmartSoftComponentDeveloperAPIcpp/build
-RUN git reset --hard a5db675daa35bbac095b2e6bf31893fec7890185
+RUN git reset --hard 888378e8fde5ae042691d15be20f0c94de91d2db
 RUN cmake ..
 RUN make && sudo make install
 
@@ -113,7 +110,7 @@ RUN make && sudo make install
 RUN mkdir -p $REPOS/AceSmartSoftFramework/build \ 
 	&& chown -R $USR:$USR $REPOS/AceSmartSoftFramework/build
 WORKDIR $REPOS/AceSmartSoftFramework/build
-RUN git reset --hard 5d32d0c712da5414cf1d5cce5e0d88e993758783
+RUN git reset --hard f0728ccdb147a83b858e8ef35f500022bb97c910
 RUN cmake ..
 RUN make && sudo make install
 
@@ -121,7 +118,7 @@ RUN make && sudo make install
 RUN mkdir -p $REPOS/UtilityRepository/build \ 
 	&& chown -R $USR:$USR $REPOS/UtilityRepository/build
 WORKDIR $REPOS/UtilityRepository/build
-RUN git reset --hard 9e6e271b933785042daaf8fc67c6941e85b7f89a
+RUN git reset --hard f9634a2b4e2f876518d9171ee6a43c210d89df52
 RUN cmake ..
 RUN make -j8
 
@@ -130,7 +127,6 @@ RUN chown -hR $USR:$USR $REPOS/DomainModelsRepositories/*
 RUN mkdir -p $REPOS/DomainModelsRepositories/build \ 
 	&& chown -R $USR:$USR $REPOS/DomainModelsRepositories/build
 WORKDIR $REPOS/DomainModelsRepositories/build
-RUN git reset --hard 4b7eb71da3028d7eaf291939316f67c59fb3ad37
 RUN cmake ..
 RUN make
 
@@ -139,7 +135,6 @@ RUN chown -hR $USR:$USR $REPOS/ComponentRepository/*
 RUN mkdir -p $REPOS/ComponentRepository/build \ 
 	&& chown -R $USR:$USR $REPOS/ComponentRepository/build
 WORKDIR $REPOS/ComponentRepository/build
-RUN git reset --hard 5bf5a82aeafbf352627eb45a7885addcc02acc03
 RUN cmake ..
 RUN make -j8
 
@@ -216,10 +211,17 @@ RUN sudo /bin/bash -c 'echo -e "BACKSPACE=\x22guess\x22" >> /etc/default/keyboar
 
 # Install convenient tools
 RUN sudo apt-get update
-RUN sudo apt-get install -y gedit xterm rsync
+RUN sudo apt-get install -y gedit xterm rsync openssh-server
 
 # Color support in terminal
 ENV TERM=xterm-256color
+
+# Start ssh server
+RUN sudo /etc/init.d/ssh start
+
+# Copy public key from host computer
+RUN mkdir $HOME/.ssh/
+COPY authorized_keys $HOME/.ssh/authorized_keys
 
 # Cleanup
 RUN rm $SWDIR/SmartMDSD-Toolchain-v$TOOLCHAIN_VERSION.tar.gz

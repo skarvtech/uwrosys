@@ -26,15 +26,18 @@ DOCKER_DIR   := $(realpath .)
 SOURCE_DIR   := $(realpath ..)
 
 build:
+	cat ~/.ssh/id_rsa.pub > ./authorized_keys
+	sudo chown 1000 ./authorized_keys
 	docker build -t $(TAG):$(VERSION) .
+	rm ./authorized_keys
 	
 interactive: 
 	xhost +local:root
 	docker run -it --rm --net=host --privileged -u $(USR) \
 			-e DISPLAY=$(DISPLAY) \
 			-v /tmp/.X11-unix:/tmp/.X11-unix \
-			-v $(SOURCE_DIR):/home/$(USR)/SOFTWARE/$(TAG) \
-      --entrypoint entrypoint.sh \
+			-v $(SOURCE_DIR)/repos:/home/$(USR)/SOFTWARE/$(USR) \
+      			--entrypoint entrypoint.sh \
 			--name $(TAG) $(TAG):$(VERSION)
 
 toolchain:

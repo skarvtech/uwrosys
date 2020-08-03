@@ -39,15 +39,13 @@ void ComponentUUVSimulatorRosPortExtension::initialize(ComponentUUVSimulator *co
 {
 	ros::init(argc, argv, "ComponentUUVSimulator", ros::init_options::NoSigintHandler);
 	nh = new ros::NodeHandle();
+	
 	callbacksPtr = new ComponentUUVSimulatorRosPortCallbacks();
+	
 	component->rosPorts = this;
 	
 	_cmd_vel = nh->advertise<geometry_msgs::Twist>("/rexrov/cmd_vel", 10);
 	_pose = nh->subscribe("/rexrov/pose_gt", 10, &ComponentUUVSimulatorRosPortCallbacks::_pose_cb, callbacksPtr);
-}
-
-void ComponentUUVSimulatorRosPortBaseClass::_cmd_vel_publish_ros_msg(const geometry_msgs::Twist &msg){
-	_cmd_vel.publish(msg);
 }
 
 int ComponentUUVSimulatorRosPortExtension::onStartup()

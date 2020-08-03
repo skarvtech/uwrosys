@@ -21,9 +21,6 @@
 #define ROS_PORT_BASE_CLASS_H_
 
 #include <ros/ros.h>
-#include <geometry_msgs/Twist.h>
-
-
 
 class ComponentUUVSimulatorRosPortBaseClass {
 public:
@@ -32,9 +29,6 @@ public:
 	
 	ros::Publisher _cmd_vel;
 	ros::Subscriber _pose;
-	
-	void _cmd_vel_publish_ros_msg(const geometry_msgs::Twist &msg);
-
 };
 
 #endif // ROS_PORT_BASE_CLASS_H_
