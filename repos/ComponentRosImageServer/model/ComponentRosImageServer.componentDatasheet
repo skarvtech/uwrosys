@@ -1,0 +1,4 @@
+ComponentDatasheet ComponentRosImageServer
+{
+	BaseURI "http://www.skarvtech.com" ShortDescription "TODO: add short description for ComponentRosImageServer datasheet"
+}

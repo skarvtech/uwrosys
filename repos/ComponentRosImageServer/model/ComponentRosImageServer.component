@@ -1,0 +1,10 @@
+ComponentDefinition ComponentRosImageServer logo "/ComponentRosImageServer/model/logo.png"
+{
+Activity ImageTask
+	{
+		MixedPortROSLink _camera_image
+	}
+	MixedPortROS _camera_image
+	OutputPort RGBImagePushServiceOut implements DomainVision.RGBImagePushService realizedBy ImageTask {
+	}
+}
