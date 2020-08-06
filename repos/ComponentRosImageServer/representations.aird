@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xmi:XMI xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ComponentDefinition="http://www.ecore.org/component/ComponentDefinition" xmlns:SeronetExtension="http://www.ecore.org/component/SeronetExtension" xmlns:description="http://www.eclipse.org/sirius/description/1.1.0" xmlns:description_1="http://www.eclipse.org/sirius/diagram/description/1.1.0" xmlns:diagram="http://www.eclipse.org/sirius/diagram/1.1.0" xmlns:notation="http://www.eclipse.org/gmf/runtime/1.0.2/notation" xmlns:style="http://www.eclipse.org/sirius/diagram/description/style/1.1.0" xmlns:viewpoint="http://www.eclipse.org/sirius/1.1.0" xsi:schemaLocation="http://www.eclipse.org/sirius/description/1.1.0 http://www.eclipse.org/sirius/1.1.0#//description http://www.eclipse.org/sirius/diagram/description/1.1.0 http://www.eclipse.org/sirius/diagram/1.1.0#//description http://www.eclipse.org/sirius/diagram/description/style/1.1.0 http://www.eclipse.org/sirius/diagram/1.1.0#//description/style">
+<xmi:XMI xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ComponentDefinition="http://www.ecore.org/component/ComponentDefinition" xmlns:PerformanceExtension="http://www.ecore.org/component/PerformanceExtension" xmlns:SeronetExtension="http://www.ecore.org/component/SeronetExtension" xmlns:description="http://www.eclipse.org/sirius/description/1.1.0" xmlns:description_1="http://www.eclipse.org/sirius/diagram/description/1.1.0" xmlns:diagram="http://www.eclipse.org/sirius/diagram/1.1.0" xmlns:notation="http://www.eclipse.org/gmf/runtime/1.0.2/notation" xmlns:style="http://www.eclipse.org/sirius/diagram/description/style/1.1.0" xmlns:viewpoint="http://www.eclipse.org/sirius/1.1.0" xsi:schemaLocation="http://www.eclipse.org/sirius/description/1.1.0 http://www.eclipse.org/sirius/1.1.0#//description http://www.eclipse.org/sirius/diagram/description/1.1.0 http://www.eclipse.org/sirius/diagram/1.1.0#//description http://www.eclipse.org/sirius/diagram/description/style/1.1.0 http://www.eclipse.org/sirius/diagram/1.1.0#//description/style">
   <viewpoint:DAnalysis uid="_HIHQ8Nb2Eeq9b6V1-plpEg" selectedViews="_HN2skNb2Eeq9b6V1-plpEg" version="14.1.0.201810161215">
     <semanticResources>model/ComponentRosImageServer.component</semanticResources>
     <semanticResources>model/ComponentRosImageServer.componentDatasheet</semanticResources>
@@ -25,11 +25,20 @@
             <children xmi:type="notation:Node" xmi:id="_TuZmkNb3Eeq9b6V1-plpEg" type="3008" element="_TuUHANb3Eeq9b6V1-plpEg">
               <children xmi:type="notation:Node" xmi:id="_TuZmk9b3Eeq9b6V1-plpEg" type="5005"/>
               <children xmi:type="notation:Node" xmi:id="_TuaNoNb3Eeq9b6V1-plpEg" type="7002">
+                <children xmi:type="notation:Node" xmi:id="_3YYvENb9Eeq9b6V1-plpEg" type="3008" element="_3YQMMNb9Eeq9b6V1-plpEg">
+                  <children xmi:type="notation:Node" xmi:id="_3YYvE9b9Eeq9b6V1-plpEg" type="5005"/>
+                  <children xmi:type="notation:Node" xmi:id="_3YZWINb9Eeq9b6V1-plpEg" type="7002">
+                    <styles xmi:type="notation:SortingStyle" xmi:id="_3YZWIdb9Eeq9b6V1-plpEg"/>
+                    <styles xmi:type="notation:FilteringStyle" xmi:id="_3YZWItb9Eeq9b6V1-plpEg"/>
+                  </children>
+                  <styles xmi:type="notation:ShapeStyle" xmi:id="_3YYvEdb9Eeq9b6V1-plpEg" fontName="Ubuntu" fontHeight="8"/>
+                  <layoutConstraint xmi:type="notation:Bounds" xmi:id="_3YYvEtb9Eeq9b6V1-plpEg" x="23" y="27" width="101" height="45"/>
+                </children>
                 <styles xmi:type="notation:SortingStyle" xmi:id="_TuaNodb3Eeq9b6V1-plpEg"/>
                 <styles xmi:type="notation:FilteringStyle" xmi:id="_TuaNotb3Eeq9b6V1-plpEg"/>
               </children>
               <styles xmi:type="notation:ShapeStyle" xmi:id="_TuZmkdb3Eeq9b6V1-plpEg" fontName="Ubuntu" fontHeight="8" bold="true"/>
-              <layoutConstraint xmi:type="notation:Bounds" xmi:id="_TuZmktb3Eeq9b6V1-plpEg" x="93" y="87"/>
+              <layoutConstraint xmi:type="notation:Bounds" xmi:id="_TuZmktb3Eeq9b6V1-plpEg" x="93" y="87" width="157" height="92"/>
             </children>
             <styles xmi:type="notation:SortingStyle" xmi:id="_HOMq0db2Eeq9b6V1-plpEg"/>
             <styles xmi:type="notation:FilteringStyle" xmi:id="_HOMq0tb2Eeq9b6V1-plpEg"/>
@@ -73,7 +82,7 @@
           <styles xmi:type="notation:ConnectorStyle" xmi:id="_ZKRHcdb5Eeq9b6V1-plpEg"/>
           <styles xmi:type="notation:FontStyle" xmi:id="_ZKRHctb5Eeq9b6V1-plpEg" fontName="Ubuntu" fontHeight="12"/>
           <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_ZKRHc9b5Eeq9b6V1-plpEg" points="[0, 0, 90, -5]$[-90, 5, 0, 0]"/>
-          <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_ZKUx0Nb5Eeq9b6V1-plpEg" id="(0.0,0.4264705882352941)"/>
+          <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_ZKUx0Nb5Eeq9b6V1-plpEg" id="(0.0,0.3980392156862745)"/>
           <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_ZKUx0db5Eeq9b6V1-plpEg" id="(1.0,0.5)"/>
         </edges>
         <edges xmi:type="notation:Edge" xmi:id="_iwBgw9b5Eeq9b6V1-plpEg" type="4001" element="_iv_rlNb5Eeq9b6V1-plpEg" source="_TuZmkNb3Eeq9b6V1-plpEg" target="_iwA5sNb5Eeq9b6V1-plpEg">
@@ -89,7 +98,7 @@
           <styles xmi:type="notation:ConnectorStyle" xmi:id="_iwBgxNb5Eeq9b6V1-plpEg"/>
           <styles xmi:type="notation:FontStyle" xmi:id="_iwBgxdb5Eeq9b6V1-plpEg" fontName="Ubuntu" fontHeight="8"/>
           <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_iwBgxtb5Eeq9b6V1-plpEg" points="[74, 0, -280, 0]$[339, 0, -15, 0]"/>
-          <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_iwCu4Nb5Eeq9b6V1-plpEg" id="(0.5,0.5)"/>
+          <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_iwCu4Nb5Eeq9b6V1-plpEg" id="(0.4774193548387097,0.4666666666666667)"/>
           <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_iwCu4db5Eeq9b6V1-plpEg" id="(0.5,0.5)"/>
         </edges>
       </data>
@@ -138,6 +147,17 @@
           <description xmi:type="style:FlatContainerStyleDescription" href="platform:/plugin/org.sirius.component.design/description/component.odesign#//@ownedViewpoints[name='ComponentDefinitionViewpoint']/@ownedRepresentations[name='ComponentDefinitionDiagram']/@defaultLayer/@containerMappings[name='ComponentContainer']/@subContainerMappings[name='ActivityContainer']/@style"/>
         </ownedStyle>
         <actualMapping xmi:type="description_1:ContainerMapping" href="platform:/plugin/org.sirius.component.design/description/component.odesign#//@ownedViewpoints[name='ComponentDefinitionViewpoint']/@ownedRepresentations[name='ComponentDefinitionDiagram']/@defaultLayer/@containerMappings[name='ComponentContainer']/@subContainerMappings[name='ActivityContainer']"/>
+        <ownedDiagramElements xmi:type="diagram:DNodeContainer" uid="_3YQMMNb9Eeq9b6V1-plpEg" name="PeriodicTimer" tooltipText="DefaultTrigger">
+          <target xmi:type="PerformanceExtension:DefaultPeriodicTimer" href="model/ComponentRosImageServer.component#//@component/@elements.0/@extensions.0"/>
+          <semanticElements xmi:type="PerformanceExtension:DefaultPeriodicTimer" href="model/ComponentRosImageServer.component#//@component/@elements.0/@extensions.0"/>
+          <arrangeConstraints>KEEP_LOCATION</arrangeConstraints>
+          <arrangeConstraints>KEEP_SIZE</arrangeConstraints>
+          <arrangeConstraints>KEEP_RATIO</arrangeConstraints>
+          <ownedStyle xmi:type="diagram:FlatContainerStyle" uid="_3YSocNb9Eeq9b6V1-plpEg" borderSize="1" borderSizeComputationExpression="1" foregroundColor="255,255,255">
+            <description xmi:type="style:FlatContainerStyleDescription" href="platform:/plugin/org.sirius.component.design/description/component.odesign#//@ownedViewpoints[name='ComponentDefinitionViewpoint']/@ownedRepresentations[name='ComponentDefinitionDiagram']/@defaultLayer/@containerMappings[name='ComponentContainer']/@subContainerMappings[name='ActivityContainer']/@subContainerMappings[name='DefaultPeriodicTimerContainer']/@style"/>
+          </ownedStyle>
+          <actualMapping xmi:type="description_1:ContainerMapping" href="platform:/plugin/org.sirius.component.design/description/component.odesign#//@ownedViewpoints[name='ComponentDefinitionViewpoint']/@ownedRepresentations[name='ComponentDefinitionDiagram']/@defaultLayer/@containerMappings[name='ComponentContainer']/@subContainerMappings[name='ActivityContainer']/@subContainerMappings[name='DefaultPeriodicTimerContainer']"/>
+        </ownedDiagramElements>
       </ownedDiagramElements>
     </ownedDiagramElements>
     <ownedDiagramElements xmi:type="diagram:DEdge" uid="_ZKMO8Nb5Eeq9b6V1-plpEg" sourceNode="_TuUHANb3Eeq9b6V1-plpEg" targetNode="_WYjNwNb5Eeq9b6V1-plpEg">

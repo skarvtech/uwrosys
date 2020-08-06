@@ -23,6 +23,10 @@ ComponentInstance ComponentRosJoystick instantiates ComponentRosJoystick
 	{
 		ProvidedService NavigationVelocityServiceIn
 	}
+	ComponentInstance ComponentRosImageServer instantiates ComponentRosImageServer
+	{
+		ProvidedService RGBImagePushServiceOut
+	}
 	Connection SmartJoystickNavigationROV.NavVelServiceOut -> ComponentUUVSimulator.NavigationVelocityServiceIn
 	Connection SmartJoystickNavigationROV.JoystickServiceIn -> ComponentRosJoystick.JoystickServiceOut
 Connection SmartJoystickNavigationManipulator.JoystickServiceIn -> ComponentRosJoystick.JoystickServiceOut
