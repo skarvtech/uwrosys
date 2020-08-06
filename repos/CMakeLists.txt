@@ -5,4 +5,7 @@ INCLUDE(${SMART_MACROS})
 
 SMART_ADD_PACKAGE(ComponentRosJoystick)
 SMART_ADD_PACKAGE(ComponentUUVSimulator)
+SMART_ADD_PACKAGE(ComponentUUVManipulator)
+SMART_ADD_PACKAGE(ComponentRosImageServer)
+SMART_ADD_PACKAGE(ComponentRosImageClient)
 

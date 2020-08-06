@@ -1,0 +1,10 @@
+ComponentDefinition ComponentRosImageClient logo "/ComponentRosImageClient/model/logo.png"
+{
+InputPort RGBImagePushServiceIn implements DomainVision.RGBImagePushService {
+	}
+	InputHandler RGBImagePushServiceInHandler triggeredFrom RGBImagePushServiceIn { }
+	Activity GuiTask
+	{
+		DefaultTrigger PeriodicTimer 1.0 Hz
+	}
+}

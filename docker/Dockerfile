@@ -55,7 +55,8 @@ RUN sudo apt-get install -y openjdk-8-jre libtbb-dev gparted gnome-session-flash
 			libswscale-dev lib3ds-dev libjpeg-dev libgtest-dev libeigen3-dev \ 
 			libglew-dev vim vim-gnome libxml2-dev libxml++2.6-dev libmrpt-dev ssh \
 			sshfs xterm libjansson-dev libopencv-dev libgeos++-dev ruby ruby-dev \
-			swig libgsl-dev libgnomecanvas2-dev libxmu-dev libxi-dev fltk1.3-dev
+			swig libgsl-dev libgnomecanvas2-dev libxmu-dev libxi-dev fltk1.3-dev \
+      libmrpt-dev mrpt-apps
 
 # Export environmental variables
 ENV SWDIR=$HOME/SOFTWARE
