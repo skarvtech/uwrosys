@@ -22,41 +22,57 @@
 #include "GuiTask.hh"
 #include "ComponentRosImageClient.hh"
 
-#include <mrpt/utils/CImage.h>
-
 #include <iostream>
-
-#include <VisualizationHelper.hh>
 
 GuiTask::GuiTask(SmartACE::SmartComponent *comp) 
 :	GuiTaskCore(comp)
+, 	m_window("ROV Operator Viewer")
 {
 	std::cout << "constructor GuiTask\n";
 }
 GuiTask::~GuiTask() 
 {
-	std::unique_lock<std::mutex> lck (m_mtx);
 	std::cout << "destructor GuiTask\n";
 }
 
 void GuiTask::rgb_image_cb(const DomainVision::CommVideoImage &input)
 {
-	std::unique_lock<std::mutex> lck (m_mtx);
-	m_image_queue.push_back(input);
-}
+	IplImage* currentImage;
+	mrpt::poses::CPose3D currentImagePose;
 
-bool GuiTask::get_newest_image(DomainVision::CommVideoImage &newest_image)
-{
-	std::unique_lock<std::mutex> lck (m_mtx);
-
-	if(m_image_queue.empty())
+	if(!input.is_data_valid())
 	{
-		return false;
+		std::cout << "[GuiTask] Error: IMAGE INVALID" << std::endl;
+		return;
 	}
 
-	newest_image = m_image_queue.back();
-	m_image_queue.clear();
-	return true;
+	//cvReleaseImage(&currentImage);
+	currentImage = NULL;
+	currentImage = convertDataArrayToIplImage(input, cvSize(input.get_width(), input.get_height()));
+
+	currentImagePose = mrpt::poses::CPose3D(
+			input.get_sensor_pose().get_x(1),
+			input.get_sensor_pose().get_y(1),
+			input.get_sensor_pose().get_z(1),
+			input.get_sensor_pose().get_azimuth(),
+			input.get_sensor_pose().get_elevation(),
+			input.get_sensor_pose().get_roll()
+	);
+
+	mrpt::utils::CImage cimage(currentImage);
+	const size_t maxSize = 800;
+	if (cimage.getWidth() > maxSize || cimage.getHeight() > maxSize)
+	{
+		unsigned int factor, newWidth, newHeight;
+
+		factor = cimage.getWidth() / maxSize;
+		newWidth = cimage.getWidth() / factor;
+		newHeight = cimage.getHeight() / factor;
+
+		cimage.scaleImage(newWidth, newHeight);
+	}
+
+	m_window.showImage(cimage);
 }
 
 int GuiTask::on_entry()
@@ -73,34 +89,6 @@ int GuiTask::on_execute()
 	
 	// to get the incoming data, use this methods:
 	Smart::StatusCode status;
-	DomainVision::CommVideoImage img;
-
-	if (this->get_newest_image(img))
-	{
-		// TODO: convert image to CImage.
-		// get image
-		/*mrpt::utils::CImage img(COMP->currentImage);
-		const size_t maxSize = 800;
-		if (img.getWidth() > maxSize || img.getHeight() > maxSize)
-		{
-			unsigned int factor, newWidth, newHeight;
-
-			factor = img.getWidth() / maxSize;
-			newWidth = img.getWidth() / factor;
-			newHeight = img.getHeight() / factor;
-
-			img.scaleImage(newWidth, newHeight);
-		}
-
-		std::cout << COMP->currentImagePose <<  std::endl;
-
-	//	justifyHorizon(img, COMP->currentImagePose);
-
-		m_window.showImage(img);*/
-	} else
-	{
-		std::cout << "[GuiTask] Error no image to show!" << std::endl;
-	}
 
 	// it is possible to return != 0 (e.g. when the task detects errors), then the outer loop breaks and the task stops
 	return 0;
@@ -111,69 +99,23 @@ int GuiTask::on_exit()
 	return 0;
 }
 
-void GuiTask::justifyHorizon(mrpt::utils::CImage &image, CPose3D &imagePose)
+IplImage* GuiTask::convertDataArrayToIplImage(const DomainVision::CommVideoImage &img, CvSize size)
 {
+	IplImage* ipl_image = NULL;
 
-	TPlane robot_xy;
-	createPlaneFromPoseXY(CPose3D(), robot_xy);
-	TLine3D camera_x;
-	createFromPoseX(imagePose, camera_x);
-	TLine3D camera_y;
-	createFromPoseY(imagePose, camera_y);
-
-	double angle_x = getAngle(robot_xy, camera_x);
-	double angle_y = getAngle(robot_xy, camera_y);
-
-	std::cout << "##### Correction angle_x: " << RAD2DEG(angle_x) << " via getAngle(robot_xy, camera_x)" << std::endl;
-	std::cout << "##### Correction angle_y: " << RAD2DEG(angle_y) << " via getAngle(robot_xy, camera_y)" << std::endl;
-
-	double angle=0.0;
-
-	if(abs(angle_x) < abs(angle_y))
+	if (img.get_format() == DomainVision::FormatType::RGB24)
 	{
-		std::cout << "Taking X-Angle." << std::endl;
+		unsigned char* arr_image = new unsigned char[img.get_size_as_rgb24()];
+		img.get_as_rgb24(arr_image);
 
-		// check if Y-axis points towards sky or ground, i.e. if camera is upside down or not.
-		// it is upside down if xAxisCamera.z > 0
-		CPoint3D tmpPoint(0, 1, 0);
-		tmpPoint = imagePose + tmpPoint; // find point that is along y-Axis of camera coord
-		std::cout << "tmp point after first trans: " << tmpPoint << std::endl;
-		CPoint3D pnt(tmpPoint - CPoint3D(imagePose)); // get that coordinate system down to ground to see wether the point from before is below or above ground level.
-		std::cout << "pnt: " << pnt << std::endl;
-
-		if(pnt.z() > 0) { // new point above 0-plane, i.e. camera upside down
-			angle = angle_x;
-			angle += M_PI; // add 180° to rotate image correct
-		} else {
-			angle = -angle_x; // rotate in the other direction
-		}
-
+		ipl_image = OpenCVHelpers::copyRGBToIplImage(arr_image, img.get_height(), img.get_width());
+		delete arr_image;
 
 	}
 	else
 	{
-		std::cout << "Taking Y-Angle." << std::endl;
-
-		// check if X-Axis points towards sky or ground, i.e. which side of camera
-		// chassis (left/right) points towards sky or ground
-		CPoint3D tmpPoint(1, 0, 0);
-		tmpPoint = imagePose + tmpPoint; // find point that is along X-Axis of camera coord
-		std::cout << "tmp point after first trans: " << tmpPoint << std::endl;
-		CPoint3D pnt(tmpPoint - CPoint3D(imagePose)); // get that coordinate system down to ground to see wether the point from before is below or above ground level.
-		std::cout << "pnt: " << pnt << std::endl;
-
-		if(pnt.z() > 0) { // new point above 0-plane
-			angle = -angle_y;
-			angle += M_PI;
-		} else {
-			angle = +angle_y;
-		}
-
-		angle += M_PI_2; // add 90° because in this case, camera is sidewards (90° to ground plane)
-
+		std::cout << "Image Format: " << img.get_format() << " not supported!" << std::endl;
 	}
 
-	std::cout << ">>>> Result angle: " << RAD2DEG(angle) << "°" << std::endl;
-
-	image.rotateImage(angle, image.getWidth()/2, image.getHeight()/2);
+	return ipl_image;
 }

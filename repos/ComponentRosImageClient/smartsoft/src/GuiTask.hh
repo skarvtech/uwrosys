@@ -26,18 +26,16 @@
 
 #include "DomainVision/CommVideoImage.hh"
 
+#include <cv.h>
+#include <opencv/highgui.h>
 #include <mrpt/gui/CDisplayWindow.h>
 #include <mrpt/utils/CImage.h>
 #include <mrpt/poses/CPose3D.h>
-
-#include <mutex>
-#include <vector>
+#include "OpenCVHelpers/OpenCVHelpers.hh"
 
 class GuiTask  : public GuiTaskCore
 {
 private:
-	std::mutex m_mtx;
-	std::vector<DomainVision::CommVideoImage> m_image_queue;
 	mrpt::gui::CDisplayWindow m_window;
 public:
 	GuiTask(SmartACE::SmartComponent *comp);
@@ -49,9 +47,7 @@ public:
 
 	void rgb_image_cb(const DomainVision::CommVideoImage &input);
 
-	bool get_newest_image(DomainVision::CommVideoImage &newest_image);
-
-	void justifyHorizon(mrpt::utils::CImage &image, mrpt::poses::CPose3D &imagePose);
+	IplImage* convertDataArrayToIplImage(const DomainVision::CommVideoImage &query_image, CvSize size);
 };
 
 #endif

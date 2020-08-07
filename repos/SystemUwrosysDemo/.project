@@ -3,6 +3,7 @@
 	<name>SystemUwrosysDemo</name>
 	<comment></comment>
 	<projects>
+		<project>ComponentRosImageClient</project>
 		<project>ComponentRosImageServer</project>
 		<project>ComponentRosJoystick</project>
 		<project>ComponentUUVManipulator</project>

@@ -1,11 +1,11 @@
 SystemComponentArchitecture SystemUwrosysDemo
 {
-ComponentInstance ComponentUUVSimulator instantiates ComponentUUVSimulator
+	ComponentInstance ComponentUUVSimulator instantiates ComponentUUVSimulator
 	{
 		ProvidedService BaseStateServiceOut
 		ProvidedService NavigationVelocityServiceIn
 	}
-ComponentInstance ComponentRosJoystick instantiates ComponentRosJoystick
+	ComponentInstance ComponentRosJoystick instantiates ComponentRosJoystick
 	{
 		ProvidedService JoystickServiceOut
 	}
@@ -27,8 +27,13 @@ ComponentInstance ComponentRosJoystick instantiates ComponentRosJoystick
 	{
 		ProvidedService RGBImagePushServiceOut
 	}
+	ComponentInstance ComponentRosImageClient instantiates ComponentRosImageClient
+	{
+		RequiredService RGBImagePushServiceIn
+	}
 	Connection SmartJoystickNavigationROV.NavVelServiceOut -> ComponentUUVSimulator.NavigationVelocityServiceIn
 	Connection SmartJoystickNavigationROV.JoystickServiceIn -> ComponentRosJoystick.JoystickServiceOut
-Connection SmartJoystickNavigationManipulator.JoystickServiceIn -> ComponentRosJoystick.JoystickServiceOut
-Connection SmartJoystickNavigationManipulator.NavVelServiceOut -> ComponentUUVManipulator.NavigationVelocityServiceIn
+	Connection SmartJoystickNavigationManipulator.JoystickServiceIn -> ComponentRosJoystick.JoystickServiceOut
+	Connection SmartJoystickNavigationManipulator.NavVelServiceOut -> ComponentUUVManipulator.NavigationVelocityServiceIn
+	Connection ComponentRosImageClient.RGBImagePushServiceIn -> ComponentRosImageServer.RGBImagePushServiceOut
 }

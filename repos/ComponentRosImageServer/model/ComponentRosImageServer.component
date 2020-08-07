@@ -1,11 +1,10 @@
 ComponentDefinition ComponentRosImageServer logo "/ComponentRosImageServer/model/logo.png"
 {
-Activity ImageTask
+	Activity ImageTask
 	{
 		MixedPortROSLink _camera_image
-		DefaultTrigger PeriodicTimer 1.0 Hz
+		DefaultTrigger PeriodicTimer 50.0 Hz
 	}
 	MixedPortROS _camera_image
-	OutputPort RGBImagePushServiceOut implements DomainVision.RGBImagePushService realizedBy ImageTask {
-	}
+	OutputPort RGBImagePushServiceOut implements DomainVision.RGBImagePushService realizedBy ImageTask { }
 }
