@@ -46,7 +46,6 @@ void GuiTask::rgb_image_cb(const DomainVision::CommVideoImage &input)
 		return;
 	}
 
-	//cvReleaseImage(&currentImage);
 	currentImage = NULL;
 	currentImage = convertDataArrayToIplImage(input, cvSize(input.get_width(), input.get_height()));
 
@@ -72,7 +71,9 @@ void GuiTask::rgb_image_cb(const DomainVision::CommVideoImage &input)
 		cimage.scaleImage(newWidth, newHeight);
 	}
 
-	m_window.showImage(cimage);
+	std::unique_lock<std::mutex> lock(m_mtx);
+	m_image = cimage;
+	lock.unlock();
 }
 
 int GuiTask::on_entry()
@@ -89,6 +90,10 @@ int GuiTask::on_execute()
 	
 	// to get the incoming data, use this methods:
 	Smart::StatusCode status;
+
+	std::unique_lock<std::mutex> lock(m_mtx);
+	m_window.showImage(m_image);
+	lock.unlock();
 
 	// it is possible to return != 0 (e.g. when the task detects errors), then the outer loop breaks and the task stops
 	return 0;
@@ -110,7 +115,6 @@ IplImage* GuiTask::convertDataArrayToIplImage(const DomainVision::CommVideoImage
 
 		ipl_image = OpenCVHelpers::copyRGBToIplImage(arr_image, img.get_height(), img.get_width());
 		delete arr_image;
-
 	}
 	else
 	{

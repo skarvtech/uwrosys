@@ -33,10 +33,14 @@
 #include <mrpt/poses/CPose3D.h>
 #include "OpenCVHelpers/OpenCVHelpers.hh"
 
+#include <mutex>
+
 class GuiTask  : public GuiTaskCore
 {
 private:
+	std::mutex m_mtx;
 	mrpt::gui::CDisplayWindow m_window;
+	mrpt::utils::CImage m_image;
 public:
 	GuiTask(SmartACE::SmartComponent *comp);
 	virtual ~GuiTask();
