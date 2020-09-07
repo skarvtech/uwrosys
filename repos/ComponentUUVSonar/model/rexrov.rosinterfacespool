@@ -1,0 +1,3 @@
+RosInterfacesPool {
+	RosSubscriber _sonar { topicName "/rexrov/sonar" type "sensor_msgs.LaserScan" }
+}

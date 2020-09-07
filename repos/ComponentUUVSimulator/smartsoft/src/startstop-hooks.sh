@@ -30,6 +30,9 @@ post-stop)
 	killall gzclient
   killall rviz
   killall roslaunch
+  killall rosmaster
+  killall roscore
+  killall rosout
 ;;
 
 *)

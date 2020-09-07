@@ -1,0 +1,15 @@
+ComponentDefinition ComponentUUVSonar logo "/ComponentUUVSonar/model/logo.png"
+{
+	Activity SonarTask
+	{
+		MixedPortROSLink _sonar
+		DefaultTrigger PeriodicTimer 10.0 Hz
+	}
+	MixedPortROS _sonar
+	OutputPort LaserServiceOut implements CommBasicObjects.LaserService realizedBy SonarTask 
+	{
+	}
+InputPort BaseStateServiceIn implements CommBasicObjects.BaseStateService {
+	}
+	InputHandler BaseStateServiceInHandler triggeredFrom BaseStateServiceIn { }
+}
