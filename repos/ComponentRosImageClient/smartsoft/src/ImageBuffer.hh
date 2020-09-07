@@ -19,24 +19,37 @@
 // Author: Petter Norgren
 //
 
-#ifndef _GUITASK_HH
-#define _GUITASK_HH
+#ifndef IMAGEBUFFER_HH_
+#define IMAGEBUFFER_HH_
 
-#include "GuiTaskCore.hh"
+#include <aceSmartSoft.hh>
 
-#include <mrpt/gui/CDisplayWindow.h>
+#include "DomainVision/CommVideoImage.hh"
 
-class GuiTask  : public GuiTaskCore
-{
+#include <mrpt/utils/CImage.h>
+#include <mrpt/poses/CPose3D.h>
+
+#include <cv.h>
+#include <opencv/highgui.h>
+#include "OpenCVHelpers/OpenCVHelpers.hh"
+
+#include <mutex>
+
+class ImageBuffer {
 private:
-	mrpt::gui::CDisplayWindow* m_window;
+	std::mutex m_mtx;
+	mrpt::utils::CImage m_image;
+	bool m_newImage;
+
+	IplImage* convertDataArrayToIplImage(const DomainVision::CommVideoImage &query_image, CvSize size);
+
 public:
-	GuiTask(SmartACE::SmartComponent *comp);
-	virtual ~GuiTask();
-	
-	virtual int on_entry();
-	virtual int on_execute();
-	virtual int on_exit();
+	ImageBuffer();
+	virtual ~ImageBuffer();
+	void init();
+	void OnMsg(const DomainVision::CommVideoImage &msg);
+
+	bool getImage(mrpt::utils::CImage &image);
 };
 
-#endif
+#endif /* IMAGEBUFFER_HH_ */

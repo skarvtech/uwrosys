@@ -22,11 +22,13 @@
 #include "GuiTask.hh"
 #include "ComponentRosImageClient.hh"
 
+#include "ImageBuffer.hh"
+
 #include <iostream>
 
 GuiTask::GuiTask(SmartACE::SmartComponent *comp) 
 :	GuiTaskCore(comp)
-, 	m_window("ROV Operator Viewer")
+, 	m_window(NULL)
 {
 	std::cout << "constructor GuiTask\n";
 }
@@ -35,51 +37,11 @@ GuiTask::~GuiTask()
 	std::cout << "destructor GuiTask\n";
 }
 
-void GuiTask::rgb_image_cb(const DomainVision::CommVideoImage &input)
-{
-	IplImage* currentImage;
-	mrpt::poses::CPose3D currentImagePose;
-
-	if(!input.is_data_valid())
-	{
-		std::cout << "[GuiTask] Error: IMAGE INVALID" << std::endl;
-		return;
-	}
-
-	currentImage = NULL;
-	currentImage = convertDataArrayToIplImage(input, cvSize(input.get_width(), input.get_height()));
-
-	currentImagePose = mrpt::poses::CPose3D(
-			input.get_sensor_pose().get_x(1),
-			input.get_sensor_pose().get_y(1),
-			input.get_sensor_pose().get_z(1),
-			input.get_sensor_pose().get_azimuth(),
-			input.get_sensor_pose().get_elevation(),
-			input.get_sensor_pose().get_roll()
-	);
-
-	mrpt::utils::CImage cimage(currentImage);
-	const size_t maxSize = 800;
-	if (cimage.getWidth() > maxSize || cimage.getHeight() > maxSize)
-	{
-		unsigned int factor, newWidth, newHeight;
-
-		factor = cimage.getWidth() / maxSize;
-		newWidth = cimage.getWidth() / factor;
-		newHeight = cimage.getHeight() / factor;
-
-		cimage.scaleImage(newWidth, newHeight);
-	}
-
-	std::unique_lock<std::mutex> lock(m_mtx);
-	m_image = cimage;
-	lock.unlock();
-}
-
 int GuiTask::on_entry()
 {
 	// do initialization procedures here, which are called once, each time the task is started
 	// it is possible to return != 0 (e.g. when initialization fails) then the task is not executed further
+	m_window = new mrpt::gui::CDisplayWindow("ROV Operator Viewer");
 	return 0;
 }
 int GuiTask::on_execute()
@@ -90,10 +52,12 @@ int GuiTask::on_execute()
 	
 	// to get the incoming data, use this methods:
 	Smart::StatusCode status;
+	mrpt::utils::CImage image;
 
-	std::unique_lock<std::mutex> lock(m_mtx);
-	m_window.showImage(m_image);
-	lock.unlock();
+	if(COMP->image->getImage(image))
+	{
+		m_window->showImage(image);
+	}
 
 	// it is possible to return != 0 (e.g. when the task detects errors), then the outer loop breaks and the task stops
 	return 0;
@@ -101,25 +65,10 @@ int GuiTask::on_execute()
 int GuiTask::on_exit()
 {
 	// use this method to clean-up resources which are initialized in on_entry() and needs to be freed before the on_execute() can be called again
+	if (m_window != NULL)
+	{
+		delete m_window;
+		m_window = NULL;
+	}
 	return 0;
-}
-
-IplImage* GuiTask::convertDataArrayToIplImage(const DomainVision::CommVideoImage &img, CvSize size)
-{
-	IplImage* ipl_image = NULL;
-
-	if (img.get_format() == DomainVision::FormatType::RGB24)
-	{
-		unsigned char* arr_image = new unsigned char[img.get_size_as_rgb24()];
-		img.get_as_rgb24(arr_image);
-
-		ipl_image = OpenCVHelpers::copyRGBToIplImage(arr_image, img.get_height(), img.get_width());
-		delete arr_image;
-	}
-	else
-	{
-		std::cout << "Image Format: " << img.get_format() << " not supported!" << std::endl;
-	}
-
-	return ipl_image;
 }

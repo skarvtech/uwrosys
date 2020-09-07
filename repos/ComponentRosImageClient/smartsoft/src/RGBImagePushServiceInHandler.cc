@@ -33,5 +33,8 @@ void RGBImagePushServiceInHandler::on_RGBImagePushServiceIn(const DomainVision::
 {
 	// implement business logic here
 	// (do not use blocking calls here, otherwise this might block the InputPort RGBImagePushServiceIn)
-	COMP->guiTask->rgb_image_cb(input);
+	if (COMP->image != NULL)
+	{
+		COMP->image->OnMsg(input);
+	}
 }

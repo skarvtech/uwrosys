@@ -20,12 +20,16 @@
 #include "aceSmartSoft.hh"
 #include <iostream>
 
+#include "ImageBuffer.hh"
+
 class ComponentRosImageClientCore
 {
 private:
 
 public:
 	ComponentRosImageClientCore();
+
+	ImageBuffer* image;
 };
 	
 #endif

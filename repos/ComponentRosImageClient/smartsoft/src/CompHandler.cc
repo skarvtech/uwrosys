@@ -28,6 +28,9 @@ void CompHandler::onStartup()
 
 	Smart::StatusCode status;
 
+	COMP->image = new ImageBuffer();
+	COMP->image->init();
+
 	// Start all services. If you need manual control, use the content of this function to
 	// connect and start each service individually, e.g:
 	// COMP->connectMyPortName("SmartExampleComponent", "examplePort");
@@ -50,4 +53,10 @@ void CompHandler::onShutdown()
 {
 	std::cout << "shutdown - put your cleanup code in CompHandler::onShutdown()!!!\n";
 	
+	if (COMP->image != NULL)
+	{
+		delete COMP->image;
+		COMP->image = NULL;
+	}
+
 }

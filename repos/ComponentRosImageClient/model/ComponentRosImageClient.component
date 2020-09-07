@@ -4,6 +4,6 @@ ComponentDefinition ComponentRosImageClient logo "/ComponentRosImageClient/model
 	InputHandler RGBImagePushServiceInHandler triggeredFrom RGBImagePushServiceIn { }
 	Activity GuiTask
 	{
-		DefaultTrigger PeriodicTimer 10.0 Hz
+		DefaultTrigger PeriodicTimer 25.0 Hz
 	}
 }
