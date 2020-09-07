@@ -8,7 +8,7 @@ TargetPlatformModel SystemUwrosysDemo
 		}
 		LoginAccount norgren 
 		{ 
-			FullName "Underwater Robotic Simulator for RobMoSys" Email "contact@skarvtech.com"
+			FullName "Underwater Robotic Simulator for RobMoSys" Email "contact<at>skarvtech.com"
 		}
 		TargetMiddleware ACE_SmartSoft
 	} 

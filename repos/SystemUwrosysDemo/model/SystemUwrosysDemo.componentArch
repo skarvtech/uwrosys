@@ -31,9 +31,15 @@ SystemComponentArchitecture SystemUwrosysDemo
 	{
 		RequiredService RGBImagePushServiceIn
 	}
+	ComponentInstance ComponentUUVSonar instantiates ComponentUUVSonar
+	{
+		RequiredService BaseStateServiceIn
+		ProvidedService LaserServiceOut
+	}
 	Connection SmartJoystickNavigationROV.NavVelServiceOut -> ComponentUUVSimulator.NavigationVelocityServiceIn
 	Connection SmartJoystickNavigationROV.JoystickServiceIn -> ComponentRosJoystick.JoystickServiceOut
 	Connection SmartJoystickNavigationManipulator.JoystickServiceIn -> ComponentRosJoystick.JoystickServiceOut
 	Connection SmartJoystickNavigationManipulator.NavVelServiceOut -> ComponentUUVManipulator.NavigationVelocityServiceIn
 	Connection ComponentRosImageClient.RGBImagePushServiceIn -> ComponentRosImageServer.RGBImagePushServiceOut
+	Connection ComponentUUVSonar.BaseStateServiceIn -> ComponentUUVSimulator.BaseStateServiceOut
 }

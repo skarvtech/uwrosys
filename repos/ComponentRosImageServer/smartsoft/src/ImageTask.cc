@@ -43,7 +43,8 @@ void ImageTask::_camera_image_cb(const sensor_msgs::Image::ConstPtr &msg)
 	{
 		DomainVision::CommVideoImage::string2format("rgb24", format);
 		DomainVision::CommVideoImage image(msg->width, msg->height, format, msg->data.data());
-		COMP->rGBImagePushServiceOut->put(image);
+		if (COMP->rGBImagePushServiceOut->put(image) != Smart::SMART_OK)
+			std::cout << "Error when setting output of rGBImagePushServiceOut." << std::endl;
 	}
 	else
 	{

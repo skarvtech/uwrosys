@@ -33,6 +33,7 @@ SonarTask::SonarTask(SmartACE::SmartComponent *comp)
 :	SonarTaskCore(comp)
 , 	m_queue(nullptr)
 , 	m_counter(0)
+, 	m_objectDetected(false)
 {
 	std::cout << "constructor SonarTask\n";
 }
@@ -57,14 +58,14 @@ void SonarTask::_sonar_cb (const sensor_msgs::LaserScan::ConstPtr &msg)
 
 	commMobileLaserScan.set_scanner_azimuth(pose.get_base_azimuth());
 
-	CommBasicObjects::CommPose3d SensorOffset(0.0, 0.0, 0.0, 0.0, 0.0, 0.0);
+	CommBasicObjects::CommPose3d SensorOffset(1.4, 0.0, 0.65, 0.0, 0.0, 0.0);
 	commMobileLaserScan.set_sensor_pose(SensorOffset);
 
 	commMobileLaserScan.set_scan_length_unit(1);
 
-	int count = sizeof(msg->ranges)/sizeof(float);
+	int count = msg->ranges.size();
 
-	double openingAngle = (msg->angle_max - msg->angle_min) * 180.0 / M_PI;
+	//double openingAngle = (msg->angle_max - msg->angle_min) * 180.0 / M_PI;
 	double resolution = msg->angle_increment * 180.0 / M_PI;
 
 	commMobileLaserScan.set_scan_double_field_of_view(msg->angle_min*180.0/M_PI, resolution);
@@ -74,6 +75,7 @@ void SonarTask::_sonar_cb (const sensor_msgs::LaserScan::ConstPtr &msg)
 	commMobileLaserScan.set_min_distance(msg->range_min, 1);
 	commMobileLaserScan.set_max_distance(msg->range_max, 1);
 
+	int count_hit = 0;
 	if (count == 0) {
 		commMobileLaserScan.set_scan_valid(false);
 		commMobileLaserScan.set_scan_size(count);
@@ -83,26 +85,38 @@ void SonarTask::_sonar_cb (const sensor_msgs::LaserScan::ConstPtr &msg)
 		commMobileLaserScan.set_scan_valid(true);
 		commMobileLaserScan.set_scan_size(count);
 
-		for (int i = 0; i < count; i++) {
-
-			if (std::isinf(msg->ranges[i])) {
+		for (int i = 0; i < count; i++)
+		{
+			if (std::isinf(msg->ranges[i]))
+			{
 				commMobileLaserScan.set_scan_distance(i, msg->range_max,1);
 			}
-			else {
+			else
+			{
 				commMobileLaserScan.set_scan_distance(i, msg->ranges[i],1);
+				if (msg->ranges[i] < 10)
+				{
+					++count_hit;
+				}
 			}
 			commMobileLaserScan.set_scan_index(i, i);
 		}
 
-		for (int i = 0; i < count; i++) {
+		for (int i = 0; i < count; i++)
+		{
 			commMobileLaserScan.set_scan_intensity(i, msg->intensities[i]);
 		}
 	}
 
 	std::unique_lock<std::mutex> lock(m_mtx);
 	m_commMobileLaserScan = commMobileLaserScan;
-	m_queue->addEntry(m_commMobileLaserScan);
+	if (count_hit >= 3)
+		m_objectDetected = true;
+	else
+		m_objectDetected = false;
 	m_mtx.unlock();
+
+	m_queue->addEntry(m_commMobileLaserScan);
 }
 
 
@@ -126,19 +140,23 @@ int SonarTask::on_execute()
 	Smart::StatusCode status;
 
 	CommBasicObjects::CommBaseState commCurrentBaseState;
-
-	std::unique_lock<std::mutex> lock(m_mtx);
-	CommBasicObjects::CommMobileLaserScan commMobileLaserScan = m_queue->removeEntry();
-	m_mtx.unlock();
-
 	commCurrentBaseState.set_base_position(COMP->state->getBaseState().get_base_position());
 	commCurrentBaseState.set_base_raw_position(COMP->state->getBaseState().get_base_raw_position());
 	commCurrentBaseState.set_base_velocity(COMP->state->getBaseState().get_base_velocity());
 
+	CommBasicObjects::CommMobileLaserScan commMobileLaserScan = m_queue->removeEntry();
 	commMobileLaserScan.set_base_state(commCurrentBaseState);
+
+	std::unique_lock<std::mutex> lock(m_mtx);
 	commMobileLaserScan.set_scan_update_count(m_counter++);
 
-	this->laserServiceOutPut(commMobileLaserScan);
+	if (COMP->laserServiceOut->put(commMobileLaserScan) != Smart::SMART_OK)
+		std::cout << "Error when outputting LaserScan." << std::endl;
+
+	if (m_objectDetected)
+		std::cout << "Object detected less than 10 meters away!" << std::endl;
+
+	m_mtx.unlock();
 
 	// it is possible to return != 0 (e.g. when the task detects errors), then the outer loop breaks and the task stops
 	return 0;

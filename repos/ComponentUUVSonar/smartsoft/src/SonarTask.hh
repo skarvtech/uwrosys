@@ -34,6 +34,7 @@ class SonarTask  : public SonarTaskCore
 {
 private:
 	unsigned long int m_counter;
+	bool m_objectDetected;
 	Queue* m_queue;
 	std::mutex m_mtx;
 	CommBasicObjects::CommMobileLaserScan m_commMobileLaserScan;

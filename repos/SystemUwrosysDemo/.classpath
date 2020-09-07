@@ -7,6 +7,7 @@
 	<classpathentry kind="src" path="/ComponentRosJoystick"/>
 	<classpathentry kind="src" path="/ComponentUUVManipulator"/>
 	<classpathentry kind="src" path="/ComponentUUVSimulator"/>
+	<classpathentry kind="src" path="/ComponentUUVSonar"/>
 	<classpathentry kind="src" path="/SmartJoystickNavigation"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

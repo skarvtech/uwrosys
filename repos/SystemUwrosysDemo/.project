@@ -8,6 +8,7 @@
 		<project>ComponentRosJoystick</project>
 		<project>ComponentUUVManipulator</project>
 		<project>ComponentUUVSimulator</project>
+		<project>ComponentUUVSonar</project>
 		<project>SmartJoystickNavigation</project>
 	</projects>
 	<buildSpec>
