@@ -57,6 +57,7 @@ int GuiTask::on_execute()
 	if(COMP->image->getImage(image))
 	{
 		m_window->showImage(image);
+		usleep(200000);
 	}
 
 	// it is possible to return != 0 (e.g. when the task detects errors), then the outer loop breaks and the task stops
