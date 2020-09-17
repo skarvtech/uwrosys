@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="src" path="model"/>
+	<classpathentry kind="src" path="/ComponentRosImageClient"/>
+	<classpathentry kind="src" path="/ComponentRosImageServer"/>
+	<classpathentry kind="src" path="/ComponentRosJoystick"/>
+	<classpathentry kind="src" path="/ComponentUUVManipulator"/>
+	<classpathentry kind="src" path="/ComponentUUVSimulator"/>
+	<classpathentry kind="src" path="/ComponentUUVSonar"/>
+	<classpathentry kind="src" path="/SmartJoystickNavigation"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>

@@ -1,0 +1,45 @@
+SystemComponentArchitecture SystemUwrosysFullDemo
+{
+	ComponentInstance ComponentUUVSimulator instantiates ComponentUUVSimulator
+	{
+		ProvidedService BaseStateServiceOut
+		ProvidedService NavigationVelocityServiceIn
+	}
+	ComponentInstance ComponentRosJoystick instantiates ComponentRosJoystick
+	{
+		ProvidedService JoystickServiceOut
+	}
+	ComponentInstance SmartJoystickNavigationROV instantiates SmartJoystickNavigation
+	{
+		RequiredService JoystickServiceIn
+		RequiredService NavVelServiceOut
+	}
+	ComponentInstance SmartJoystickNavigationManipulator instantiates SmartJoystickNavigation
+	{
+		RequiredService JoystickServiceIn
+		RequiredService NavVelServiceOut
+	}
+	ComponentInstance ComponentUUVManipulator instantiates ComponentUUVManipulator
+	{
+		ProvidedService NavigationVelocityServiceIn
+	}
+	ComponentInstance ComponentRosImageServer instantiates ComponentRosImageServer
+	{
+		ProvidedService RGBImagePushServiceOut
+	}
+	ComponentInstance ComponentRosImageClient instantiates ComponentRosImageClient
+	{
+		RequiredService RGBImagePushServiceIn
+	}
+	ComponentInstance ComponentUUVSonar instantiates ComponentUUVSonar
+	{
+		RequiredService BaseStateServiceIn
+		ProvidedService LaserServiceOut
+	}
+	Connection SmartJoystickNavigationROV.NavVelServiceOut -> ComponentUUVSimulator.NavigationVelocityServiceIn
+	Connection SmartJoystickNavigationROV.JoystickServiceIn -> ComponentRosJoystick.JoystickServiceOut
+	Connection SmartJoystickNavigationManipulator.JoystickServiceIn -> ComponentRosJoystick.JoystickServiceOut
+	Connection SmartJoystickNavigationManipulator.NavVelServiceOut -> ComponentUUVManipulator.NavigationVelocityServiceIn
+	Connection ComponentRosImageClient.RGBImagePushServiceIn -> ComponentRosImageServer.RGBImagePushServiceOut
+	Connection ComponentUUVSonar.BaseStateServiceIn -> ComponentUUVSimulator.BaseStateServiceOut
+}

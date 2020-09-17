@@ -1,0 +1,21 @@
+DeploymentModel SystemUwrosysFullDemo using ComponentArchitecture SystemUwrosysFullDemo
+{
+	TargetPlatformReference PC1 using SystemUwrosysFullDemo.PC1
+	{
+		UploadDirectory "/tmp"
+		LoginAccount norgren
+		NetworkInterface eth1
+	}
+	NamingService
+	{
+		deploy-to PC1 
+	}
+	ComponentArtefact ComponentUUVSimulator deploy-to PC1
+	ComponentArtefact ComponentRosJoystick deploy-to PC1
+	ComponentArtefact SmartJoystickNavigationROV deploy-to PC1
+	ComponentArtefact ComponentUUVManipulator deploy-to PC1
+	ComponentArtefact SmartJoystickNavigationManipulator deploy-to PC1
+	ComponentArtefact ComponentRosImageServer deploy-to PC1
+	ComponentArtefact ComponentRosImageClient deploy-to PC1
+	ComponentArtefact ComponentUUVSonar deploy-to PC1
+}
