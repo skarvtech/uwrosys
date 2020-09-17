@@ -18,4 +18,7 @@ DeploymentModel SystemUwrosysFullDemo using ComponentArchitecture SystemUwrosysF
 	ComponentArtefact ComponentRosImageServer deploy-to PC1
 	ComponentArtefact ComponentRosImageClient deploy-to PC1
 	ComponentArtefact ComponentUUVSonar deploy-to PC1
+ComponentArtefact SmartCdlServer deploy-to PC1
+	ComponentArtefact SmartMapperGridMap deploy-to PC1
+	ComponentArtefact SmartPlannerBreadthFirstSearch deploy-to PC1
 }

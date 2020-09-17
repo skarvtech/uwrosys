@@ -36,10 +36,47 @@ SystemComponentArchitecture SystemUwrosysFullDemo
 		RequiredService BaseStateServiceIn
 		ProvidedService LaserServiceOut
 	}
-	Connection SmartJoystickNavigationROV.NavVelServiceOut -> ComponentUUVSimulator.NavigationVelocityServiceIn
+	ComponentInstance SmartCdlServer instantiates SmartCdlServer
+	{
+		RequiredService LaserClient
+		//RequiredService LaserClient2
+		RequiredService PlannerClient
+		//RequiredService TrackingClient
+		//RequiredService IRClient
+		//RequiredService PathNavigationGoalClient
+		RequiredService BaseStateClient
+		RequiredService NavVelSendClient
+		//ProvidedService GoalEventServer
+		//ProvidedService RobotBlockedEventServer
+		ProvidedService NavVelSendServer
+		
+		ParameterStructInstance SystemUwrosysFullDemo.SmartCdlServer
+	}
+	ComponentInstance SmartMapperGridMap instantiates SmartMapperGridMap
+	{
+		RequiredService LaserServiceIn
+		ProvidedService CurrMapOut
+		ProvidedService CurrQueryServer
+		ProvidedService LtmQueryServer
+	}
+	ComponentInstance SmartPlannerBreadthFirstSearch instantiates SmartPlannerBreadthFirstSearch
+	{
+		RequiredService CurMapClient
+		RequiredService BaseStateClient
+		ProvidedService PlannerGoalServer
+		ProvidedService PlannerEventServer
+	}
 	Connection SmartJoystickNavigationROV.JoystickServiceIn -> ComponentRosJoystick.JoystickServiceOut
 	Connection SmartJoystickNavigationManipulator.JoystickServiceIn -> ComponentRosJoystick.JoystickServiceOut
 	Connection SmartJoystickNavigationManipulator.NavVelServiceOut -> ComponentUUVManipulator.NavigationVelocityServiceIn
 	Connection ComponentRosImageClient.RGBImagePushServiceIn -> ComponentRosImageServer.RGBImagePushServiceOut
 	Connection ComponentUUVSonar.BaseStateServiceIn -> ComponentUUVSimulator.BaseStateServiceOut
+	Connection SmartJoystickNavigationROV.NavVelServiceOut -> SmartCdlServer.NavVelSendServer
+	Connection SmartCdlServer.BaseStateClient -> ComponentUUVSimulator.BaseStateServiceOut
+	Connection SmartCdlServer.NavVelSendClient -> ComponentUUVSimulator.NavigationVelocityServiceIn
+	Connection SmartCdlServer.LaserClient -> ComponentUUVSonar.LaserServiceOut
+	Connection SmartMapperGridMap.LaserServiceIn -> ComponentUUVSonar.LaserServiceOut
+	Connection SmartPlannerBreadthFirstSearch.BaseStateClient -> ComponentUUVSimulator.BaseStateServiceOut
+	Connection SmartPlannerBreadthFirstSearch.CurMapClient -> SmartMapperGridMap.CurrMapOut
+	Connection SmartCdlServer.PlannerClient -> SmartPlannerBreadthFirstSearch.PlannerGoalServer
 }

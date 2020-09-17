@@ -9,7 +9,10 @@
 		<project>ComponentUUVManipulator</project>
 		<project>ComponentUUVSimulator</project>
 		<project>ComponentUUVSonar</project>
+		<project>SmartCdlServer</project>
 		<project>SmartJoystickNavigation</project>
+		<project>SmartMapperGridMap</project>
+		<project>SmartPlannerBreadthFirstSearch</project>
 	</projects>
 	<buildSpec>
 		<buildCommand>

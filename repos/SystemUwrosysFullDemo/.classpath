@@ -8,6 +8,9 @@
 	<classpathentry kind="src" path="/ComponentUUVManipulator"/>
 	<classpathentry kind="src" path="/ComponentUUVSimulator"/>
 	<classpathentry kind="src" path="/ComponentUUVSonar"/>
+	<classpathentry kind="src" path="/SmartCdlServer"/>
 	<classpathentry kind="src" path="/SmartJoystickNavigation"/>
+	<classpathentry kind="src" path="/SmartMapperGridMap"/>
+	<classpathentry kind="src" path="/SmartPlannerBreadthFirstSearch"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
