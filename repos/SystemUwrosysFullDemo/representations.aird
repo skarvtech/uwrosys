@@ -32,6 +32,21 @@
     <semanticResources>platform:/resource/ComponentRosImageClient/model/ComponentRosImageClient.component</semanticResources>
     <semanticResources>platform:/resource/ComponentUUVSonar/model/ComponentUUVSonar.component</semanticResources>
     <semanticResources>platform:/resource/ComponentUUVSonar/model/rexrov.rosinterfacespool</semanticResources>
+    <semanticResources>platform:/resource/SmartCdlServer/model/SmartCdlServer.component</semanticResources>
+    <semanticResources>platform:/resource/SmartCdlServer/model/SmartCdlServer.skillRealization</semanticResources>
+    <semanticResources>platform:/resource/CommTrackingObjects/model/CommTrackingObjects.services</semanticResources>
+    <semanticResources>platform:/resource/CommRobotinoObjects/model/CommRobotinoObjects.services</semanticResources>
+    <semanticResources>platform:/resource/SmartCdlServer/model/SmartCdlServer.componentParameters</semanticResources>
+    <semanticResources>platform:/resource/CommNavigationObjects/model/CommNavigationObjects.skills</semanticResources>
+    <semanticResources>platform:/resource/CommTrackingObjects/model/CommTrackingObjects.types</semanticResources>
+    <semanticResources>platform:/resource/CommTrackingObjects/model/CommTrackingObjects.modes</semanticResources>
+    <semanticResources>platform:/resource/CommRobotinoObjects/model/CommRobotinoObjects.types</semanticResources>
+    <semanticResources>platform:/resource/CommRobotinoObjects/model/CommRobotinoObjects.modes</semanticResources>
+    <semanticResources>platform:/resource/CommRobotinoObjects/model/CommRobotinoObjects.parameters</semanticResources>
+    <semanticResources>platform:/resource/SmartMapperGridMap/model/SmartMapperGridMap.component</semanticResources>
+    <semanticResources>platform:/resource/SmartMapperGridMap/model/SmartMapperGridMap.componentParameters</semanticResources>
+    <semanticResources>platform:/resource/SmartPlannerBreadthFirstSearch/model/SmartPlannerBreadthFirstSearch.component</semanticResources>
+    <semanticResources>platform:/resource/SmartPlannerBreadthFirstSearch/model/SmartPlannerBreadthFirstSearch.componentParameters</semanticResources>
     <ownedViews xmi:type="viewpoint:DView" uid="_n92IUK2rEeq1L4gglPKVuQ">
       <viewpoint xmi:type="description:Viewpoint" href="platform:/plugin/org.sirius.system.deployment.design/description/deployment.odesign#//@ownedViewpoints[name='DeploymentViewpoint']"/>
       <ownedRepresentationDescriptors xmi:type="viewpoint:DRepresentationDescriptor" uid="_oEeUwK2rEeq1L4gglPKVuQ" name="SystemUwrosysFullDemoDeployment" repPath="#_oDak0K2rEeq1L4gglPKVuQ">
@@ -1627,7 +1642,7 @@
         <description xmi:type="style:FlatContainerStyleDescription" href="platform:/plugin/org.sirius.system.componentArchitecture.design/description/componentArchitecture.odesign#//@ownedViewpoints[name='SystemArchitectureViewpoint']/@ownedRepresentations[name='SystemArchitectureDiagram']/@defaultLayer/@containerMappings[name='ComponentInstanceContainer']/@style"/>
       </ownedStyle>
       <actualMapping xmi:type="description_1:ContainerMapping" href="platform:/plugin/org.sirius.system.componentArchitecture.design/description/componentArchitecture.odesign#//@ownedViewpoints[name='SystemArchitectureViewpoint']/@ownedRepresentations[name='SystemArchitectureDiagram']/@defaultLayer/@containerMappings[name='ComponentInstanceContainer']"/>
-      <ownedDiagramElements xmi:type="diagram:DNodeContainer" uid="_bwv4zPjrEeqSpcxQMJzTZA" tooltipText="ParameterStructInstance">
+      <ownedDiagramElements xmi:type="diagram:DNodeContainer" uid="_bwv4zPjrEeqSpcxQMJzTZA" name="SmartCdlServer" tooltipText="ParameterStructInstance">
         <target xmi:type="SystemParameter:ParameterStructInstance" href="model/SystemUwrosysFullDemo.componentArch#//@components.8/@extensions.0"/>
         <semanticElements xmi:type="SystemParameter:ParameterStructInstance" href="model/SystemUwrosysFullDemo.componentArch#//@components.8/@extensions.0"/>
         <arrangeConstraints>KEEP_LOCATION</arrangeConstraints>
