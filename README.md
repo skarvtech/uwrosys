@@ -8,6 +8,12 @@ This repository contains the source code for running Skarv Technologies' UWROSYS
 ```
 sudo apt-get install docker.io
 ```
+**Start docker on boot and fix permissions (reboot required)**
+```
+sudo systemctl enable docker
+sudo systemctl start docker
+sudo usermod -aG docker $USER
+```
 
 # Useful make commands for running docker image
 
