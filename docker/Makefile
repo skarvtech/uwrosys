@@ -24,9 +24,15 @@ TAG          := uwrosys_image
 VERSION      := 2020.10.0
 DOCKER_DIR   := $(realpath .)
 SOURCE_DIR   := $(realpath ..)
+USER_ID      := $(shell id -u)
+GROUP_ID     := $(shell id -g)
 
 build:
-	docker build -t $(TAG):$(VERSION) .
+	echo $(USER_ID)
+	echo $(GROUP_ID)
+	docker build -t $(TAG):$(VERSION) \
+			--build-arg USER_ID=$(USER_ID) \
+			--build-arg GROUP_ID=$(GROUP_ID) .
 	
 interactive: 
 	xhost +local:root

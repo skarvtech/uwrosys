@@ -39,8 +39,8 @@ cd $CATKIN_WS_DIR
 catkin_make && catkin_make install
 cd $SWDIR
 
-# Fix permissions
-sudo chown -R $USR:$USR $SWDIR 
+# Clean build on shared volume
+/home/$(id -un)/SOFTWARE/$(id -un)/CleanBuild.sh
 
 # Launch Eclipse
 if [ "$1" == "toolchain" ] 

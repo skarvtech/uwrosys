@@ -34,18 +34,21 @@ ENV TZ=Europe/Oslo
 RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 RUN apt-get install -y apt-utils tzdata build-essential python-pip git lsb-release wget cmake nano sudo
 
+ARG USER_ID
+ARG GROUP_ID
 ENV USR=uwrosys
 ENV HOME=/home/$USR
-RUN adduser $USR --home $HOME --shell /bin/bash --gecos "RobMoSys UWROSYS, , , " \
-		--disabled-password
+RUN addgroup --gid $GROUP_ID $USR
+RUN adduser $USR --uid $USER_ID --gid $GROUP_ID --home $HOME --shell /bin/bash \
+		--gecos "RobMoSys UWROSYS, , , " --disabled-password
 RUN echo "$USR:$USR" | chpasswd
 RUN usermod -aG sudo $USR
 RUN echo "$USR ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers
 RUN chown -R $USR:$USR $HOME
 WORKDIR $HOME
+USER $USR
 
 # Install RobMoSys environment
-USER $USR
 RUN sudo apt-get update -y
 RUN sudo apt-get install -y openjdk-8-jre libtbb-dev gparted gnome-session-flashback \ 
 			gconf-editor cmake-curses-gui inkscape gimp mplayer qiv pkg-config freeglut3-dev \ 
@@ -86,8 +89,8 @@ RUN git clone https://github.com/Servicerobotics-Ulm/SmartSoftComponentDeveloper
 RUN git clone https://github.com/Servicerobotics-Ulm/AceSmartSoftFramework.git
 RUN git clone https://github.com/Servicerobotics-Ulm/UtilityRepository.git
 RUN git clone https://github.com/Servicerobotics-Ulm/DataRepository.git
-RUN git clone https://github.com/Servicerobotics-Ulm/DomainModelsRepositories.git
-RUN git clone https://github.com/Servicerobotics-Ulm/ComponentRepository.git
+RUN git clone https://github.com/skarvtech/DomainModelsRepositories.git
+RUN git clone https://github.com/skarvtech/ComponentRepository.git
 RUN git clone https://github.com/Servicerobotics-Ulm/SystemRepository.git
 RUN git clone https://github.com/Servicerobotics-Ulm/BehaviorRepository.git
 
@@ -100,7 +103,7 @@ RUN sudo ldconfig
 RUN mkdir -p $REPOS/SmartSoftComponentDeveloperAPIcpp/build \ 
 	&& chown -R $USR:$USR $REPOS/SmartSoftComponentDeveloperAPIcpp/build
 WORKDIR $REPOS/SmartSoftComponentDeveloperAPIcpp/build
-RUN git reset --hard a5db675daa35bbac095b2e6bf31893fec7890185
+RUN git reset --hard 888378e8fde5ae042691d15be20f0c94de91d2db
 RUN cmake ..
 RUN make && sudo make install
 
@@ -108,7 +111,7 @@ RUN make && sudo make install
 RUN mkdir -p $REPOS/AceSmartSoftFramework/build \ 
 	&& chown -R $USR:$USR $REPOS/AceSmartSoftFramework/build
 WORKDIR $REPOS/AceSmartSoftFramework/build
-RUN git reset --hard 5d32d0c712da5414cf1d5cce5e0d88e993758783
+RUN git reset --hard 4ea12710364679af33550a4dc405391211a6c632
 RUN cmake ..
 RUN make && sudo make install
 
@@ -116,7 +119,7 @@ RUN make && sudo make install
 RUN mkdir -p $REPOS/UtilityRepository/build \ 
 	&& chown -R $USR:$USR $REPOS/UtilityRepository/build
 WORKDIR $REPOS/UtilityRepository/build
-RUN git reset --hard 9e6e271b933785042daaf8fc67c6941e85b7f89a
+RUN git reset --hard aa17765a833403145e62938ff3652a2dd73a451a
 RUN cmake ..
 RUN make -j8
 
@@ -125,7 +128,6 @@ RUN chown -hR $USR:$USR $REPOS/DomainModelsRepositories/*
 RUN mkdir -p $REPOS/DomainModelsRepositories/build \ 
 	&& chown -R $USR:$USR $REPOS/DomainModelsRepositories/build
 WORKDIR $REPOS/DomainModelsRepositories/build
-RUN git reset --hard 4b7eb71da3028d7eaf291939316f67c59fb3ad37
 RUN cmake ..
 RUN make
 
@@ -134,16 +136,15 @@ RUN chown -hR $USR:$USR $REPOS/ComponentRepository/*
 RUN mkdir -p $REPOS/ComponentRepository/build \ 
 	&& chown -R $USR:$USR $REPOS/ComponentRepository/build
 WORKDIR $REPOS/ComponentRepository/build
-RUN git reset --hard 5bf5a82aeafbf352627eb45a7885addcc02acc03
 RUN cmake ..
 RUN make -j8
 
 WORKDIR $REPOS/DataRepository
 RUN git reset --hard 3c7606d3e053838597c50880b1ff5ea9cb3bb830
 WORKDIR $REPOS/SystemRepository
-RUN git reset --hard 30cae74a27e8250ee599a3bbef3918dcd76f729b
+RUN git reset --hard 3a67adb450e619baf844a7a5df079d3c9113928e
 WORKDIR $REPOS/BehaviorRepository
-RUN git reset --hard da93f71a80b97d0b61db34036ddac8b61ae9b967
+RUN git reset --hard af3b9cb4743e78744a12f73d98fde830b9d51be0
 
 # Install SmartMDSD Toolchain
 RUN sudo apt-get install -y curl
@@ -217,6 +218,9 @@ ENV TERM=xterm-256color
 
 # Cleanup
 RUN rm $SWDIR/SmartMDSD-Toolchain-v$TOOLCHAIN_VERSION.tar.gz
+
+# TODO: MOVE
+RUN sudo apt-get install -y libopencv-dev
 
 # Set up RobMoSys entrypoint
 WORKDIR $SWDIR
