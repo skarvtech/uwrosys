@@ -22,16 +22,12 @@
 
 #include <ros/ros.h>
 
-
-
 class ComponentRosImageServerRosPortBaseClass {
 public:
 	ComponentRosImageServerRosPortBaseClass() { };
 	virtual ~ComponentRosImageServerRosPortBaseClass() { }
 	
 	ros::Subscriber _camera_image;
-	
-
 };
 
 #endif // ROS_PORT_BASE_CLASS_H_

@@ -21,7 +21,7 @@
 
 USR          := uwrosys
 TAG          := uwrosys_image
-VERSION      := 2020.06.0
+VERSION      := 2020.10.0
 DOCKER_DIR   := $(realpath .)
 SOURCE_DIR   := $(realpath ..)
 
@@ -33,8 +33,8 @@ interactive:
 	docker run -it --rm --net=host --privileged -u $(USR) \
 			-e DISPLAY=$(DISPLAY) \
 			-v /tmp/.X11-unix:/tmp/.X11-unix \
-			-v $(SOURCE_DIR):/home/$(USR)/SOFTWARE/$(TAG) \
-      --entrypoint entrypoint.sh \
+			-v $(SOURCE_DIR):/home/$(USR)/SOFTWARE/$(USR) \
+			--entrypoint entrypoint.sh \
 			--name $(TAG) $(TAG):$(VERSION)
 
 toolchain:
@@ -49,17 +49,17 @@ nvidia-interactive:
 	xhost +local:root
 	nvidia-docker run -it --rm --net=host --privileged -u $(USR) \
 			-e DISPLAY=$(DISPLAY) \
-      -e NVIDIA_DRIVER_CAPABILITIES=compute,utility,graphics \
+      			-e NVIDIA_DRIVER_CAPABILITIES=compute,utility,graphics \
 			-v /tmp/.X11-unix:/tmp/.X11-unix \
 			-v $(SOURCE_DIR):/home/$(USR)/SOFTWARE/$(TAG) \
-      --entrypoint entrypoint.sh \
+      			--entrypoint entrypoint.sh \
 			--name $(TAG) $(TAG):$(VERSION)
 
 nvidia-toolchain:
 	xhost +local:root
 	nvidia-docker run -it --rm --net=host --privileged -u $(USR) \
 			-e DISPLAY=$(DISPLAY) \
-      -e NVIDIA_DRIVER_CAPABILITIES=compute,utility,graphics \
+      			-e NVIDIA_DRIVER_CAPABILITIES=compute,utility,graphics \
 			-v /tmp/.X11-unix:/tmp/.X11-unix \
 			-v $(SOURCE_DIR)/repos:/home/$(USR)/SOFTWARE/$(USR) \
 			--name $(TAG) $(TAG):$(VERSION)

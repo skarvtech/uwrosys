@@ -32,7 +32,9 @@ class ComponentRosImageServerRosPortExtension : public ComponentRosImageServerEx
 {
 private:
 	ros::NodeHandle *nh;
+	
 	ComponentRosImageServerRosPortCallbacks *callbacksPtr;
+	
 	virtual int extensionExecution() override;
 public:
 	ComponentRosImageServerRosPortExtension();

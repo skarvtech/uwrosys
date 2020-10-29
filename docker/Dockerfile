@@ -60,12 +60,10 @@ RUN sudo apt-get install -y openjdk-8-jre libtbb-dev gparted gnome-session-flash
 
 # Export environmental variables
 ENV SWDIR=$HOME/SOFTWARE
-#ENV ACE_ROOT=/opt/ACE_wrappers
 ENV SMART_ROOT_ACE=$SWDIR/smartsoft
 ENV SMART_PACKAGE_PATH=$SMART_ROOT_ACE/repos
 ENV LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$SMART_ROOT_ACE/lib
 RUN /bin/bash -c "touch ~/.profile"
-#RUN echo "export ACE_ROOT=$ACE_ROOT" >> ~/.profile
 RUN echo "export SMART_ROOT_ACE=$SMART_ROOT_ACE" >> ~/.profile
 RUN echo "export SMART_PACKAGE_PATH=$SMART_PACKAGE_PATH" >> ~/.profile
 RUN echo "export LD_LIBRARY_PATH=$LD_LIBRARY_PATH" >> ~/.profile
@@ -94,10 +92,6 @@ RUN git clone https://github.com/Servicerobotics-Ulm/SystemRepository.git
 RUN git clone https://github.com/Servicerobotics-Ulm/BehaviorRepository.git
 
 # Install ACE
-#RUN wget -nv https://github.com/Servicerobotics-Ulm/AceSmartSoftFramework/raw/master/INSTALL-ACE-6.0.2.sh -O /tmp/INSTALL-ACE-6.0.2.sh
-#RUN chmod +x /tmp/INSTALL-ACE-6.0.2.sh
-#RUN sudo /tmp/INSTALL-ACE-6.0.2.sh /opt
-#RUN sudo bash -c 'echo "/opt/ACE_wrappers/lib" > /etc/ld.so.conf.d/ace.conf'
 RUN sudo apt-get install -y ace libace-dev
 RUN sudo /bin/bash -c 'echo "$SMART_ROOT_ACE/lib" >> /etc/ld.so.conf.d/smartsoft.conf'
 RUN sudo ldconfig
@@ -159,7 +153,6 @@ ENV TOOLCHAIN_DIR=$SWDIR/$TOOLCHAIN_NAME-v$TOOLCHAIN_VERSION
 ENV TOOLCHAIN_URL="https://github.com/Servicerobotics-Ulm/SmartMDSD-Toolchain/releases/download/v$TOOLCHAIN_VERSION/SmartMDSD-Toolchain-v$TOOLCHAIN_VERSION.tar.gz"
 ENV TOOLCHAIN_LAUNCHER="$TOOLCHAIN_NAME.desktop"
 RUN mkdir -p $TOOLCHAIN_DIR && chown -R $USR:$USR $TOOLCHAIN_DIR
-#RUN wget -nv $TOOLCHAIN_URL -P $SWDIR
 ENV TOOLCHAIN_FILENAME=$SWDIR/$TOOLCHAIN_NAME-v$TOOLCHAIN_VERSION.tar.gz
 RUN curl "${TOOLCHAIN_URL}" -L -o "${TOOLCHAIN_FILENAME}"
 RUN tar -xzf $TOOLCHAIN_FILENAME -C $SWDIR

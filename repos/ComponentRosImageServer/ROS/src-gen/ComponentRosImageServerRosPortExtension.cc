@@ -39,12 +39,13 @@ void ComponentRosImageServerRosPortExtension::initialize(ComponentRosImageServer
 {
 	ros::init(argc, argv, "ComponentRosImageServer", ros::init_options::NoSigintHandler);
 	nh = new ros::NodeHandle();
+	
 	callbacksPtr = new ComponentRosImageServerRosPortCallbacks();
+	
 	component->rosPorts = this;
 	
 	_camera_image = nh->subscribe("/rexrov/rexrov/camera/camera_image", 10, &ComponentRosImageServerRosPortCallbacks::_camera_image_cb, callbacksPtr);
 }
-
 
 int ComponentRosImageServerRosPortExtension::onStartup()
 {
