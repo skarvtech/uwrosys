@@ -30,6 +30,8 @@
     <semanticResources>platform:/resource/CommManipulatorObjects/model/CommManipulatorObjects.types</semanticResources>
     <semanticResources>platform:/resource/DomainVision/model/DomainVision.modes</semanticResources>
     <semanticResources>platform:/resource/ComponentRosImageClient/model/ComponentRosImageClient.component</semanticResources>
+    <semanticResources>platform:/resource/ComponentUUVSonar/model/ComponentUUVSonar.component</semanticResources>
+    <semanticResources>platform:/resource/ComponentUUVSonar/model/rexrov.rosinterfacespool</semanticResources>
     <ownedViews xmi:type="viewpoint:DView" uid="_n92IUK2rEeq1L4gglPKVuQ">
       <viewpoint xmi:type="description:Viewpoint" href="platform:/plugin/org.sirius.system.deployment.design/description/deployment.odesign#//@ownedViewpoints[name='DeploymentViewpoint']"/>
       <ownedRepresentationDescriptors xmi:type="viewpoint:DRepresentationDescriptor" uid="_oEeUwK2rEeq1L4gglPKVuQ" name="SystemUwrosysDemoDeployment" repPath="#_oDak0K2rEeq1L4gglPKVuQ">
@@ -333,7 +335,7 @@
         <description xmi:type="style:FlatContainerStyleDescription" href="platform:/plugin/org.sirius.system.deployment.design/description/deployment.odesign#//@ownedViewpoints[name='DeploymentViewpoint']/@ownedRepresentations[name='DeploymentDiagram']/@defaultLayer/@containerMappings[name='TargetPlatformRefContainer']/@style"/>
       </ownedStyle>
       <actualMapping xmi:type="description_1:ContainerMapping" href="platform:/plugin/org.sirius.system.deployment.design/description/deployment.odesign#//@ownedViewpoints[name='DeploymentViewpoint']/@ownedRepresentations[name='DeploymentDiagram']/@defaultLayer/@containerMappings[name='TargetPlatformRefContainer']"/>
-      <ownedDiagramElements xmi:type="diagram:DNodeContainer" uid="_idXQYK2tEeq1L4gglPKVuQ" name="norgren" tooltipText="LoginAccount">
+      <ownedDiagramElements xmi:type="diagram:DNodeContainer" uid="_idXQYK2tEeq1L4gglPKVuQ" name="pn" tooltipText="LoginAccount">
         <target xmi:type="Deployment:LoginAccountSelection" href="model/SystemUwrosysDemo.deployment#//@elements.0/@login"/>
         <semanticElements xmi:type="Deployment:LoginAccountSelection" href="model/SystemUwrosysDemo.deployment#//@elements.0/@login"/>
         <arrangeConstraints>KEEP_LOCATION</arrangeConstraints>
@@ -1239,7 +1241,7 @@
           <actualMapping xmi:type="description_1:NodeMapping" href="platform:/plugin/org.sirius.system.targetPlatform.design/description/targetPlatform.odesign#//@ownedViewpoints[name='TargetPlatformViewpoint']/@ownedRepresentations[name='TargetPlatformDiagram']/@defaultLayer/@containerMappings[name='TargetPlatformContainer']/@subContainerMappings[name='TargetMiddlewares']/@subNodeMappings[name='MiddlewareNode']"/>
         </ownedElements>
       </ownedDiagramElements>
-      <ownedDiagramElements xmi:type="diagram:DNodeContainer" uid="_NHdp0K2tEeq1L4gglPKVuQ" name="norgren" tooltipText="LoginAccount">
+      <ownedDiagramElements xmi:type="diagram:DNodeContainer" uid="_NHdp0K2tEeq1L4gglPKVuQ" name="pn" tooltipText="LoginAccount">
         <target xmi:type="TargetPlatform:LoginAccount" href="model/SystemUwrosysDemo.target#//@elements.0/@elements.1"/>
         <semanticElements xmi:type="TargetPlatform:LoginAccount" href="model/SystemUwrosysDemo.target#//@elements.0/@elements.1"/>
         <arrangeConstraints>KEEP_LOCATION</arrangeConstraints>

@@ -6,7 +6,7 @@ TargetPlatformModel SystemUwrosysDemo
 		{ 
 			HostAddress "localhost"
 		}
-		LoginAccount norgren 
+		LoginAccount pn
 		{ 
 			FullName "Underwater Robotic Simulator for RobMoSys" Email "contact<at>skarvtech.com"
 		}
