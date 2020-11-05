@@ -15,6 +15,11 @@ sudo systemctl start docker
 sudo usermod -aG docker $USER
 ```
 
+**Install ssh and sshd:**
+```
+sudo apt-get install ssh openssh-server
+```
+
 # Useful make commands for running docker image
 
 **Build docker image:**
@@ -57,4 +62,6 @@ make clean_system
 First run the make command for starting the toolchain. Once started, select:
 File -> Import. Then select General -> Existing Projects into Workspace.
 - Select folder containing RobMoSys-repos (~/SOFTWARE/smartsoft/repos)
-- Select folder containing UWROSYS-repos (~/SOFTWARE/uwrosys)
+
+# Fix indexer using CPU
+Select Window-Preferences. In the preference window, select C/C++->Indexer and uncheck 'Enable indexer' and 'Automatically update the index'. 
