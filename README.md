@@ -15,6 +15,11 @@ sudo systemctl start docker
 sudo usermod -aG docker $USER
 ```
 
+**Install ssh and sshd:**
+```
+sudo apt-get install ssh openssh-server
+```
+
 # Useful make commands for running docker image
 
 **Build docker image:**
