@@ -21,6 +21,7 @@
 #define ROS_PORT_COMPONENT_EXTENSION_H_
 
 #include "ComponentUUVManipulatorRosPortBaseClass.hh"
+#include "ComponentUUVManipulatorRosPortCallbacks.hh"
 
 #include "ComponentUUVManipulatorExtension.hh"
 
@@ -31,6 +32,9 @@ class ComponentUUVManipulatorRosPortExtension : public ComponentUUVManipulatorEx
 {
 private:
 	ros::NodeHandle *nh;
+	
+	ComponentUUVManipulatorRosPortCallbacks *callbacksPtr;
+	
 	virtual int extensionExecution() override;
 public:
 	ComponentUUVManipulatorRosPortExtension();

@@ -22,6 +22,8 @@
 #ifndef IMAGEBUFFER_HH_
 #define IMAGEBUFFER_HH_
 
+#define WITH_OLD_OPENCV_VERSION
+
 #include <aceSmartSoft.hh>
 
 #include "DomainVision/CommVideoImage.hh"
@@ -30,7 +32,7 @@
 #include <mrpt/poses/CPose3D.h>
 
 #include <cv.h>
-#include <opencv/highgui.h>
+#include <opencv2/highgui.hpp>
 #include "OpenCVHelpers/OpenCVHelpers.hh"
 
 #include <mutex>

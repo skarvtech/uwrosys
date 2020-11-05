@@ -22,16 +22,12 @@
 
 #include <ros/ros.h>
 
-
-
 class ComponentUUVSonarRosPortBaseClass {
 public:
 	ComponentUUVSonarRosPortBaseClass() { };
 	virtual ~ComponentUUVSonarRosPortBaseClass() { }
 	
 	ros::Subscriber _sonar;
-	
-
 };
 
 #endif // ROS_PORT_BASE_CLASS_H_

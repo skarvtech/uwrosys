@@ -25,6 +25,7 @@
 // include all interaction-observer interfaces
 #include <ManipulatorCommandTaskObserverInterface.hh>
 
+#include <geometry_msgs/Twist.h>
 
 class ManipulatorCommandTaskCore
 :	public SmartACE::ManagedTask

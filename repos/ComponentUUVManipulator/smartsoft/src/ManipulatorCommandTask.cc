@@ -64,7 +64,7 @@ int ManipulatorCommandTask::on_execute()
 		cmd.angular.y = 0;
 		cmd.angular.z = navvel.get_omega();
 
-		COMP->rosPorts->_cmd_vel_publish_ros_msg(cmd);
+		COMP->rosPorts->_cmd_vel.publish(cmd);
 	}
 
 	std::cout << "Commanded Velocity: " << navvel << std::endl;
@@ -72,6 +72,7 @@ int ManipulatorCommandTask::on_execute()
 	// it is possible to return != 0 (e.g. when the task detects errors), then the outer loop breaks and the task stops
 	return 0;
 }
+
 int ManipulatorCommandTask::on_exit()
 {
 	// use this method to clean-up resources which are initialized in on_entry() and needs to be freed before the on_execute() can be called again

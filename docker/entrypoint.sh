@@ -42,6 +42,12 @@ cd $SWDIR
 # Clean build on shared volume
 /home/$(id -un)/SOFTWARE/$(id -un)/CleanBuild.sh
 
+# Patch required component libaries
+sed -i 's#FIND_PACKAGE(AceSmartSoft PATHS $ENV{SMART_ROOT_ACE}/build)#FIND_PACKAGE(AceSmartSoft PATHS $ENV{SMART_ROOT_ACE}/modules)#g' $SMART_ROOT_ACE/repos/ComponentRepository/SmartJoystickNavigation/smartsoft/CMakeLists.txt
+sed -i 's#FIND_PACKAGE(AceSmartSoft PATHS $ENV{SMART_ROOT_ACE}/build)#FIND_PACKAGE(AceSmartSoft PATHS $ENV{SMART_ROOT_ACE}/modules)#g' $SMART_ROOT_ACE/repos/ComponentRepository/SmartPlannerBreadthFirstSearch/smartsoft/CMakeLists.txt
+sed -i 's#FIND_PACKAGE(AceSmartSoft PATHS $ENV{SMART_ROOT_ACE}/build)#FIND_PACKAGE(AceSmartSoft PATHS $ENV{SMART_ROOT_ACE}/modules)#g' $SMART_ROOT_ACE/repos/ComponentRepository/SmartCdlServer/smartsoft/CMakeLists.txt
+sed -i 's#FIND_PACKAGE(AceSmartSoft PATHS $ENV{SMART_ROOT_ACE}/build)#FIND_PACKAGE(AceSmartSoft PATHS $ENV{SMART_ROOT_ACE}/modules)#g' $SMART_ROOT_ACE/repos/ComponentRepository/SmartMapperGridMap/smartsoft/CMakeLists.txt
+
 # Launch Eclipse
 if [ "$1" == "toolchain" ] 
 then

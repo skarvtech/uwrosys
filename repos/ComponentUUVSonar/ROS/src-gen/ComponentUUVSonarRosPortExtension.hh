@@ -32,7 +32,9 @@ class ComponentUUVSonarRosPortExtension : public ComponentUUVSonarExtension, pub
 {
 private:
 	ros::NodeHandle *nh;
+	
 	ComponentUUVSonarRosPortCallbacks *callbacksPtr;
+	
 	virtual int extensionExecution() override;
 public:
 	ComponentUUVSonarRosPortExtension();

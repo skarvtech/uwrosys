@@ -39,12 +39,13 @@ void ComponentUUVSonarRosPortExtension::initialize(ComponentUUVSonar *component,
 {
 	ros::init(argc, argv, "ComponentUUVSonar", ros::init_options::NoSigintHandler);
 	nh = new ros::NodeHandle();
+	
 	callbacksPtr = new ComponentUUVSonarRosPortCallbacks();
+	
 	component->rosPorts = this;
 	
 	_sonar = nh->subscribe("/rexrov/sonar", 10, &ComponentUUVSonarRosPortCallbacks::_sonar_cb, callbacksPtr);
 }
-
 
 int ComponentUUVSonarRosPortExtension::onStartup()
 {

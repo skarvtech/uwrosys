@@ -59,7 +59,7 @@ RUN sudo apt-get install -y openjdk-8-jre libtbb-dev gparted gnome-session-flash
 			libglew-dev vim vim-gnome libxml2-dev libxml++2.6-dev libmrpt-dev ssh \
 			sshfs xterm libjansson-dev libopencv-dev libgeos++-dev ruby ruby-dev \
 			swig libgsl-dev libgnomecanvas2-dev libxmu-dev libxi-dev fltk1.3-dev \
-      libmrpt-dev mrpt-apps
+      			libmrpt-dev mrpt-apps libopencv-dev
 
 # Export environmental variables
 ENV SWDIR=$HOME/SOFTWARE
@@ -96,7 +96,7 @@ RUN git clone https://github.com/Servicerobotics-Ulm/BehaviorRepository.git
 
 # Install ACE
 RUN sudo apt-get install -y ace libace-dev
-RUN sudo /bin/bash -c 'echo "$SMART_ROOT_ACE/lib" >> /etc/ld.so.conf.d/smartsoft.conf'
+RUN sudo /bin/bash -c 'source ~/.profile && echo $SMART_ROOT_ACE/lib >> /etc/ld.so.conf.d/smartsoft.conf'
 RUN sudo ldconfig
 
 # Build SmartSoftComponentDeveloperAPIcpp
@@ -218,9 +218,6 @@ ENV TERM=xterm-256color
 
 # Cleanup
 RUN rm $SWDIR/SmartMDSD-Toolchain-v$TOOLCHAIN_VERSION.tar.gz
-
-# TODO: MOVE
-RUN sudo apt-get install -y libopencv-dev
 
 # Set up RobMoSys entrypoint
 WORKDIR $SWDIR
