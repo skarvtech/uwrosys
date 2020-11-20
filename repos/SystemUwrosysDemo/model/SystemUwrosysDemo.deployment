@@ -3,7 +3,7 @@ DeploymentModel SystemUwrosysDemo using ComponentArchitecture SystemUwrosysDemo
 TargetPlatformReference PC1 using SystemUwrosysDemo.PC1
 	{
 		UploadDirectory "/tmp"
-		LoginAccount pn
+		LoginAccount uwrosys
 		NetworkInterface eth1
 	}
 	NamingService

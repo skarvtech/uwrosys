@@ -1,6 +1,7 @@
 # baseURI: http://www.servicerobotik-ulm.de/ComponentsAndSystems#ComponentRosJoystick
 # imports: http://robmosys.eu/rdf/composition-structures
 # imports: http://seronet-projekt.de/models/t2#Navigation
+# imports: http://spdx.org/licenses/LGPL-2.0-or-later
 
 # imports: http://www.servicerobotik-ulm.de/DomainModels/CommBasicObjects
 
@@ -25,7 +26,7 @@
 @prefix sh: <http://www.w3.org/ns/shacl#> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 
-# TODO past ?Durchstich?: exactly identify which elements belong to SeRoNet and which belong to RobMoSys
+# TODO past “Durchstich”: exactly identify which elements belong to SeRoNet and which belong to RobMoSys
 @prefix robmosys: <http://robmosys.eu/rdf/composition-structures#> .
 
 # these namespaces can be different in generated files
