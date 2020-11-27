@@ -9,8 +9,7 @@ case "$1" in
 pre-start)
 	echo "Triggering pre-start hooks FROM COMPONENT ComponentUUVSimulator ..."
 	# Insert commands you want to call prior to starting the components
-
-  bash $SMART_ROOT_ACE/repos/CustomRepositories/DataRepository/UUVSimulator/startUUVSimulator.sh uwrosys_underwater_world.launch uwrosys_rexrov_oberon_arms.launch
+  	bash -c '~/SOFTWARE/uwrosys/repos/DataRepository/UUVSimulator/startUUVSimulator.sh uwrosys_underwater_world.launch uwrosys_rexrov_oberon_arms.launch'
 ;;
 
 post-start)
@@ -26,13 +25,13 @@ pre-stop)
 post-stop)
 	echo "Triggering post-stop hooks FROM COMPONENT ComponentUUVSimulator ..."
 	# Insert commands you want to call after all components were stopped
-  killall gzserver
+  	killall gzserver
 	killall gzclient
-  killall rviz
-  killall roslaunch
-  killall rosmaster
-  killall roscore
-  killall rosout
+  	killall rviz
+  	killall roslaunch
+  	killall rosmaster
+  	killall roscore
+  	killall rosout
 ;;
 
 *)

@@ -62,6 +62,6 @@ echo -e "Waiting for simulator to start... \n"
 sleep 10
 
 echo -e "Spawning RexROV...\n"
-xterm -title "RexROV Terminal" -e "pwd; roslaunch --wait uuv_gazebo $ROBOT; exit || bash; sleep 30; exit" &
+xterm -title "RexROV Terminal" -e "pwd; roslaunch --wait uuv_gazebo $ROBOT; sleep 30; exit || bash; sleep 30; exit" &
 
 cd $FROM
